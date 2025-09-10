@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/09/10 14:26:29 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/09/10 16:25:20 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,18 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <string.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+# include <sys/ioctl.h>
+# include <signal.h>
+# include <termios.h>
+# include <termcap.h>
+# include "../libft/includes/libft.h"
 
 typedef enum token_type
 {
@@ -42,5 +54,9 @@ typedef struct s_parser {
     bool	has_error;
     char	*error_message;
 } t_parser;
+
+// TOKEN UTILS
+int		is_quotes(char c);
+t_token_type	is_symbol(char *str);
 
 #endif

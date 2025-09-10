@@ -6,39 +6,31 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 10:59:12 by diespino          #+#    #+#             */
-/*   Updated: 2025/09/10 14:37:33 by diespino         ###   ########.fr       */
+/*   Updated: 2025/09/10 16:25:16 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include "token.h"
+//#include <stdlib.h>
+//#include <stdio.h>
+//#include <readline/readline.h>
+#include "../../includes/minishell.h"
 
 t_token_type	token_type(char *str)
 {
-	int	i;
+	int		i;
+	t_token_type	type;
 
 	i = 0;
-	if (str[i] == '|' && str[i + 1] == '\0')
-		return (PIPE);
-	else if (str[i] == '<' && str[i + 1] == '\0')
-		return (REDIR_IN);
-	else if (str[i] == '>' && str[i + 1] == '\0')
-		return (REDIR_OUT);
-	else if (str[i] == '<' && str[i + 1] == '<' && 
-			str[i + 2] == '\0')
-		return (APPEND);
-	else if (str[i] == '>' && str[i + 1] == '>' &&
-			str[i + 2] == '\0')
-		return (HEREDOC);
-	else if (str[i] == '-')// || str[i] == '"' || str[i] == '\'')
+	type = is_symbol(str);
+	if (type != ERROR)
+		return (type);
+	if (str[i] == '-' || is_quotes(str[i]))
 		i++;
 	while (str[i])
 	{
-//		while (str[i] == '"' || str[i] == '\'')// && str[i + 1] == '\0')
-//			i++;
 		if (ft_isalpha(str[i]) || ft_isdigit(str[i]))
+			i++;
+		else if (is_quotes(str[i]))
 			i++;
 		else
 			return (ERROR);
@@ -102,6 +94,7 @@ t_token	*make_tokens(char *str)
 	return (tokens);
 }
 
+// Imprime nodos 
 void	print_tokens(t_token *token)
 {
 	while (token)
