@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 10:59:12 by diespino          #+#    #+#             */
-/*   Updated: 2025/09/10 14:18:30 by diespino         ###   ########.fr       */
+/*   Updated: 2025/09/10 14:37:33 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ t_token	*new_token(t_token_type type, char *str, int pos)
 	token->value = ft_strdup(str);
 	token->position = pos;
 	token->next = NULL;
-//	printf("%d | type=%d | %s\n", token->position, token->type, token->value);
 	return (token);
 }
 
