@@ -3,100 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/10 17:45:00 by diespino          #+#    #+#             */
-/*   Updated: 2025/09/10 17:52:22 by dortega-         ###   ########.fr       */
+/*   By: chatgpt                                       +#+  +:+       +#+     */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include "../../includes/minishell.h"
 
-void print_cmd(t_cmd *cmd)
+/* Prototipos (ya definidos en tus otros .c) */
+t_token     *make_tokens(char *str);
+void        print_tokens(t_token *token);
+t_parser    *init_parser(t_token *tokens);
+t_cmd       *parse_command(t_parser *parser);
+
+void    print_command(t_cmd *cmd)
 {
-	int i;
+    int i = 0;
 
-	if (!cmd)
-		return;
-	printf("=== COMMAND ===\n");
-	printf("Command: %s\n", cmd->cmd);
-	printf("Arguments (%d):\n", cmd->arg_count);
-	i = 0;
-	while (cmd->args[i])
-	{
-		printf("  [%d]: %s\n", i, cmd->args[i]);
-		i++;
-	}
-	printf("\n");
+    if (!cmd)
+    {
+        printf("No se pudo parsear el comando.\n");
+        return;
+    }
+    printf("\n=== Comando Parseado ===\n");
+    printf("cmd: %s\n", cmd->cmd);
+    printf("argc: %d\n", cmd->arg_count);
+    while (i < cmd->arg_count)
+    {
+        printf("argv[%d] = %s\n", i, cmd->args[i]);
+        i++;
+    }
+    printf("========================\n\n");
 }
 
-void free_cmd(t_cmd *cmd)
+int main(void)
 {
-	int i;
+    char    *line;
+    t_token *tokens;
+    t_parser *parser;
+    t_cmd   *cmd;
 
-	if (!cmd)
-		return;
-	free(cmd->cmd);
-	i = 0;
-	while (cmd->args[i])
-	{
-		free(cmd->args[i]);
-		i++;
-	}
-	free(cmd->args);
-	free(cmd);
+    while ((line = readline("minishell> ")) != NULL)
+    {
+        tokens = make_tokens(line);
+        printf("\n--- TOKENS ---\n");
+        print_tokens(tokens);
+
+        parser = init_parser(tokens);
+        cmd = parse_command(parser);
+
+        print_command(cmd);
+
+        free(line);
+        // Aquí deberías liberar tokens, parser y cmd con tus funciones de free.
+    }
+    return 0;
 }
 
-int main(int argc, char **argv)
-{
-	t_token *tokens;
-	t_parser *parser;
-	t_cmd *cmd;
-	char *input;
-	int i;
-	int total_len;
-
-	if (argc < 2)
-	{
-		printf("Usage: %s \"command with args\"\n", argv[0]);
-		printf("Example: %s \"ls -la file.txt\"\n", argv[0]);
-		return (1);
-	}
-	
-	// Concatenar todos los argumentos en una sola string
-	total_len = 0;
-	i = 1;
-	while (i < argc)
-	{
-		total_len += strlen(argv[i]) + 1; // +1 para el espacio
-		i++;
-	}
-	
-	input = malloc(total_len);
-	if (!input)
-		return (1);
-	input[0] = '\0';
-	
-	i = 1;
-	while (i < argc)
-	{
-		strcat(input, argv[i]);
-		if (i < argc - 1)
-			strcat(input, " ");
-		i++;
-	}
-	
-	printf("Input: %s\n", input);
-	
-	tokens = make_tokens(input);
-	print_tokens(tokens);
-	
-	parser = init_parser(tokens);
-	cmd = parse_command(parser);
-	print_cmd(cmd);
-	
-	free_cmd(cmd);
-	free(parser);
-	free(input);
-	return (0);
-}

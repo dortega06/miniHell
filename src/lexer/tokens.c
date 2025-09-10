@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 10:59:12 by diespino          #+#    #+#             */
-/*   Updated: 2025/09/10 18:01:23 by diespino         ###   ########.fr       */
+/*   Updated: 2025/09/10 18:20:22 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	print_tokens(t_token *token)
 		token = token->next;
 	}
 }
-
+/*
 int	main(void)
 {
 	char	*line;
@@ -125,4 +125,4 @@ int	main(void)
 		free(line);
 	}
 	return (0);
-}
+}*/

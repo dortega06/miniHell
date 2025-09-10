@@ -6,11 +6,11 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 16:30:54 by dortega-          #+#    #+#             */
-/*   Updated: 2025/09/10 18:02:43 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/09/10 18:08:14 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../includes/minishell.h"
 
 t_parser	*init_parser(t_token *tokens)
 {
