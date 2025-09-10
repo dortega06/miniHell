@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 10:59:12 by diespino          #+#    #+#             */
-/*   Updated: 2025/09/10 16:25:16 by diespino         ###   ########.fr       */
+/*   Updated: 2025/09/10 18:01:23 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,16 @@ t_token_type	token_type(char *str)
 	type = is_symbol(str);
 	if (type != ERROR)
 		return (type);
-	if (str[i] == '-' || is_quotes(str[i]))
+	if (str[i] == '-' || str[i] == '$' || 
+		is_quotes(str[i]) || is_parbra(str[i]))
 		i++;
 	while (str[i])
 	{
+		if (str[i] == '$' && is_parbra(str[i - 1]))
+			i++;
 		if (ft_isalpha(str[i]) || ft_isdigit(str[i]))
 			i++;
-		else if (is_quotes(str[i]))
+		else if (is_quotes(str[i]) || is_parbra(str[i]))
 			i++;
 		else
 			return (ERROR);
@@ -79,6 +82,9 @@ t_token	*make_tokens(char *str)
 
 	i = 0;
 	w_count = 0;
+//	if (is_space(str))
+//		words = ;
+//	else
 	words = ft_split(str, ' ');
 	while (words[w_count])
 		w_count++;
@@ -94,7 +100,6 @@ t_token	*make_tokens(char *str)
 	return (tokens);
 }
 
-// Imprime nodos 
 void	print_tokens(t_token *token)
 {
 	while (token)
