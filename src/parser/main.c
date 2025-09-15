@@ -3,63 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chatgpt                                       +#+  +:+       +#+     */
+/*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/15 15:45:54 by dortega-          #+#    #+#             */
+/*   Updated: 2025/09/15 16:10:57 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 #include "../../includes/minishell.h"
 
-/* Prototipos (ya definidos en tus otros .c) */
-t_token     *make_tokens(char *str);
-void        print_tokens(t_token *token);
-t_parser    *init_parser(t_token *tokens);
-t_cmd       *parse_command(t_parser *parser);
-
-void    print_command(t_cmd *cmd)
+int print_error(const char *prefix, const char *msg, int code)
 {
-    int i = 0;
-
-    if (!cmd)
-    {
-        printf("No se pudo parsear el comando.\n");
-        return;
-    }
-    printf("\n=== Comando Parseado ===\n");
-    printf("cmd: %s\n", cmd->cmd);
-    printf("argc: %d\n", cmd->arg_count);
-    while (i < cmd->arg_count)
-    {
-        printf("argv[%d] = %s\n", i, cmd->args[i]);
-        i++;
-    }
-    printf("========================\n\n");
+    (void)prefix;
+    fprintf(stderr, "%s", msg);
+    return code;
 }
 
-int main(void)
-{
-    char    *line;
-    t_token *tokens;
-    t_parser *parser;
-    t_cmd   *cmd;
+t_token *new_token(t_token_type type, char *value) {
+    t_token *tok = malloc(sizeof(t_token));
+    tok->type = type;
+    tok->value = value;
+    tok->position = 0;
+    tok->next = NULL;
+    return tok;
+}
 
-    while ((line = readline("minishell> ")) != NULL)
-    {
-        tokens = make_tokens(line);
-        printf("\n--- TOKENS ---\n");
-        print_tokens(tokens);
+t_redir *new_redir(int type, char *file) {
+    t_redir *r = malloc(sizeof(t_redir));
+    r->type = type;
+    r->fd_in = -1;
+    r->ft_out = -1;
+    r->file = file;
+    r->next = NULL;
+    return r;
+}
 
-        parser = init_parser(tokens);
-        cmd = parse_command(parser);
+t_cmd *new_cmd(t_token *tokens, t_redir *redir) {
+    t_cmd *c = malloc(sizeof(t_cmd));
+    c->tokens = tokens;
+    c->redirects = redir;
+    c->next = NULL;
+    return c;
+}
 
-        print_command(cmd);
+// --- MAIN: probamos casos ---
+int main(void) {
+    // Caso válido: ls -l
+    t_cmd *cmd1 = new_cmd(new_token(WORD, "ls"), NULL);
+    cmd1->tokens->next = new_token(WORD, "-l");
+    printf("Test 1 (ls -l): %d\n", validate_syntax(cmd1));
 
-        free(line);
-        // Aquí deberías liberar tokens, parser y cmd con tus funciones de free.
-    }
+    // Caso válido: echo hola > out.txt
+    t_cmd *cmd2 = new_cmd(new_token(WORD, "echo"), new_redir(REDIR_OUT, "out.txt"));
+    cmd2->tokens->next = new_token(WORD, "hola");
+    printf("Test 2 (echo hola > out.txt): %d\n", validate_syntax(cmd2));
+
+    // Caso inválido: cat <
+    t_cmd *cmd3 = new_cmd(new_token(WORD, "cat"), new_redir(REDIR_IN, NULL));
+    printf("Test 3 (cat <): %d\n", validate_syntax(cmd3));
+
+    // Caso inválido: | ls
+    t_cmd *cmd4 = new_cmd(NULL, NULL);
+    cmd4->next = new_cmd(new_token(WORD, "ls"), NULL);
+    printf("Test 4 (| ls): %d\n", validate_syntax(cmd4));
+
+    // Caso válido: ls | wc -l
+    t_cmd *cmd5a = new_cmd(new_token(WORD, "ls"), NULL);
+    t_cmd *cmd5b = new_cmd(new_token(WORD, "wc"), NULL);
+    cmd5b->tokens->next = new_token(WORD, "-l");
+    cmd5a->next = cmd5b;
+    printf("Test 5 (ls | wc -l): %d\n", validate_syntax(cmd5a));
+
+    // Caso inválido: token raro (ERROR)
+    t_cmd *cmd6 = new_cmd(new_token(WORD, "ls"), NULL);
+    cmd6->tokens->next = new_token(ERROR, "@"); // token inválido
+    printf("Test 6 (ls @ file): %d\n", validate_syntax(cmd6));
+
     return 0;
 }
-

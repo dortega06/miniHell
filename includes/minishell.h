@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/09/10 21:59:09 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/09/15 16:11:53 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,17 @@ typedef struct s_redir
 	int	ft_out;
 	char	*file;
 	struct s_redir	*next;
-}	t_redir
+}	t_redir;
 
 typedef struct s_cmd {
-    t_token			*tokens;        // Lista de palabras/argumentos
-    t_redirect		*redirects;     // Lista de redirecciones
+    t_token		*tokens;        // Lista de palabras/argumentos
+    t_redir		*redirects;     // Lista de redirecciones
     struct s_cmd	*next;         // Siguiente comando (para pipes)
 }   t_cmd;
 // TOKEN UTILS
 int		is_quotes(char c);
 t_token_type	is_symbol(char *str);
+int validate_syntax(t_cmd *commands);
+int print_error(const char *prefix, const char *msg, int code);
 
 #endif
