@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/09/15 20:22:04 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/09/20 16:43:01 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef enum e_token
 }			t_token;
 
 /*══════════════════════════ [  STRUCTS  ] ═══════════════════════════════════*/
+
 typedef struct s_lexer
 {
 	int				index; //  indice del token
@@ -56,14 +57,14 @@ typedef struct s_lexer
 	int				type;  //  numero equivalente al token (enum)
 	struct s_lexer	*next; //  siguiente elemento en la lista
 }	t_lexer;
-/*
-typedef struct s_token
+
+typedef struct s_env
 {
-	t_token_type	type;// WORD, PIPE,...
-	char			*value;// palabra o simbolo
-	int				position;// posicion palabra
-	struct s_token	*next;
-}			t_token;*/
+	char *var_name;     // nombre de la variable
+	char *value_var;    // valor de la variable
+	struct s_env *next; //  siguiente elemento en la lista
+}			t_env;
+
 typedef struct s_parser
 {
 	char			*cmd; //comando que será ejecutado
@@ -72,37 +73,39 @@ typedef struct s_parser
 	struct s_parser	*next; //siguiente elemento en la lista
 }	t_parser;
 
+typedef struct s_arg
+{
+    char *arg;
+    struct s_arg *next;
+} t_arg;
+
+typedef struct s_cmd
+{
+    char        *cmd_name;      
+    char        *cmd_path;      
+    t_arg       *args;          // lista de argumentos
+    char        *infile;        
+    char        *outfile;       
+    char        *heredoc_delim; 
+    int         append_mode;    
+    int         has_pipe;       
+    int         is_builtin;     
+    int         fd_in;          
+    int         fd_out;         
+    pid_t       pid;
+    t_parser	*original_parser; // referencia al parser que lo generó        
+    struct s_cmd *next;
+}   t_cmd;
+
 typedef struct s_shell
 {
 	char		**paths; //variables de entorno del sistema
-	char		**cmd_args; //comando seguido de argumentos
-	int			count_cmd_args; //cantidad de comando + argumentos
 	t_env		*env; //lista de nodos que representa `envp`
 	t_lexer		*lexer; //lista de nodos que separa los tokens
 	t_parser	*parser; //lista de nodos que separa los comandos
+	t_cmd		*cmd_list; //Nueva lista de comandos procesados
 	int			exit_status; //entero que representa el estado de salida
 }	t_shell;
-/*
-typedef struct s_parser {
-	char		*cmd;
-	char		*path;
-	struct s_parser	*next;
-} t_parser;
-
-typedef struct s_redir
-{
-	int	type;
-	int	fd_in;
-	int	ft_out;
-	char	*file;
-	struct s_redir	*next;
-}	t_redir;
-
-typedef struct s_cmd {
-    t_token		*tokens;        // Lista de palabras/argumentos
-    t_redir		*redirects;     // Lista de redirecciones
-    struct s_cmd	*next;         // Siguiente comando (para pipes)
-}   t_cmd;*/
 
 /*═════════════════════════ [  FUNCTIONS  ] ══════════════════════════════════*/
 /*---------------------------- [  lexer  ] -----------------------------------*/
