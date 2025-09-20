@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 20:56:40 by dortega-          #+#    #+#             */
-/*   Updated: 2025/09/20 17:11:25 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/09/20 17:41:44 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,21 @@ int	ft_count_pipes(t_lexer *lex)
 		tmp = tmp->next;
 	}
 	return (i);
+}
+
+int	get_last(t_lexer *lex, int start)
+{
+	t_lexer	*tmp;
+	int		last_ind;
+	
+	last_ind = -1;
+	tmp = lex;
+	while (tmp && tmp->next)
+	{
+		if (tmp->type == T_PIPE && tmp->idex > start)
+			return (tmp->index - 1);
+		tmp = tmp->next;
+	}
+	last_ind = tmp->next;
+	return (last_ind);
 }
