@@ -137,10 +137,22 @@ typedef struct s_parse_state
 
 /*═════════════════════════ [  FUNCTIONS  ] ══════════════════════════════════*/
 /*---------------------------- [  lexer  ] -----------------------------------*/
-int		is_quotes(char c);
-t_token_type	is_symbol(char *str);
-int validate_syntax(t_cmd *commands);
-int print_error(const char *prefix, const char *msg, int code);
+int		ft_isspace(int c);
+int		get_type(char *str, int i);
+
+void	ft_lexer(char *input, t_lexer **lexer);
+
+int	check_syntax(t_lexer *lexer);
+int	check_syntax_pipe(t_lexer *lexer);
+
+//void	lexer_add_type(t_lexer **lexer, int type);
+void	lexer_add_token(char *str, t_lexer **lexer, int *i, int size, int type);
+
+int		treat_quotes(char *input, t_lexer **lexer, int *i, int type);
+void    treat_general(char *input, t_lexer **lexer, int *i, int type);
+void    treat_special(char *input, t_lexer **lexer, int *i, int type);
+
+void	free_token_lst(t_lexer **lexer);
 
 /*--------------------------- [  parser  ] -----------------------------------*/
 
