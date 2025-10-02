@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/09/20 16:43:01 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/10/02 12:59:20 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef enum e_token
 	T_OUTFILE,   // outfile
 	T_APPEND,    // >> APPEND
 	T_SIZE
-}			t_token;
+}			t_token_type;
 
 /*══════════════════════════ [  STRUCTS  ] ═══════════════════════════════════*/
 
@@ -57,55 +57,83 @@ typedef struct s_lexer
 	int				type;  //  numero equivalente al token (enum)
 	struct s_lexer	*next; //  siguiente elemento en la lista
 }	t_lexer;
-
+/*
 typedef struct s_env
 {
 	char *var_name;     // nombre de la variable
 	char *value_var;    // valor de la variable
 	struct s_env *next; //  siguiente elemento en la lista
-}			t_env;
+}			t_env;*/
 
-typedef struct s_parser
-{
-	char			*cmd; //comando que será ejecutado
-	int 			redir_in; //entrada
-	int 			redir_out; //salida
-	struct s_parser	*next; //siguiente elemento en la lista
-}	t_parser;
 
+/**
+* @struct t_arg
+* @brief Nodo para una lista de argumentos de un comando.
+* Esta estructura contiene un único argumento de comando. 
+* Los argumentos para un comando se almacenan en una lista enlazada. 
+* Este diseño simplifica el manejo de listas de argumentos de longitud variable durante el análisis (parsing).
+* @param arg Una cadena de caracteres (string) asignada dinámicamente para el argumento.
+* @param next Un puntero al siguiente argumento en la lista.
+*/
 typedef struct s_arg
 {
-    char *arg;
+    char *value;
     struct s_arg *next;
 } t_arg;
 
+/**
+ * @struct t_redir
+ * @brief Estructura para la información de redirección de comandos.
+ * Esta estructura almacena información sobre las redirecciones de entrada/salida
+ * identificadas durante el análisis (parsing).
+ * @param type Tipo de redirección.
+ * @param file Cadena de caracteres (string) asignada dinámicamente para el
+ *             nombre del archivo de destino o el delimitador de heredoc.
+ * @param next Puntero a la siguiente redirección en la lista.
+ */
+typedef struct s_redir
+{
+	t_token_type	type;
+	char			*file;
+	int             heredoc_fd;
+	struct s_redir	*next;
+}					t_redir;
+/**
+ * @struct t_command
+ * @brief Estructura para una unidad de comando analizado.
+ * Esta estructura representa un único comando identificado por el analizador (parser).
+ * @param args  El inicio (cabeza) de una lista enlazada de tipo 't_arg' que contiene
+ *              todos los argumentos del comando.
+ * @param cmd_argc  El número de argumentos en la lista 'args'.
+ * @param redirs  El inicio (cabeza) de una lista enlazada de tipo 't_redir' que contiene
+ *                todas las redirecciones del comando.
+ * @param is_command  Indicador (bandera/flag) que señala si este nodo de 't_arg' está vacío.
+ * @param next  Un puntero al siguiente comando en el flujo de comandos analizados.
+*/
 typedef struct s_cmd
 {
-    char        *cmd_name;      
-    char        *cmd_path;      
-    t_arg       *args;          // lista de argumentos
-    char        *infile;        
-    char        *outfile;       
-    char        *heredoc_delim; 
-    int         append_mode;    
-    int         has_pipe;       
-    int         is_builtin;     
-    int         fd_in;          
-    int         fd_out;         
-    pid_t       pid;
-    t_parser	*original_parser; // referencia al parser que lo generó        
-    struct s_cmd *next;
+    t_arg			*args;
+	size_t			cmd_argc;
+	t_redir			*redirs;
+	bool			is_command;
+	struct s_cmd	*next;
 }   t_cmd;
-
-typedef struct s_shell
+/**
+ * @struct t_parse_state
+ * @brief Estructura de estado para el proceso de análisis (parsing).
+ * Esta estructura mantiene el estado actual durante la fase de análisis,
+ * proporcionando un acceso conveniente al comando y a los nodos de redirección
+ * que se están construyendo en ese momento.
+ * @param cmd_list  Cabeza de la lista completa de comandos que se está construyendo.
+ * @param cmd_node  Puntero al nodo de comando actual que se está llenando/poblando.
+ * @param redir_node  Puntero al nodo de redirección actual que se está llenando/poblando.
+*/
+typedef struct s_parse_state
 {
-	char		**paths; //variables de entorno del sistema
-	t_env		*env; //lista de nodos que representa `envp`
-	t_lexer		*lexer; //lista de nodos que separa los tokens
-	t_parser	*parser; //lista de nodos que separa los comandos
-	t_cmd		*cmd_list; //Nueva lista de comandos procesados
-	int			exit_status; //entero que representa el estado de salida
-}	t_shell;
+	t_cmd	*cmd_list;
+	t_cmd	*cmd_node;
+	t_redir	*redir_node;
+}	t_parse_state;
 
 /*═════════════════════════ [  FUNCTIONS  ] ══════════════════════════════════*/
 /*---------------------------- [  lexer  ] -----------------------------------*/
