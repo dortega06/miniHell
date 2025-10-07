@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 16:15:59 by diespino          #+#    #+#             */
-/*   Updated: 2025/10/02 15:39:02 by diespino         ###   ########.fr       */
+/*   Updated: 2025/10/02 16:55:26 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	get_type(char *input, int i)
 {
 	if (input[i] == '|')
 	{
-		if (input[i + 1] == '|' || input[i - 1] == '|')
-			return (T_PIPE);
-		else if (ft_isspace(input[i + 1]) && ft_isspace(input[i - 1]))
+//		if (input[i + 1] == '|' || input[i - 1] == '|')
+//			return (T_PIPE);
+//		else if (ft_isspace(input[i + 1]) && ft_isspace(input[i - 1]))
 			return (T_PIPE);
 	}
 	else if (input[i] == '<')

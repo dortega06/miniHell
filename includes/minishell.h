@@ -31,6 +31,10 @@
 # include <termios.h>
 # include <termcap.h>
 
+/*═══════════════════════════ [  MACROS  ] ════════════════════════════════════*/
+
+# define ERR_TOKEN "minishell: syntax error near unexpected token"
+
 /*═══════════════════════════ [  ENUMS  ] ════════════════════════════════════*/
 
 typedef enum e_token

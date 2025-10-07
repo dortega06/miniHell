@@ -6,26 +6,13 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 17:03:46 by diespino          #+#    #+#             */
-/*   Updated: 2025/10/02 14:04:30 by diespino         ###   ########.fr       */
+/*   Updated: 2025/10/07 16:32:37 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-/*
-typedef enum e_token
-{
-        T_GENERAL,   // 0
-        T_CMD,       // 1 comando
-        T_PIPE,      // 2 | pipe
-        T_REDIR_IN,  // 3 < REDIR_IN
-        T_INFILE,    // 4 infile
-        T_HEREDOC,   // 5 << HEREDOC
-        T_LIMITER,   // 6 (str) para terminar de introducir datos
-        T_REDIR_OUT, // 7 > REDIR_OUT
-        T_OUTFILE,   // 8 outfile
-        T_APPEND,    // 9 >> APPEND
-        T_SIZE	     // 10
-}*/
+
+void    lexer_cmd(t_lexer *lexer);
 
 // input == tmp == string sin " \t\n\v\f\r" delante y atras
 void	ft_lexer(char *input, t_lexer **lexer)
@@ -54,64 +41,99 @@ void	ft_lexer(char *input, t_lexer **lexer)
 		free_token_lst(lexer);
 		return ;
 	}
- /*	lexer_cmd(*lexer);
- */
+	lexer_cmd(*lexer);
 }
 
-// check_syntax_pipe
-// [#]lexer->type == T_PIPE --> Primer nodo PIPE
-// [#]lexer->type == T_PIPE && !lexer->next --> ultimo nodo PIPE
-// [#]lexer->type == T_PIPE && lexer->next->type == T_PIPE --> Dos PIPEs seguidos
-// [ ]lexer->type != T_GENERAL && lexer->next->type == T_PIPE --> token != T_GENERAl --> PIEPE
-// [ ]lexer->type == T_PIPE && lexer->next->type != T_GENERAL --> PIPE --> token != T_GENERAl
-//
-// typedef struct s_lexer
-// {
-//         int             index; //  indice del token
-//         char            *data; //  contenido (valor literal)
-//         int             type;  //  numero equivalente al token (enum)
-//         struct s_lexer  *next; //  siguiente elemento en la lista
-// } t_lexer;
-//
 int	check_syntax_pipe(t_lexer *lexer)
 {
-	if (!ft_strcmp(lexer->data, "|"))
+	if (lexer->type == T_PIPE)
 		return (0);
 	while (lexer)
 	{
-		if (!ft_strcmp(lexer->data, "|") && !lexer->next)
+		if (lexer->type == T_PIPE && !lexer->next)
 			return (0);
 		if (!ft_strcmp(lexer->data, "|") && 
 				!ft_strcmp(lexer->next->data, "|"))
 			return (0);
-		if (lexer->type != T_GENERAL && lexer->next->type == T_PIPE)
-			return (0);
-		if (lexer->type == T_PIPE && lexer->next->type != T_GENERAL)
+		if (lexer->type == T_PIPE && 
+			(lexer->next->type != T_GENERAL || !lexer->next))
 			return (0);
 		lexer = lexer->next;
 	}
 	return (1);
 }
-// check_syntax
+
+int	check_syntax_redir(t_lexer *lexer)
+{
+	while (lexer)
+	{
+		if ((lexer->type == T_REDIR_IN || lexer->type == T_REDIR_OUT ||
+			lexer->type == T_HEREDOC || lexer->type == T_APPEND) &&
+		   		!lexer->next)
+		{
+			printf("%s 'newline'\n", ERR_TOKEN);
+			return (0);
+		}
+		if ((lexer->type == T_REDIR_IN || lexer->type == T_REDIR_OUT ||
+			lexer->type == T_HEREDOC || lexer->type == T_APPEND) &&
+				lexer->next->type != T_GENERAL)
+		{
+			printf("%s '%s'\n", ERR_TOKEN, lexer->next->data);
+			return (0);
+		}
+		lexer = lexer->next;
+	}
+	return (1);
+}
+
 int	check_syntax(t_lexer *lexer)
 {
 	if (!lexer)
 		return (0);
 	if (!check_syntax_pipe(lexer))
 	{
-		printf("miniHell: syntax error pipe\n");
+		printf("%s '|'\n", ERR_TOKEN);
 		return (0);
 	}
-/*	while (lexer->next)
-	{
-		if ((lexer->type == T_REDIR_IN || lexer->type == T_REDIR_OUT ||
-			lexer->type == T_HEREDOC || lexer->type == T_APPEND) &&
-				lexer->next->type != T_GENERAL)
-		{
-			printf("miniHell: syntax error near unexpected token\n");
-			return (0);
-		}
-		lexer = lexer->next;
-	}*/
+	if (!check_syntax_redir(lexer))
+		return (0);
 	return (1);
+}
+
+/*
+ * typedef enum e_token
+ * {
+ *         T_GENERAL,   // 0
+ *       # T_CMD,       // 1 CMD
+ *         T_PIPE,      // 2 |
+ *         T_REDIR_IN,  // 3 <
+ *       # T_INFILE,    // 4 <[INFILE]
+ *         T_HEREDOC,   // 5 <<
+ *       # T_LIMITER,   // 6 <<[LIMITER]
+ *         T_REDIR_OUT, // 7 >
+ *       # T_OUTFILE,   // 8 >[OUTFILE]
+ *         T_APPEND,    // 9 >>
+ *         T_SIZE       // 10
+ * }
+ * T_CMD	--> COMANDO
+ * T_INFILE	--> < [INFILE]
+ * T_OUTFILE    --> > [OUTFILE]
+ * T_LIMITER	--> >> [LIMITER]
+ */
+void	lexer_cmd(t_lexer *lexer)
+{
+	if (lexer->type == T_GENERAL)
+		lexer->type = T_CMD;
+	while (lexer)
+	{
+		if (lexer->type == T_PIPE)
+			lexer->next->type = T_CMD;
+		else if (lexer->type == T_REDIR_IN)
+			lexer->next->type = T_INFILE;
+		else if (lexer->type == T_REDIR_OUT)
+			lexer->next->type = T_OUTFILE;
+		else if (lexer->type == T_HEREDOC)
+			lexer->next->type = T_LIMITER;
+		lexer = lexer->next;
+	}
 }
