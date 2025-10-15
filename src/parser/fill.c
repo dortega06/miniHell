@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_cmd.c                                       :+:      :+:    :+:   */
+/*   fill.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*                                                 +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 18:49:25 by dortega-          #+#    #+#             */
-/*   Updated: 2025/10/02 20:42:45 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/10/15 15:42:36 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,23 @@ static void	fill_args(t_lexer *tmp, t_cmd **cmd_node)
         {
             t_arg *last = (*cmd_node)->args;
             while (last->next)
-                last = last->next;
+				last = last->next;
             last->next = new_arg;
         }
         (*cmd_node)->cmd_argc++;
         tmp = tmp->next;
     }
 }
+
 static t_redir	*create_redir_node(t_lexer *tmp)
 {
     t_redir *new_redir;
 
-    new_redir = malloc(sizeof(t_redir));
-    if (!new_redir)
-        return (NULL);
-    new_redir->type = tmp->type;
-    new_redir->file = ft_strdup(tmp->next->data);
+	new_redir = malloc(sizeof(t_redir));
+	if (!new_redir)
+		return (NULL);
+	new_redir->type = tmp->type;
+	new_redir->file = ft_strdup(tmp->next->data);
     new_redir->heredoc_fd = -1;
     new_redir->next = NULL;
     return (new_redir);
@@ -104,7 +105,6 @@ void	ft_fill_cmd_node(t_lexer *lex, t_cmd **cmd_node, int start, int end)
     fill_args(tmp, cmd_node);
 }
 
-
 #include "../../includes/minishell.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -147,17 +147,19 @@ void print_redirs(t_redir *redirs)
 int main(void)
 {
     // Simula: cat archivo.txt > salida.txt
-    t_lexer *l1 = create_lexer_node("cat", T_CMD, 0);
+/*	t_lexer *l1 = create_lexer_node("cat", T_CMD, 0);
     t_lexer *l2 = create_lexer_node("archivo.txt", T_CMD, 1);
     t_lexer *l3 = create_lexer_node(">", T_REDIR_OUT, 2);
     t_lexer *l4 = create_lexer_node("salida.txt", T_CMD, 3);
-
     l1->next = l2;
     l2->next = l3;
     l3->next = l4;
-
+*/
+	t_lexer *a1 = create_lexer_node("ls", T_CMD, 0);
+	t_lexer *a2 = create_lexer_node("-l", T_CMD, 1);
+	a1->next = a2;
     t_cmd *cmd = malloc(sizeof(t_cmd));
-    ft_fill_cmd_node(l1, &cmd, 0, 3);
+    ft_fill_cmd_node(a1, &cmd, 0, 1);
 
     print_args(cmd->args);
     print_redirs(cmd->redirs);
