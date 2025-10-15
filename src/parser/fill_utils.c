@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:52:59 by dortega-          #+#    #+#             */
-/*   Updated: 2025/10/15 18:53:59 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/10/15 19:08:22 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,3 +49,4 @@ void	fill_redir(t_lexer *lex, t_parser **cmd_node, int *start, int end)
 
 	start_node = find_start_node(lex, *start);
 	process_redirections(start_node, cmd_node, start, end);
+}

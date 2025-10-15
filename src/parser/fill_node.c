@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:15:25 by dortega-          #+#    #+#             */
-/*   Updated: 2025/10/15 18:45:04 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/10/15 19:06:20 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	ft_redirect(t_lexer *tmp, t_parser **cmd_node)
 		fd = open(tmp->next->data, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		(*cmd_node)->redir_out = fd;
 	}
-	else if (tmp->type == T_HEREDOC)
+/*	else if (tmp->type == T_HEREDOC)
 	{
 		fd = ft_heredoc(tmp->next->data);
 		(*cmd_node)->redir_in = fd;
-	}
+	}*/
 }
 
 void	fill_cmd(t_lexer *tmp, t_parser **cmd_node)
