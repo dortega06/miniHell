@@ -69,75 +69,40 @@ typedef struct s_env
 	struct s_env *next; //  siguiente elemento en la lista
 }			t_env;*/
 
-
 /**
-* @struct t_arg
-* @brief Nodo para una lista de argumentos de un comando.
-* Esta estructura contiene un único argumento de comando. 
-* Los argumentos para un comando se almacenan en una lista enlazada. 
-* Este diseño simplifica el manejo de listas de argumentos de longitud variable durante el análisis (parsing).
-* @param arg Una cadena de caracteres (string) asignada dinámicamente para el argumento.
-* @param next Un puntero al siguiente argumento en la lista.
-*/
-typedef struct s_arg
-{
-    char *value;
-    struct s_arg *next;
-} t_arg;
-
-/**
- * @struct t_redir
- * @brief Estructura para la información de redirección de comandos.
- * Esta estructura almacena información sobre las redirecciones de entrada/salida
- * identificadas durante el análisis (parsing).
- * @param type Tipo de redirección.
- * @param file Cadena de caracteres (string) asignada dinámicamente para el
- *             nombre del archivo de destino o el delimitador de heredoc.
- * @param next Puntero a la siguiente redirección en la lista.
+ * @struct s_parser
+ * @brief Estructura que representa un nodo en la lista de análisis sintáctico.
+ *
+ * Esta estructura almacena información sobre un comando que será ejecutado,
+ * así como configuraciones de redirección de entrada y salida, y una referencia
+ * al siguiente elemento en la lista.
  */
-typedef struct s_redir
+typedef struct s_parser
 {
-	t_token_type	type;
-	char			*file;
-	int             heredoc_fd;
-	struct s_redir	*next;
-}					t_redir;
+	char *cmd;             // comando que será ejecutado
+	int redir_in;          // redireccionamiento de entrada
+	int redir_out;         // redireccionamiento de salida
+	struct s_parser *next; //  siguiente elemento en la lista
+}			t_parser;
+
 /**
- * @struct t_command
- * @brief Estructura para una unidad de comando analizado.
- * Esta estructura representa un único comando identificado por el analizador (parser).
- * @param args  El inicio (cabeza) de una lista enlazada de tipo 't_arg' que contiene
- *              todos los argumentos del comando.
- * @param cmd_argc  El número de argumentos en la lista 'args'.
- * @param redirs  El inicio (cabeza) de una lista enlazada de tipo 't_redir' que contiene
- *                todas las redirecciones del comando.
- * @param is_command  Indicador (bandera/flag) que señala si este nodo de 't_arg' está vacío.
- * @param next  Un puntero al siguiente comando en el flujo de comandos analizados.
-*/
-typedef struct s_cmd
+ * @struct s_shell
+ * @brief Estructura que representa el estado de la shell.
+ *
+ * Esta estructura contiene información esencial sobre el estado de la shell,
+ * incluyendo variables de entorno, argumentos del comando, nodos para el
+ * análisis léxico y sintáctico, y el estado de salida.
+ */
+typedef struct s_shell
 {
-    t_arg			*args;
-	size_t			cmd_argc;
-	t_redir			*redirs;
-	bool			is_command;
-	struct s_cmd	*next;
-}   t_cmd;
-/**
- * @struct t_parse_state
- * @brief Estructura de estado para el proceso de análisis (parsing).
- * Esta estructura mantiene el estado actual durante la fase de análisis,
- * proporcionando un acceso conveniente al comando y a los nodos de redirección
- * que se están construyendo en ese momento.
- * @param cmd_list  Cabeza de la lista completa de comandos que se está construyendo.
- * @param cmd_node  Puntero al nodo de comando actual que se está llenando/poblando.
- * @param redir_node  Puntero al nodo de redirección actual que se está llenando/poblando.
-*/
-typedef struct s_parse_state
-{
-	t_cmd	*cmd_list;
-	t_cmd	*cmd_node;
-	t_redir	*redir_node;
-}	t_parse_state;
+	char **paths;       // variables de entorno del sistema
+	char **cmd_args;    // comando seguido de argumentos
+	int count_cmd_args; // cantidad de comando + argumentos
+	t_env *env;         // lista de nodos que representa `envp`
+	t_lexer *lexer;     // lista de nodos que separa los tokens
+	t_parser *parser;   // lista de nodos que separa los comandos
+	int exit_status;    // entero que representa el estado de salida
+}			t_shell;
 
 /*═════════════════════════ [  FUNCTIONS  ] ══════════════════════════════════*/
 /*---------------------------- [  lexer  ] -----------------------------------*/
