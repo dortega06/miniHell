@@ -57,4 +57,7 @@ fclean: clean
 	
 re: fclean all
 
-.PHONY: all clean fclean re
+print_src:
+	@echo $(SRC)
+
+.PHONY: all clean fclean re print_src

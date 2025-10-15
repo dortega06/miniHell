@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 // lexer_add_token(string, struct lexer, indice actual, tamano de token, type);
 //

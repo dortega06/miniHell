@@ -6,11 +6,11 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 16:02:11 by diespino          #+#    #+#             */
-/*   Updated: 2025/10/07 15:42:55 by diespino         ###   ########.fr       */
+/*   Updated: 2025/10/08 13:56:59 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 /*
  * typedef enum e_token
@@ -30,7 +30,7 @@
  */
 void	print_tokens(t_lexer *lexer)
 {
-	printf("\n");
+//	printf("\n");
 	while (lexer != NULL)
 	{
 		if (lexer->type == T_GENERAL)
@@ -57,7 +57,7 @@ void	print_tokens(t_lexer *lexer)
 			printf("type=%d | %s\n", lexer->type, lexer->data);
 		lexer = lexer->next;
 	}
-	printf("\n");
+//	printf("\n");
 }
 
 int	main(int argc, char **argv)
