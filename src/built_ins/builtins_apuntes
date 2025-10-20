@@ -1,0 +1,16 @@
+
+// ## BUILT-INS ## //
+
+// PARTE 1
+
+# cd (solo ruta relativa o absouta) --> getcwd() de <unistd.h>
+# pwd (sin opciones) --> getcwd() de <unistd.h>
+# echo // echo -n --> necesita parser->redir_out
+# exit (sin opciones) --> sale de programa
+
+// PARTE 2
+
+# env (sin opciones o args) --> muestra el entorno de shell
+# export (sin opciones) --> exporta variables de entorno
+ --> export_utils.c
+# unset (sin opciones) --> elimina variables de entorno especificas
