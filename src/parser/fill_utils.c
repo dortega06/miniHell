@@ -50,3 +50,11 @@ void	fill_redir(t_lexer *lex, t_parser **cmd_node, int *start, int end)
 	start_node = find_start_node(lex, *start);
 	process_redirections(start_node, cmd_node, start, end);
 }
+
+void ft_memfree(void *ptr)
+{
+	if (!ptr)
+		return ;
+	free(ptr);
+	ptr = NULL;
+}

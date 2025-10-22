@@ -11,6 +11,25 @@
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+int	ft_heredoc(char *limit)
+{
+	pid_t	pid;
+	int		fd[2];
+
+	if (pipe(fd) < 0)
+		return (ft_putendl_fd(ERR_PIPE, 2), 1);
+	pid = fork();
+	if (pid < 0)
+		return (ft_putendl_fd(ERR_FORK, 2), 1);
+	if (pid == 0)
+	{
+		g_signal = S_HEREDOC;
+		close(fd[0]);
+		ft_heredoc_loop(limit, fd[1]);
+	}
+	g_signal = S_HEREDOC_END;
+	return (waitpid(-1, NULL, 0), close(fd[1]), fd[0]);
+}
 
 static void	ft_heredoc_loop(char *limit, int fd)
 {

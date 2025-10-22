@@ -12,6 +12,9 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+/*═══════════════════════════ [  VAR GLOBAL  ] ═══════════════════════════════*/
+
+extern int	g_signal;
 
 /*═════════════════════════════ [  LIBS  ] ═══════════════════════════════════*/
 # include "../libft/libft.h"
@@ -34,7 +37,8 @@
 /*═══════════════════════════ [  MACROS  ] ════════════════════════════════════*/
 
 # define ERR_TOKEN "minishell: syntax error near unexpected token"
-
+# define ERR_PIPE "minishell: failed to open pipe"
+# define ERR_FORK "minishell: fork failed"
 /*═══════════════════════════ [  ENUMS  ] ════════════════════════════════════*/
 
 typedef enum e_token
@@ -51,6 +55,13 @@ typedef enum e_token
 	T_APPEND,    // >> APPEND
 	T_SIZE
 }			t_token_type;
+
+typedef enum e_signal
+{
+	S_BASE,
+	S_HEREDOC,
+	S_HEREDOC_END
+}			t_signal;
 
 /*══════════════════════════ [  STRUCTS  ] ═══════════════════════════════════*/
 
