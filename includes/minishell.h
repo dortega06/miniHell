@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/10/02 12:59:20 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/10/15 19:27:06 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,6 @@ typedef struct s_env
 	struct s_env *next; //  siguiente elemento en la lista
 }			t_env;*/
 
-/**
- * @struct s_parser
- * @brief Estructura que representa un nodo en la lista de análisis sintáctico.
- *
- * Esta estructura almacena información sobre un comando que será ejecutado,
- * así como configuraciones de redirección de entrada y salida, y una referencia
- * al siguiente elemento en la lista.
- */
 typedef struct s_parser
 {
 	char *cmd;             // comando que será ejecutado
@@ -96,20 +88,12 @@ typedef struct s_parser
 	struct s_parser *next; //  siguiente elemento en la lista
 }			t_parser;
 
-/**
- * @struct s_shell
- * @brief Estructura que representa el estado de la shell.
- *
- * Esta estructura contiene información esencial sobre el estado de la shell,
- * incluyendo variables de entorno, argumentos del comando, nodos para el
- * análisis léxico y sintáctico, y el estado de salida.
- */
 typedef struct s_shell
 {
 	char **paths;       // variables de entorno del sistema
 	char **cmd_args;    // comando seguido de argumentos
 	int count_cmd_args; // cantidad de comando + argumentos
-	t_env *env;         // lista de nodos que representa `envp`
+//	t_env *env;         // lista de nodos que representa `envp`
 	t_lexer *lexer;     // lista de nodos que separa los tokens
 	t_parser *parser;   // lista de nodos que separa los comandos
 	int exit_status;    // entero que representa el estado de salida
@@ -135,5 +119,11 @@ void    treat_special(char *input, t_lexer **lexer, int *i, int type);
 void	free_token_lst(t_lexer **lexer);
 
 /*--------------------------- [  parser  ] -----------------------------------*/
-
+t_lexer	*find_start_node(t_lexer *lex, int start);
+void	process_redirections(t_lexer *start_node, t_parser **cmd_node, int *start, int end);
+void	fill_redir(t_lexer *lex, t_parser **cmd_node, int *start, int end);
+void	ft_fill_node(t_lexer *lex, t_parser **cmd_node, int start, int end);
+void	ft_redirect(t_lexer *tmp, t_parser **cmd_node);
+void	fill_cmd(t_lexer *tmp, t_parser **cmd_node);
+int	ft_len_cmd(t_lexer *tmp);
 #endif
