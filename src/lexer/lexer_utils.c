@@ -12,11 +12,6 @@
 
 #include "minishell.h"
 
-int	ft_isspace(int c)
-{
-	return (c == ' ' || (c >= '\t' && c <= '\r'));
-}
-
 int	get_type(char *input, int i)
 {
 	if (input[i] == '|')

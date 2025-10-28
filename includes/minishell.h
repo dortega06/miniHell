@@ -101,15 +101,12 @@ typedef struct s_shell
 
 /*═════════════════════════ [  FUNCTIONS  ] ══════════════════════════════════*/
 /*---------------------------- [  lexer  ] -----------------------------------*/
-int		ft_isspace(int c);
 int		get_type(char *str, int i);
 
 void	ft_lexer(char *input, t_lexer **lexer);
 
 int	check_syntax(t_lexer *lexer);
-//int	check_syntax_pipe(t_lexer *lexer);
 
-//void	lexer_add_type(t_lexer **lexer, int type);
 void	lexer_add_token(char *str, t_lexer **lexer, int *i, int size, int type);
 
 int		treat_quotes(char *input, t_lexer **lexer, int *i, int type);
