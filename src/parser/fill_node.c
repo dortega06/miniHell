@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:15:25 by dortega-          #+#    #+#             */
-/*   Updated: 2025/10/15 19:06:20 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/10/28 12:35:49 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ void	ft_fill_node(t_lexer *lex, t_parser **cmd_node, int start, int end)
 	tmp = lex;
 	(*cmd_node)->redir_in = STDIN_FILENO;
 	(*cmd_node)->redir_out = STDOUT_FILENO;
+	fill_redir(lex, cmd_node, &start, end);
+	while (tmp && tmp->index != start)
+		tmp = tmp->next;
+	fill_cmd(tmp, cmd_node);
 }
 
 void	ft_redirect(t_lexer *tmp, t_parser **cmd_node)

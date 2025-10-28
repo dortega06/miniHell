@@ -6,28 +6,18 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:52:59 by dortega-          #+#    #+#             */
-/*   Updated: 2025/10/15 19:08:22 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/10/28 12:34:39 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_lexer	*find_start_node(t_lexer *lex, int start)
+void	fill_redir(t_lexer *lex, t_parser **cmd_node, int *start, int end)
 {
 	t_lexer	*tmp;
+	int	aux;
 
 	tmp = lex;
-	while (tmp && tmp->index != start)
-		tmp = tmp->next;
-	return (tmp);
-}
-
-void	process_redirections(t_lexer *start_node, t_parser **cmd_node, int *start, int end)
-{
-	t_lexer	*tmp;
-	int		aux;
-
-	tmp = start_node;
 	aux = *start;
 	while(tmp && aux <= end)
 	{
@@ -43,12 +33,12 @@ void	process_redirections(t_lexer *start_node, t_parser **cmd_node, int *start, 
 	}
 }
 
-void	fill_redir(t_lexer *lex, t_parser **cmd_node, int *start, int end)
+void ft_memfree(void *ptr)
 {
-	t_lexer	*start_node;
-
-	start_node = find_start_node(lex, *start);
-	process_redirections(start_node, cmd_node, start, end);
+	if (!ptr)
+		return ;
+	free(ptr);
+	ptr = NULL;
 }
 
 void ft_memfree(void *ptr)

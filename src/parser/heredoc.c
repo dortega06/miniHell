@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 19:23:23 by dortega-          #+#    #+#             */
-/*   Updated: 2025/10/15 19:37:47 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/10/28 12:36:17 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,7 @@ static void	ft_heredoc_loop(char *limit, int fd)
 	}
 }
 
-
+int	ft_heredoc(char *limit)
+{
+	
+}
