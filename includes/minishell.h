@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/10/15 19:27:06 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/11/12 11:46:32 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ extern int	g_signal;
 # define ERR_TOKEN "minishell: syntax error near unexpected token"
 # define ERR_PIPE "minishell: failed to open pipe"
 # define ERR_FORK "minishell: fork failed"
+
+# define READLINE_MSG "\033[1;36mminishell\033[34m$> \033[0m"
+# define HEREDOC_MSG "\033[1;34m> \033[0m" // @return >
 /*═══════════════════════════ [  ENUMS  ] ════════════════════════════════════*/
 
 typedef enum e_token
@@ -58,9 +61,14 @@ typedef enum e_token
 
 typedef enum e_signal
 {
-	S_BASE,
-	S_HEREDOC,
-	S_HEREDOC_END
+	S_BASE,        // señal Base
+	S_HEREDOC,     // entra en el heredoc
+	S_HEREDOC_END, // finalización del heredoc
+	S_SIGINT,      // Ctrl + C
+	S_SIGINT_CMD,  // Ctrl + C en medio de una comando
+	S_CMD,         // se ejecuta un comando
+	S_CANCEL_EXEC, // Ctrl + D en heredoc
+	S_SIZE
 }			t_signal;
 
 /*══════════════════════════ [  STRUCTS  ] ═══════════════════════════════════*/
@@ -116,11 +124,22 @@ void    treat_special(char *input, t_lexer **lexer, int *i, int type);
 void	free_token_lst(t_lexer **lexer);
 
 /*--------------------------- [  parser  ] -----------------------------------*/
-t_lexer	*find_start_node(t_lexer *lex, int start);
-void	process_redirections(t_lexer *start_node, t_parser **cmd_node, int *start, int end);
-void	fill_redir(t_lexer *lex, t_parser **cmd_node, int *start, int end);
+void	ft_parser(t_parser **parser, t_lexer *lex);
+void	ft_index(t_lexer *lex);
+int		ft_count_pipes(t_lexer *lex);
+int		get_last(t_lexer *lex, int start);
+
+/*------------------------- [  fill_node  ] ----------------------------------*/
 void	ft_fill_node(t_lexer *lex, t_parser **cmd_node, int start, int end);
 void	ft_redirect(t_lexer *tmp, t_parser **cmd_node);
 void	fill_cmd(t_lexer *tmp, t_parser **cmd_node);
-int	ft_len_cmd(t_lexer *tmp);
+int		ft_len_cmd(t_lexer *tmp);
+
+/*------------------------- [  fill_utils  ] ---------------------------------*/
+void	fill_redir(t_lexer *lex, t_parser **cmd_node, int *start, int end);
+void	ft_memfree(void *ptr);
+
+/*-------------------------- [  heredoc  ] -----------------------------------*/
+int		ft_heredoc(char *limit);
+void    ft_heredoc_loop(char *limit, int fd);
 #endif

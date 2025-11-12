@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:15:25 by dortega-          #+#    #+#             */
-/*   Updated: 2025/10/28 12:43:15 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/11/12 11:45:23 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	ft_redirect(t_lexer *tmp, t_parser **cmd_node)
 	{
 		fd = ft_heredoc(tmp->next->data);
 		(*cmd_node)->redir_in = fd;
+		if (g_signal != S_CANCEL_EXEC)
+			g_signal = S_BASE;
 	}
 }
 

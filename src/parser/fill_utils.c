@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:52:59 by dortega-          #+#    #+#             */
-/*   Updated: 2025/10/28 12:41:09 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/11/12 10:48:53 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	fill_redir(t_lexer *lex, t_parser **cmd_node, int *start, int end)
 	int	aux;
 
 	tmp = lex;
+	while (tmp && tmp->index != *start)
+		tmp = tmp->next;
 	aux = *start;
 	while(tmp && aux <= end)
 	{

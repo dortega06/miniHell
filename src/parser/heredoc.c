@@ -6,11 +6,12 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 19:23:23 by dortega-          #+#    #+#             */
-/*   Updated: 2025/10/28 12:36:17 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/11/12 11:45:36 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
 int	ft_heredoc(char *limit)
 {
 	pid_t	pid;
@@ -31,7 +32,7 @@ int	ft_heredoc(char *limit)
 	return (waitpid(-1, NULL, 0), close(fd[1]), fd[0]);
 }
 
-static void	ft_heredoc_loop(char *limit, int fd)
+void	ft_heredoc_loop(char *limit, int fd)
 {
 	char	*line;
 
@@ -45,9 +46,4 @@ static void	ft_heredoc_loop(char *limit, int fd)
 		ft_putchar_fd('\n', fd);
 		ft_memfree(line);
 	}
-}
-
-int	ft_heredoc(char *limit)
-{
-	
 }

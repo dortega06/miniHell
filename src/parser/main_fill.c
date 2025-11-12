@@ -1,17 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_fill.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 19:03:35 by dortega-          #+#    #+#             */
-/*   Updated: 2025/10/15 19:04:32 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/11/12 11:43:36 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int g_signal = S_BASE;
+
+/*
 // Construye una lista t_lexer simple para test
 t_lexer *lexer_new(int type, char *data, int index) {
     t_lexer *node = malloc(sizeof(t_lexer));
@@ -73,4 +76,169 @@ int main(void)
         lex = aux;
     }
     return 0;
+}*/
+
+void print_lexer(t_lexer *lexer)
+{
+	t_lexer *tmp;
+	const char *type_names[] = {
+		"T_GENERAL",
+		"T_CMD",
+		"T_PIPE",
+		"T_REDIR_IN",
+		"T_INFILE",
+		"T_HEREDOC",
+		"T_LIMITER",
+		"T_REDIR_OUT",
+		"T_OUTFILE",
+		"T_APPEND"
+	};
+
+	printf("\n=== LEXER OUTPUT ===\n");
+	tmp = lexer;
+	while (tmp)
+	{
+		printf("Index: %d | Type: %-12s | Data: [%s]\n",
+			tmp->index, type_names[tmp->type], tmp->data);
+		tmp = tmp->next;
+	}
+	printf("====================\n\n");
+}
+
+void print_parser(t_parser *parser)
+{
+	t_parser *tmp;
+	int node_num;
+
+	printf("\n=== PARSER OUTPUT ===\n");
+	tmp = parser;
+	node_num = 0;
+	while (tmp)
+	{
+		printf("Node %d:\n", node_num);
+		printf("  Command: [%s]\n", tmp->cmd ? tmp->cmd : "(null)");
+		printf("  Redir IN:  %d %s\n", tmp->redir_in,
+			tmp->redir_in == STDIN_FILENO ? "(STDIN)" : "(file/pipe)");
+		printf("  Redir OUT: %d %s\n", tmp->redir_out,
+			tmp->redir_out == STDOUT_FILENO ? "(STDOUT)" : "(file/pipe)");
+		printf("\n");
+		tmp = tmp->next;
+		node_num++;
+	}
+	printf("=====================\n\n");
+}
+
+void free_parser(t_parser **parser)
+{
+	t_parser *tmp;
+	t_parser *next;
+
+	if (!parser || !*parser)
+		return;
+	tmp = *parser;
+	while (tmp)
+	{
+		next = tmp->next;
+		if (tmp->cmd)
+			free(tmp->cmd);
+		if (tmp->redir_in > 2)
+			close(tmp->redir_in);
+		if (tmp->redir_out > 2)
+			close(tmp->redir_out);
+		free(tmp);
+		tmp = next;
+	}
+	*parser = NULL;
+}
+
+void test_input(char *input)
+{
+	t_lexer *lexer;
+	t_parser *parser;
+
+	printf("\n╔════════════════════════════════════════════════════════════╗\n");
+	printf("║ Testing: %-49s ║\n", input);
+	printf("╚════════════════════════════════════════════════════════════╝\n");
+
+	lexer = NULL;
+	parser = NULL;
+
+	ft_lexer(input, &lexer);
+	
+	if (!lexer)
+	{
+		printf("❌ Lexer failed to parse input\n");
+		return;
+	}
+
+	print_lexer(lexer);
+
+	if (check_syntax(lexer) != 0)
+	{
+		printf("❌ Syntax error detected\n");
+		free_token_lst(&lexer);
+		return;
+	}
+
+	ft_parser(&parser, lexer);
+	
+	if (parser)
+	{
+		print_parser(parser);
+		free_parser(&parser);
+	}
+	else
+	{
+		printf("❌ Parser failed\n");
+	}
+
+	free_token_lst(&lexer);
+}
+
+int main(void)
+{
+	printf("\n");
+	printf("███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗\n");
+	printf("████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║\n");
+	printf("██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║\n");
+	printf("██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║\n");
+	printf("██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗\n");
+	printf("╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝\n");
+	printf("\n                    PARSER TEST SUITE\n\n");
+
+	// Test 1: Simple command
+	test_input("ls -la");
+
+	// Test 2: Command with pipe
+	test_input("cat file.txt | grep hello");
+
+	// Test 3: Input redirection
+	test_input("cat < input.txt");
+
+	// Test 4: Output redirection
+	test_input("echo hello > output.txt");
+
+	// Test 5: Append redirection
+	test_input("echo world >> output.txt");
+
+	// Test 6: Multiple pipes
+	test_input("cat file.txt | grep hello | wc -l");
+
+	// Test 7: Complex with multiple redirections
+	test_input("cat < input.txt | grep test > output.txt");
+
+	// Test 8: Append with pipe
+	test_input("ls -la | grep .c >> results.txt");
+
+	// Test 9: Multiple redirections on same command
+	test_input("cat < input.txt > output.txt");
+
+	// Test 10: Heredoc (commented out as it requires user input)
+	// test_input("cat << EOF");
+
+	printf("\n✅ All tests completed!\n\n");
+	printf("Note: Heredoc tests are commented out as they require interactive input.\n");
+	printf("To test heredoc manually, uncomment the test and provide the delimiter.\n\n");
+
+	return (0);
 }

@@ -1,0 +1,2 @@
+gcc -Wall -Wextra -Werror main_fill.c fill_node.c fill_utils.c ../../includes/minishell.h ../../libft/ft_strlcat.c ../../libft/ft_strlen.c ../lexer/lexer.c ../lexer/lexer_syntax.c ../lexer/lexer_utils.c ../lexer/treat_tokens.c  ../../libft/ft_strcmp.c ../../libft/ft_substr.c ../../libft/ft_calloc.c ../../libft/ft_bzero.c ../../libft/ft_memset.c  parser.c parser_utils.c heredoc.c ../../libft/ft_strncmp.c ../../libft/ft_putstr_fd.c ../../libft/ft_putchar_fd.c ../../libft/ft_putendl_fd.c ../../libft/ft_isspace.c -lreadline
+

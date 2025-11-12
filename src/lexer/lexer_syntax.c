@@ -6,11 +6,11 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:52:29 by diespino          #+#    #+#             */
-/*   Updated: 2025/10/10 13:53:49 by diespino         ###   ########.fr       */
+/*   Updated: 2025/11/12 11:32:58 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 static int	check_syntax_pipe(t_lexer *lexer)
 {

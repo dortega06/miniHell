@@ -6,11 +6,11 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 17:03:46 by diespino          #+#    #+#             */
-/*   Updated: 2025/10/10 14:02:36 by diespino         ###   ########.fr       */
+/*   Updated: 2025/11/12 11:31:16 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 /* typedef enum e_token
  * {

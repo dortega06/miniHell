@@ -6,11 +6,11 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:58:22 by diespino          #+#    #+#             */
-/*   Updated: 2025/10/07 16:32:43 by diespino         ###   ########.fr       */
+/*   Updated: 2025/11/12 11:32:57 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 // lexer_add_token(string, struct lexer, indice actual, tamano de token, type);
 //
