@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 19:03:35 by dortega-          #+#    #+#             */
-/*   Updated: 2025/11/12 11:43:36 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/11/15 16:52:40 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,12 +173,6 @@ void test_input(char *input)
 
 	print_lexer(lexer);
 
-	if (check_syntax(lexer) != 0)
-	{
-		printf("❌ Syntax error detected\n");
-		free_token_lst(&lexer);
-		return;
-	}
 
 	ft_parser(&parser, lexer);
 	
@@ -236,6 +230,12 @@ int main(void)
 	// Test 10: Heredoc (commented out as it requires user input)
 	// test_input("cat << EOF");
 
+	// Test 33: Comillas vacías simples
+    test_input("echo ''");
+
+    // Test 34: Comillas vacías múltiples
+    test_input("echo '' '' ''");
+	test_input("echo 'hello \"world");
 	printf("\n✅ All tests completed!\n\n");
 	printf("Note: Heredoc tests are commented out as they require interactive input.\n");
 	printf("To test heredoc manually, uncomment the test and provide the delimiter.\n\n");

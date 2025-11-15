@@ -6,7 +6,7 @@
 #    By: diespino <diespino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 14:04:02 by diespino          #+#    #+#              #
-#    Updated: 2025/10/10 15:30:40 by diespino         ###   ########.fr        #
+#    Updated: 2025/11/15 16:43:14 by dortega-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ PARSER		= $(PARSER_PATH)/main_fill.c\
 		  $(PARSER_PATH)/fill_utils.c\
 		  $(PARSER_PATH)/parser.c\
 		  $(PARSER_PATH)/parser_utils.c\
+		  $(PARSER_PATH)/treat_quotes.c\
 		  $(PARSER_PATH)/heredoc.c
 
 OBJS		= $(LEXER:.c=.o) $(PARSER:.c=.o)

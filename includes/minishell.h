@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/11/12 11:46:32 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/11/15 16:45:37 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,4 +142,12 @@ void	ft_memfree(void *ptr);
 /*-------------------------- [  heredoc  ] -----------------------------------*/
 int		ft_heredoc(char *limit);
 void    ft_heredoc_loop(char *limit, int fd);
+
+/*-------------------------- [ treat_quotes ] --------------------------------*/
+int	validate_quotes_parser(t_lexer *lex);
+char	*strip_quotes(char *str);
+char	*process_token_quotes(char *token);
+int	is_single_quoted(char *str);
+int	is_double_quoted(char *str);
+
 #endif
