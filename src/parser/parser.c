@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:43:31 by dortega-          #+#    #+#             */
-/*   Updated: 2025/11/15 14:27:51 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/11/15 17:15:10 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	ft_parser(t_parser **parser, t_lexer *lex)
 	t_parser	*cmd_node;
 
 	if (lex == NULL)
+		return ;
+	if (!validate_quotes_parser(lex))
 		return ;
 	ft_index(lex);
 	if (*parser == NULL)
