@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 19:03:35 by dortega-          #+#    #+#             */
-/*   Updated: 2025/11/12 11:43:36 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/11/12 14:06:49 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,13 @@ int main(void)
 	test_input("cat < input.txt > output.txt");
 
 	// Test 10: Heredoc (commented out as it requires user input)
-	// test_input("cat << EOF");
+//	test_input("cat << EOF");
+
+	test_input("echo \"hola mundo\"");
+
+	test_input("echo hola mundo\"");
+
+	test_input("echo \"hola mundo");
 
 	printf("\n✅ All tests completed!\n\n");
 	printf("Note: Heredoc tests are commented out as they require interactive input.\n");
