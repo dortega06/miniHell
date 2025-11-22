@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 17:03:46 by diespino          #+#    #+#             */
-/*   Updated: 2025/11/12 11:31:16 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/11/12 15:04:25 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,29 @@
  * T_INFILE	--> < [INFILE]
  * T_OUTFILE    --> > [OUTFILE] || >> [OUTFILE]
  * T_LIMITER	--> << [LIMITER]
+ *
+ * typedef struct s_lexer
+ * {
+ *	int		index;// num token
+ *	char		*data;// token
+ *	int		type;// tipo token
+ *	struct  s_lexer	*next;// siguiente token
+ * }	t_lexer;
+ *
  */
+static void	lexer_index(t_lexer *lexer)
+{
+	int	i;
+
+	i = 0;
+	while (lexer)
+	{
+		lexer->index = i;
+		lexer = lexer->next;
+		i++;
+	}
+}
+
 static void	lexer_cmd(t_lexer *lexer)
 {
 	if (lexer->type == T_GENERAL)
@@ -80,4 +102,5 @@ void	ft_lexer(char *input, t_lexer **lexer)
 		return ;
 	}
 	lexer_cmd(*lexer);
+	lexer_index(*lexer);
 }

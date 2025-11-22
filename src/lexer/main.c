@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 16:02:11 by diespino          #+#    #+#             */
-/*   Updated: 2025/11/12 11:32:36 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/11/12 15:00:04 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,38 @@ void	print_tokens(t_lexer *lexer)
 	while (lexer != NULL)
 	{
 		if (lexer->type == T_GENERAL)
-			printf("T_GENERAL   | type=%d | %s\n", lexer->type, lexer->data);
+			printf("%d | T_GENERAL   | type=%d | %s\n", 
+					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_CMD)
-			printf("T_CMD       | type=%d | %s\n", lexer->type, lexer->data);
+			printf("%d | T_CMD       | type=%d | %s\n", 
+					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_PIPE)
-			printf("T_PIPE      | type=%d | %s\n", lexer->type, lexer->data);
+			printf("%d | T_PIPE      | type=%d | %s\n", 
+					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_REDIR_IN)
-			printf("T_REDIR_IN  | type=%d | %s\n", lexer->type, lexer->data);
+			printf("%d | T_REDIR_IN  | type=%d | %s\n", 
+					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_INFILE)
-			printf("T_INFILE    | type=%d | %s\n", lexer->type, lexer->data);
+			printf("%d | T_INFILE    | type=%d | %s\n", 
+					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_HEREDOC)
-			printf("T_HEREDOC   | type=%d | %s\n", lexer->type, lexer->data);
+			printf("%d | T_HEREDOC   | type=%d | %s\n", 
+					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_LIMITER)
-			printf("T_LIMITER   | type=%d | %s\n", lexer->type, lexer->data);
+			printf("%d | T_LIMITER   | type=%d | %s\n", 
+					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_REDIR_OUT)
-			printf("T_REDIR_OUT | type=%d | %s\n", lexer->type, lexer->data);
+			printf("%d | T_REDIR_OUT | type=%d | %s\n", 
+					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_OUTFILE)
-			printf("T_OUTFILE   | type=%d | %s\n", lexer->type, lexer->data);
+			printf("%d | T_OUTFILE   | type=%d | %s\n", 
+					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_APPEND)
-			printf("T_APPEND    | type=%d | %s\n", lexer->type, lexer->data);
+			printf("%d | T_APPEND    | type=%d | %s\n", 
+					lexer->index, lexer->type, lexer->data);
 		else
-			printf("type=%d | %s\n", lexer->type, lexer->data);
+			printf("%d | type=%d | %s\n", 
+					lexer->index, lexer->type, lexer->data);
 		lexer = lexer->next;
 	}
 //	printf("\n");

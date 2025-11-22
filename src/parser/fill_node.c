@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:15:25 by dortega-          #+#    #+#             */
-/*   Updated: 2025/11/15 17:14:34 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/11/22 19:49:53 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,7 @@ void	ft_fill_node(t_lexer *lex, t_parser **cmd_node, int start, int end)
 void	ft_redirect(t_lexer *tmp, t_parser **cmd_node)
 {
 	int	fd;
-	char	*filename;
 
-	filename = process_token_quotes(tmp->next->data);
-	if (!filename)
-		filename = ft_strdup(tmp->next->data);
 	if (tmp->type == T_REDIR_IN)
 	{
 		fd = open(tmp->next->data, O_RDONLY);
@@ -60,20 +56,12 @@ void	ft_redirect(t_lexer *tmp, t_parser **cmd_node)
 void	fill_cmd(t_lexer *tmp, t_parser **cmd_node)
 {
 	int	len;
-	char	*processed;
 
 	len = ft_len_cmd(tmp);
 	(*cmd_node)->cmd = ft_calloc(len, sizeof(char));
 	while (tmp && tmp->type == T_CMD)
 	{
-		processed = process_token_quotes(tmp->data);	
-		if (processed)
-		{
-			ft_strlcat((*cmd_node)->cmd, processed, len);
-			free(processed);
-		}
-		else
-			ft_strlcat((*cmd_node)->cmd, tmp->data, len);
+		ft_strlcat((*cmd_node)->cmd, tmp->data, len);
 		if (tmp->next && tmp->next->type == T_CMD)
 			ft_strlcat((*cmd_node)->cmd, " ", len);
 		tmp = tmp->next;

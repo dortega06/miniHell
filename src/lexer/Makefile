@@ -6,7 +6,7 @@
 #    By: diespino <diespino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 14:04:02 by diespino          #+#    #+#              #
-#    Updated: 2025/11/22 19:32:06 by dortega-         ###   ########.fr        #
+#    Updated: 2025/10/10 15:30:40 by diespino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,28 +14,20 @@
 NAME = minisHell
 
 # miniHell SRCs
-LEXER_PATH	= lexer
-LEXER		= $(LEXER_PATH)/lexer.c\
-		  $(LEXER_PATH)/lexer_syntax.c\
-		  $(LEXER_PATH)/lexer_utils.c\
-		  $(LEXER_PATH)/treat_tokens.c
-#		  $(LEXER_PATH)/main.c
+#SRC_PATH	= lexer
+SRC		= main.c\
+		  lexer.c\
+		  lexer_syntax.c\
+		  lexer_utils.c\
+		  treat_tokens.c
 
-PARSER_PATH	= parser
-PARSER		= $(PARSER_PATH)/main_fill.c\
-		  $(PARSER_PATH)/fill_node.c\
-		  $(PARSER_PATH)/fill_utils.c\
-		  $(PARSER_PATH)/parser.c\
-		  $(PARSER_PATH)/parser_utils.c\
-		  $(PARSER_PATH)/heredoc.c
+OBJS		= $(SRC:.c=.o)
+DEPS		= $(SRC:.c=.d)
 
-OBJS		= $(LEXER:.c=.o) $(PARSER:.c=.o)
-DEPS		= $(LEXER:.c=.d) $(PARSER:.c=.d)
-
-INCS		= ../includes
+INCS		= ../../includes
 
 # LIBFT
-LIBFT_PATH	= ../libft
+LIBFT_PATH	= ../../libft
 LIBFT		= $(LIBFT_PATH)/libft.a
 LIBFT_SRC	:= $(addprefix $(LIBFT_PATH)/, \
 		   $(shell make -sC $(LIBFT_PATH) print_src))

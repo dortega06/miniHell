@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:58:22 by diespino          #+#    #+#             */
-/*   Updated: 2025/11/12 11:32:57 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/11/15 16:28:56 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	treat_quotes(char *input, t_lexer **lexer, int *i, int type)
 	{
 		lexer_add_token(input, lexer, i, j - (*i) + 1, type);
 		printf("miniHell: syntax error open quote\n");
-//		exit_status = 2;??
+		//exit_status = 2;
 		free_token_lst(lexer);
 		return (0);
 	}
