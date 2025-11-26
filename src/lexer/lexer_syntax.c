@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:52:29 by diespino          #+#    #+#             */
-/*   Updated: 2025/11/12 11:32:58 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/11/24 13:51:08 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,46 @@ int	check_syntax(t_lexer *lexer)
 		return (0);
 	if (!check_syntax_pipe(lexer))
 	{
-		printf("%s `|'\n", ERR_TOKEN);
-		return (0);
+		return (printf("%s `|'\n", ERR_TOKEN), 0);
+//		return (0);
 	}
 	if (!check_syntax_redir(lexer))
 		return (0);
 	return (1);
 }
+
+/*int	check_quotes(t_lexer *lexer)
+{
+	int	i;
+	int	quotes;
+
+	if (!lexer)
+		return (0);
+	while (lexer)
+	{
+		i = 0;
+		quotes = 0;
+//		if (lexer->type == T_GENERAL && \
+			(lexer->data[i] != '"' && lexer->data[i] != '\''))
+		if (lexer->type == T_GENERAL && \
+				!ft_isquote(lexer->data[i]))
+		{
+			while (lexer->data[i])
+			{
+//				if (lexer->data[i] == '"' || \
+						lexer->data[i] == '\'')
+				if (ft_isquote(lexer->data[i]))
+					quotes++;
+				i++;
+			}
+			if (quotes % 2 != 0)
+			{
+				printf("ERROR: Arreglo comillas\n");
+				//printf("miniHell: syntax error open quote\n");
+				return (1);
+			}
+		}
+		lexer = lexer->next;
+	}
+	return (1);
+}*/

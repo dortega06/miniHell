@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:58:22 by diespino          #+#    #+#             */
-/*   Updated: 2025/11/15 16:28:56 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/11/24 13:38:32 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	treat_general(char *input, t_lexer **lexer, int *i, int type)
 	int	j;
 
 	j = (*i);
-	while (input[j] && !ft_isspace(input[j]) && 
+	while (input[j] && !ft_isspace(input[j]) && !ft_isquote(input[j]) && \
 			get_type(input, j) == T_GENERAL)
 		j++;	
 	lexer_add_token(input, lexer, i, j - (*i), type);

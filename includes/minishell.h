@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
+/*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/22 19:27:37 by dortega-          #+#    #+#             */
-/*   Updated: 2025/11/22 19:27:39 by dortega-         ###   ########.fr       */
+/*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
+/*   Updated: 2025/11/25 16:32:26 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ typedef struct s_lexer
 	int				type;  //  numero equivalente al token (enum)
 	struct s_lexer	*next; //  siguiente elemento en la lista
 }	t_lexer;
-/*
+
 typedef struct s_env
 {
 	char *var_name;     // nombre de la variable
-	char *value_var;    // valor de la variable
+	char *var_value;    // valor de la variable
 	struct s_env *next; //  siguiente elemento en la lista
-}			t_env;*/
+}			t_env;
 
 typedef struct s_parser
 {
@@ -98,13 +98,13 @@ typedef struct s_parser
 
 typedef struct s_shell
 {
-	char **paths;       // variables de entorno del sistema
-	char **cmd_args;    // comando seguido de argumentos
-	int count_cmd_args; // cantidad de comando + argumentos
-//	t_env *env;         // lista de nodos que representa `envp`
+//	char **paths;       // variables de entorno del sistema
+//	char **cmd_args;    // comando seguido de argumentos
+//	int count_cmd_args; // cantidad de comando + argumentos
+	t_env *env;         // lista de nodos que representa `envp`
 	t_lexer *lexer;     // lista de nodos que separa los tokens
-	t_parser *parser;   // lista de nodos que separa los comandos
-	int exit_status;    // entero que representa el estado de salida
+//	t_parser *parser;   // lista de nodos que separa los comandos
+//	int exit_status;    // entero que representa el estado de salida
 }			t_shell;
 
 /*═════════════════════════ [  FUNCTIONS  ] ══════════════════════════════════*/
@@ -113,7 +113,7 @@ int		get_type(char *str, int i);
 
 void	ft_lexer(char *input, t_lexer **lexer);
 
-int	check_syntax(t_lexer *lexer);
+int		check_syntax(t_lexer *lexer);
 
 void	lexer_add_token(char *str, t_lexer **lexer, int *i, int size, int type);
 
@@ -149,5 +149,12 @@ char	*strip_quotes(char *str);
 char	*process_token_quotes(char *token);
 int	is_single_quoted(char *str);
 int	is_double_quoted(char *str);
+
+/*-------------------------- [ env_utils ] -----------------------------------*/
+void	env_init(t_env **env, char **envp);
+char	*get_var_name(char *var);
+char	*get_var_value(char *var);
+void	env_add_var(t_env **env, char *name, char *value);
+void    free_env_lst(t_env **env);
 
 #endif

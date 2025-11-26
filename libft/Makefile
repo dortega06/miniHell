@@ -6,7 +6,7 @@
 #    By: diespino <diespino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/15 17:16:03 by diespino          #+#    #+#              #
-#    Updated: 2025/07/13 16:24:08 by diespino         ###   ########.fr        #
+#    Updated: 2025/11/24 13:23:46 by diespino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC = 	\
 	ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c\
 	ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c\
 	ft_putchar_fd.c	ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c\
-	ft_strcmp.c ft_isspace.c\
+	ft_strcmp.c ft_isspace.c ft_isquote.c\
 	\
 	ft_printf.c\
 	ft_printf_nbr.c\

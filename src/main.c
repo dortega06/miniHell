@@ -6,11 +6,11 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 16:02:11 by diespino          #+#    #+#             */
-/*   Updated: 2025/11/22 13:57:57 by diespino         ###   ########.fr       */
+/*   Updated: 2025/11/25 15:55:49 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 /*
  * typedef enum e_token
@@ -28,6 +28,15 @@
  *         T_SIZE       // 10
  * }
  */
+void	print_env(t_env *env)
+{
+	while (env)
+	{
+		printf("%s | %s\n", env->var_name, env->var_value);
+		env = env->next;
+	}
+}
+
 void	print_tokens(t_lexer *lexer)
 {
 //	printf("\n");
@@ -71,36 +80,59 @@ void	print_tokens(t_lexer *lexer)
 //	printf("\n");
 }
 
-int	main(int argc, char **argv)
+void	pre_exec(char *tmp, t_shell *msh)
+{
+	ft_lexer(tmp, &msh->lexer);
+//	ft_parser(&msh->parser, &msh->lexer);
+}
+
+void	free_mshell(char *input, char *tmp, t_shell *msh)
+{
+	free(input);
+	free(tmp);
+	free_token_lst(&msh->lexer);
+//	free_parser(&msh->parser);
+}
+
+void	ft_minishell(t_shell *msh, char **envp)
 {
 	char	*input;
 	char	*tmp;
-	t_lexer	*lexer;
 
-	if (argc != 1 || argv[1])
-		return (EXIT_FAILURE);
+	env_init(&msh->env, envp);
+	print_env(msh->env);
 	while (1)
 	{
-		lexer = NULL;
+//		signal();
+//		msh->lexer = NULL;
 		input = readline(" minisHell$> ");
 		if (!input)
 			break ;
 		tmp = ft_strtrim(input, " \t\n\v\f\r");
 		if (tmp[0] != 0)
-		add_history(tmp);
+			add_history(tmp);
 		if (!ft_strcmp(tmp, "exit"))
 		{
 			free(tmp);
 			free(input);
 			break ;
 		}
-		ft_lexer(tmp, &lexer);
-		print_tokens(lexer);
-		free(input);
-		free(tmp);
-		free_token_lst(&lexer);
+		pre_exec(tmp, msh);
+		print_tokens(msh->lexer);
+		free_mshell(input, tmp, msh);
 	}
-	return (0);
+//	print_env(msh->env);
+	free_env_lst(&msh->env);
 }
-//
-//static void	free_minishell(char **)
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_shell	msh;
+
+	if (argc != 1 || argv[1])
+		return (EXIT_FAILURE);
+//	signal_init();
+	ft_memset(&msh, 0, sizeof(t_shell));
+	ft_minishell(&msh, envp);
+	return (EXIT_SUCCESS);
+}
