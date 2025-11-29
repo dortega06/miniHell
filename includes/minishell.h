@@ -121,6 +121,8 @@ int		treat_quotes(char *input, t_lexer **lexer, int *i, int type);
 void    treat_general(char *input, t_lexer **lexer, int *i, int type);
 void    treat_special(char *input, t_lexer **lexer, int *i, int type);
 
+void    ft_lexer_var(t_shell *msh);
+
 void	free_token_lst(t_lexer **lexer);
 
 /*--------------------------- [  parser  ] -----------------------------------*/

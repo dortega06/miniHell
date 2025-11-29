@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 16:02:11 by diespino          #+#    #+#             */
-/*   Updated: 2025/11/25 15:55:49 by diespino         ###   ########.fr       */
+/*   Updated: 2025/11/26 15:41:17 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,23 @@ void	print_tokens(t_lexer *lexer)
 //	printf("\n");
 }
 
+void	print_parser(t_parser *parser)
+{
+	int	i;
+	
+	i = 0;
+	while (parser)
+	{
+		printf("Node %d: %s\n", i++, parser->cmd);
+		parser = parser->next;
+	}
+}
+
 void	pre_exec(char *tmp, t_shell *msh)
 {
-	ft_lexer(tmp, &msh->lexer);
-//	ft_parser(&msh->parser, &msh->lexer);
+	ft_lexer(tmp, &msh->lexer);// falta exit status
+	ft_lexer_var(msh);
+//	ft_parser(&msh->parser, msh->lexer);
 }
 
 void	free_mshell(char *input, char *tmp, t_shell *msh)
@@ -100,7 +113,7 @@ void	ft_minishell(t_shell *msh, char **envp)
 	char	*tmp;
 
 	env_init(&msh->env, envp);
-	print_env(msh->env);
+//	print_env(msh->env);
 	while (1)
 	{
 //		signal();
@@ -119,6 +132,7 @@ void	ft_minishell(t_shell *msh, char **envp)
 		}
 		pre_exec(tmp, msh);
 		print_tokens(msh->lexer);
+//		print_parser(msh->parser);
 		free_mshell(input, tmp, msh);
 	}
 //	print_env(msh->env);
