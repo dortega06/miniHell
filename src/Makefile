@@ -6,7 +6,7 @@
 #    By: diespino <diespino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 14:04:02 by diespino          #+#    #+#              #
-#    Updated: 2025/11/25 16:32:41 by diespino         ###   ########.fr        #
+#    Updated: 2025/12/01 19:58:02 by diespino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ PARSER_PATH	= #parser
 PARSER		= #$(PARSER_PATH)/fill_node.c\
 		  #$(PARSER_PATH)/fill_utils.c\
 		  #$(PARSER_PATH)/parser.c\
+		  #$(PARSER_PATH)/parser_utils.c\
 		  #$(PARSER_PATH)/heredoc.c
 		  #$(PARSER_PATH)/main_fill.c# main lexer + parser
 
