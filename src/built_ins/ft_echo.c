@@ -6,10 +6,26 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 15:36:52 by dortega-          #+#    #+#             */
-/*   Updated: 2025/11/29 15:38:44 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/03 14:30:04 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+void	ft_echo(t_shell *msh)
+{
+	int	i;
 
+	i = 1;
+	msh->exit_status = 0;
+	if (msh->cmd_args[1] && !ft_strncmp(msh->cmd_args[1], "-n", 2))
+		i++;
+	while (msh->cmd_args)
+	{
+		ft_putstr_fd(msh->cmd_args[i++], msh->parser->redir_out)
+		if (msh->cmd_args[i])
+			ft_putchar_fd(32, msh->parser->redir_out);
+	}
+	if (!(msh->cmd_args[1] && !ft_strncmp(msh->cmd_args[1], "-n", 2)))
+		ft_putchar_fd(10, msh->parser->redir_out);
+}
