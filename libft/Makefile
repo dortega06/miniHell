@@ -20,7 +20,7 @@ SRC = 	\
 	ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c\
 	ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c\
 	ft_putchar_fd.c	ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c\
-	ft_strcmp.c ft_isspace.c ft_isquote.c\
+	ft_strcmp.c ft_isspace.c ft_isquote.c ft_memfree.c\
 	\
 	ft_printf.c\
 	ft_printf_nbr.c\

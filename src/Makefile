@@ -28,7 +28,6 @@ PARSER_PATH	= #parser
 PARSER		= #$(PARSER_PATH)/fill_node.c\
 		  #$(PARSER_PATH)/fill_utils.c\
 		  #$(PARSER_PATH)/parser.c\
-		  #$(PARSER_PATH)/parser_utils.c\
 		  #$(PARSER_PATH)/heredoc.c
 		  #$(PARSER_PATH)/main_fill.c# main lexer + parser
 

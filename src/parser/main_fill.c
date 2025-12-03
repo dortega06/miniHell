@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 19:26:15 by dortega-          #+#    #+#             */
-/*   Updated: 2025/11/26 13:33:06 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/11/29 13:58:45 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,10 @@ void print_parser(t_parser *parser, t_lexer *lexer)
         printf("Node %d:\n", node);
 
         printf("  Command: [%s]\n",
-            parser->cmd ? parser->cmd : "(null)");
-
+            parser->cmd ? parser->cmd : "(null)");    
+		printf("  redir_in:  %d\n", parser->redir_in);
+        printf("  redir_out: %d\n", parser->redir_out);
+        printf("\n");
         /* Detectamos si el input es heredoc mirando el lexer */
         int is_heredoc = 0;
         char *limiter = NULL;
@@ -163,8 +165,9 @@ int main(void)
 {
     printf("\n\nMINISHELL PARSER TEST SUITE\n\n");
 
-    test_input("ls -la");
     test_input("cat file.txt | grep hello");
+    test_input("ls -la");
+    test_input("echo \"hola\"");
     test_input("cat < input.txt");
     test_input("echo hello > output.txt");
     test_input("echo world >> output.txt");
