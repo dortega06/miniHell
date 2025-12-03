@@ -6,20 +6,12 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 13:51:50 by diespino          #+#    #+#             */
-/*   Updated: 2025/11/25 16:32:18 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/01 16:12:36 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*
-typedef struct s_env
-{
-	char 		*var_name; // nombre de la variable
-	char 		*value_var;// valor de la variable
-	struct s_env 	*next; 	   // siguiente elemento en la lista
-}			t_env;
-*/
 char	*get_var_name(char *var)
 {
 	int	i;
@@ -86,8 +78,8 @@ void	free_env_lst(t_env **env)
 
 void	env_init(t_env **env, char **envp)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
 	char	*var_name;
 	char	*var_value;
 

@@ -104,21 +104,22 @@ typedef struct s_shell
 	t_env *env;         // lista de nodos que representa `envp`
 	t_lexer *lexer;     // lista de nodos que separa los tokens
 //	t_parser *parser;   // lista de nodos que separa los comandos
-//	int exit_status;    // entero que representa el estado de salida
+	int exit_status;    // entero que representa el estado de salida
 }			t_shell;
 
 /*═════════════════════════ [  FUNCTIONS  ] ══════════════════════════════════*/
 /*---------------------------- [  lexer  ] -----------------------------------*/
 int		get_type(char *str, int i);
 
-void	ft_lexer(char *input, t_lexer **lexer);
+void	ft_lexer(char *input, t_lexer **lexer, int *exit_status);
 
-int		check_syntax(t_lexer *lexer);
+int		check_syntax(t_lexer *lexer, int *exit_status);
 
-void	lexer_add_token(char *str, t_lexer **lexer, int *i, int size, int type);
+void	lexer_add_token(char *str, t_lexer **lexer, int *i, int size);
 
-int		treat_quotes(char *input, t_lexer **lexer, int *i, int type);
-void    treat_general(char *input, t_lexer **lexer, int *i, int type);
+int		treat_quotes(char *input, t_lexer **lexer, \
+				int *i, int *exit_status);
+void    treat_general(char *input, t_lexer **lexer, int *i);
 void    treat_special(char *input, t_lexer **lexer, int *i, int type);
 
 void    ft_lexer_var(t_shell *msh);

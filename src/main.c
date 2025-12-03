@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 16:02:11 by diespino          #+#    #+#             */
-/*   Updated: 2025/11/26 15:41:17 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/02 16:31:36 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	print_parser(t_parser *parser)
 
 void	pre_exec(char *tmp, t_shell *msh)
 {
-	ft_lexer(tmp, &msh->lexer);// falta exit status
+	ft_lexer(tmp, &msh->lexer, &msh->exit_status);
 	ft_lexer_var(msh);
 //	ft_parser(&msh->parser, msh->lexer);
 }
@@ -114,10 +114,11 @@ void	ft_minishell(t_shell *msh, char **envp)
 
 	env_init(&msh->env, envp);
 //	print_env(msh->env);
+	msh->exit_status = 1;// NO VA AQUI, SOLO ES UN TEST
 	while (1)
 	{
-//		signal();
-//		msh->lexer = NULL;
+//		if S_SIGINIT;
+//		msh->exit_status = 1;
 		input = readline(" minisHell$> ");
 		if (!input)
 			break ;

@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 16:15:59 by diespino          #+#    #+#             */
-/*   Updated: 2025/11/12 15:04:37 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/01 16:09:51 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,7 @@
 int	get_type(char *input, int i)
 {
 	if (input[i] == '|')
-	{
-//		if (input[i + 1] == '|' || input[i - 1] == '|')
-//			return (T_PIPE);
-//		else if (ft_isspace(input[i + 1]) && ft_isspace(input[i - 1]))
-			return (T_PIPE);
-	}
+		return (T_PIPE);
 	else if (input[i] == '<')
 	{
 		if (input[i + 1] == '<')
@@ -36,12 +31,13 @@ int	get_type(char *input, int i)
 	return (T_GENERAL);
 }
 
-// lexer_add_token(string, struct lexer, indice actual, tamano de token, type);
-void	lexer_add_token(char *str, t_lexer **lexer, int *i, int size, int type)
+void	lexer_add_token(char *str, t_lexer **lexer, int *i, int size)
 {
-	t_lexer *new;
-	t_lexer *tmp;
+	t_lexer	*new;
+	t_lexer	*tmp;
+	int		type;
 
+	type = get_type(str, *i);
 	new = ft_calloc(1, sizeof(t_lexer));
 	new->data = ft_substr(str, (*i), size);
 	new->type = type;
