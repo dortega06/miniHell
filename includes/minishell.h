@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/03 11:47:44 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/04 09:33:15 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,8 @@ int	is_double_quoted(char *str);
 void	env_init(t_env **env, char **envp);
 char	*get_var_name(char *var);
 char	*get_var_value(char *var);
+void	mshell_lvl(t_env **env);
 void	env_add_var(t_env **env, char *name, char *value);
-void    free_env_lst(t_env **env);
+void	free_env_lst(t_env **env);
 
 #endif
