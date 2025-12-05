@@ -6,7 +6,7 @@
 #    By: diespino <diespino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 14:04:02 by diespino          #+#    #+#              #
-#    Updated: 2025/12/01 19:58:02 by diespino         ###   ########.fr        #
+#    Updated: 2025/12/05 16:03:29 by dortega-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,12 +24,11 @@ LEXER		= $(LEXER_PATH)/lexer.c\
 		  $(LEXER_PATH)/lexer_var.c
 		  #$(LEXER_PATH)/main.c# main lexer
 
-PARSER_PATH	= #parser
-PARSER		= #$(PARSER_PATH)/fill_node.c\
-		  #$(PARSER_PATH)/fill_utils.c\
-		  #$(PARSER_PATH)/parser.c\
-		  #$(PARSER_PATH)/parser_utils.c\
-		  #$(PARSER_PATH)/heredoc.c
+PARSER_PATH	= parser
+PARSER		= $(PARSER_PATH)/fill_node.c\
+		  $(PARSER_PATH)/parser.c\
+		  $(PARSER_PATH)/parser_utils.c\
+		  $(PARSER_PATH)/heredoc.c
 		  #$(PARSER_PATH)/main_fill.c# main lexer + parser
 
 UTILS_PATH	= utils

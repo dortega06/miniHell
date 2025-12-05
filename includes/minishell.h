@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/03 11:47:44 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/05 16:08:43 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ typedef struct s_shell
 //	int count_cmd_args; // cantidad de comando + argumentos
 	t_env *env;         // lista de nodos que representa `envp`
 	t_lexer *lexer;     // lista de nodos que separa los tokens
-//	t_parser *parser;   // lista de nodos que separa los comandos
+	t_parser *parser;   // lista de nodos que separa los comandos
 	int exit_status;    // entero que representa el estado de salida
 }			t_shell;
 
