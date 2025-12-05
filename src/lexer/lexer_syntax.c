@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:52:29 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/01 15:37:08 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/03 14:32:20 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ int	check_syntax(t_lexer *lexer, int *exit_status)
 		return (0);
 	if (!check_syntax_pipe(lexer))
 	{
-		return (printf("%s `|'\n", ERR_TOKEN), 0);
 		*exit_status = 2;
+		printf("%s `|'\n", ERR_TOKEN);
+		return (0);
 	}
 	if (!check_syntax_redir(lexer, exit_status))
 		return (0);

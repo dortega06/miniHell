@@ -32,7 +32,8 @@ PARSER		= $(PARSER_PATH)/fill_node.c\
 		  #$(PARSER_PATH)/main_fill.c# main lexer + parser
 
 UTILS_PATH	= utils
-UTILS		= $(UTILS_PATH)/env_utils.c
+UTILS		= $(UTILS_PATH)/env.c\
+		  $(UTILS_PATH)/env_utils.c
 
 OBJS		= $(MAIN:.c=.o) $(LEXER:.c=.o) $(PARSER:.c=.o) $(UTILS:.c=.o)
 DEPS		= $(MAIN:.c=.d) $(LEXER:.c=.d) $(PARSER:.c=.d) $(UTILS:.c=.d)
