@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 16:02:11 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/05 16:43:30 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/06 14:10:35 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void	print_tokens(t_lexer *lexer)
 void print_parser(t_parser *parser)
 {
     int i = 0;
-
     while (parser)
     {
         printf("Node %d:\n", i++);
@@ -111,7 +110,18 @@ void print_parser(t_parser *parser)
 
         printf("   redir_in:   %d\n", parser->redir_in);
         printf("   redir_out:  %d\n", parser->redir_out);
-
+		if (parser->args)
+        {
+            int j = 0;
+            printf("   args:\n");
+            while (parser->args[j] != NULL)
+            {
+                printf("      args[%d]: %s\n", j, parser->args[j]);
+                j++;
+            }
+        }
+        else
+            printf("   args:       (null)\n");
         parser = parser->next;
     }
 }

@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:15:25 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/03 11:28:55 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/06 16:23:28 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,18 @@ void	ft_redirect(t_lexer *tmp, t_parser **cmd_node)
 void	fill_cmd(t_lexer *tmp, t_parser **cmd_node)
 {
 	int	len;
+	int	first;
 
+	fill_args(tmp, cmd_node);
 	len = ft_len_cmd(tmp);
 	(*cmd_node)->cmd = ft_calloc(len, sizeof(char));
-	while (tmp && tmp->type == T_CMD)
+	first = 1;
+	while (tmp && (tmp->type == T_CMD || tmp->type == T_GENERAL))
 	{
+		if (!first)
+            ft_strlcat((*cmd_node)->cmd, " ", len);
 		ft_strlcat((*cmd_node)->cmd, tmp->data, len);
-		if (tmp->next && tmp->next->type == T_CMD)
-			ft_strlcat((*cmd_node)->cmd, " ", len);
+		first = 0;
 		tmp = tmp->next;
 	}
 }
@@ -73,12 +77,16 @@ int	ft_len_cmd(t_lexer *tmp)
 	int	len;
 
 	len = 0;
-	while (tmp && tmp->type == T_CMD)
+	while (tmp && (tmp->type == T_CMD || tmp->type == T_GENERAL))
 	{
-		len += (ft_strlen(tmp->data) + 1);
+		len += ft_strlen(tmp->data);
+		len += 1;
 		tmp = tmp->next;
 	}
-	return (len);
+	if (len > 0)
+    	return len;
+	else
+    	return 1;
 }
 
 void	fill_redir(t_lexer *lex, t_parser **cmd_node, int *start, int end)

@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/05 20:46:21 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/06 13:55:16 by dortega-         ###   ########.fr       */
 /*   Updated: 2025/12/04 09:33:15 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -92,6 +92,7 @@ typedef struct s_env
 typedef struct s_parser
 {
 	char *cmd;             // comando que será ejecutado
+	char **args;
 	int redir_in;          // redireccionamiento de entrada
 	int redir_out;         // redireccionamiento de salida
 	struct s_parser *next; //  siguiente elemento en la lista
@@ -138,6 +139,10 @@ void	ft_fill_node(t_lexer *lex, t_parser **cmd_node, int start, int end);
 void	ft_redirect(t_lexer *tmp, t_parser **cmd_node);
 void	fill_cmd(t_lexer *tmp, t_parser **cmd_node);
 int		ft_len_cmd(t_lexer *tmp);
+
+/*-------------------------- [  fill_args  ] -----------------------------------*/
+int ft_count_args(t_lexer *tmp);
+void fill_args(t_lexer *tmp, t_parser **cmd_node);
 
 /*------------------------- [  fill_utils  ] ---------------------------------*/
 void	fill_redir(t_lexer *lex, t_parser **cmd_node, int *start, int end);
