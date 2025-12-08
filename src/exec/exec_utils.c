@@ -1,34 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/20 16:02:11 by diespino          #+#    #+#             */
-/*   Updated: 2025/11/22 13:28:02 by diespino         ###   ########.fr       */
+/*   Created: 2025/12/06 14:25:27 by diespino          #+#    #+#             */
+/*   Updated: 2025/12/06 17:09:05 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	main(int argc, char **argv)
+char	**env_to_array(t_env *env)
 {
-	char		*input;
-	t_shell		msh;
+	t_env	*tmp;
+	char	**array;
+	char	*tmp_str;
+	int		i;
 
-	if (argc != 1 || argv[1])
-		return (EXIT_FAILURE);
-	while (1)
+	tmp = env;
+	i = 0;
+	while (tmp)
 	{
-		input = readline(" minisHell$> ");
-		if (!input)
-			break ;
-		ft_lexer(ft_strtrim(input, " \t\n\v\f\r"), &msh.lexer);
-//		ft_exec();
-		free_token_lst(&msh.lexer);
-		free(input);
+		i++;
+		tmp = tmp->next;
 	}
-	return (0);
+	array = malloc(sizeof(char *) * (i + 1));
+	tmp = env;
+	i = 0;
+	while (tmp)
+	{
+		tmp_str = ft_strjoin(tmp->var_name, "=");
+		array[i] = ft_strjoin(tmp_str, tmp->var_value);
+		free(tmp_str);
+		tmp = tmp->next;
+		i++;
+	}
+	array[i] = NULL;
+	return (array);
 }
-

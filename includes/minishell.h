@@ -6,8 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/06 13:55:16 by dortega-         ###   ########.fr       */
-/*   Updated: 2025/12/04 09:33:15 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/06 17:09:13 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +90,8 @@ typedef struct s_env
 
 typedef struct s_parser
 {
-	char *cmd;             // comando que será ejecutado
-	char **args;
+	char *cmd;
+	char	**args;             // comando que será ejecutado
 	int redir_in;          // redireccionamiento de entrada
 	int redir_out;         // redireccionamiento de salida
 	struct s_parser *next; //  siguiente elemento en la lista
@@ -134,6 +133,8 @@ void	ft_index(t_lexer *lex);
 int		ft_count_pipes(t_lexer *lex);
 int		get_last(t_lexer *lex, int start);
 
+void	free_parser_lst(t_parser **parser);
+
 /*------------------------- [  fill_node  ] ----------------------------------*/
 void	ft_fill_node(t_lexer *lex, t_parser **cmd_node, int start, int end);
 void	ft_redirect(t_lexer *tmp, t_parser **cmd_node);
@@ -158,6 +159,10 @@ char	*strip_quotes(char *str);
 char	*process_token_quotes(char *token);
 int	is_single_quoted(char *str);
 int	is_double_quoted(char *str);
+
+/*-------------------------- [ executer ] ------------------------------------*/
+void	ft_executer(t_shell *msh);
+char	**env_to_array(t_env *env);
 
 /*-------------------------- [ env_utils ] -----------------------------------*/
 void	env_init(t_env **env, char **envp);

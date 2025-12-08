@@ -31,6 +31,19 @@ int	g_signal = S_BASE;
  * }
  */
 
+void    print_env_array(char **env)
+{
+	int	i;
+
+	i = 0;
+        while (env[i])
+                printf("%s\n", env[i++]);
+	i = 0;
+	while (env[i])
+		free(env[i++]);
+	free(env);
+}
+
 void	free_parser(t_parser **parser)
 {
 	t_parser	*tmp;
@@ -145,6 +158,7 @@ void	ft_minishell(t_shell *msh, char **envp)
 {
 	char	*input;
 	char	*tmp;
+//	char	**msh_env;
 
 	env_init(&msh->env, envp);
 //	print_env(msh->env);
@@ -166,11 +180,14 @@ void	ft_minishell(t_shell *msh, char **envp)
 			break ;
 		}
 		pre_exec(tmp, msh);
+//		ft_executer(msh);
 		print_tokens(msh->lexer);
 		print_parser(msh->parser);
 		free_mshell(input, tmp, msh);
 	}
 //	print_env(msh->env);
+//	msh_env = env_to_array(msh->env);
+//	print_env_array(msh_env);
 	free_env_lst(&msh->env);
 }
 

@@ -6,7 +6,7 @@
 #    By: diespino <diespino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 14:04:02 by diespino          #+#    #+#              #
-#    Updated: 2025/12/06 13:53:18 by dortega-         ###   ########.fr        #
+#    Updated: 2025/12/06 16:45:43 by diespino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,12 +32,17 @@ PARSER		= $(PARSER_PATH)/fill_node.c\
 		  $(PARSER_PATH)/heredoc.c
 		  #$(PARSER_PATH)/main_fill.c# main lexer + parser
 
+#EXEC_PATH	= exec
+#EXEC		= $(EXEC_PATH)/ft_exec.c\
+#		  $(EXEC_PATH)/exec_utils.c
+
+
 UTILS_PATH	= utils
-UTILS		= $(UTILS_PATH)/env.c\
+UTILS		= $(UTILS_PATH)/env.c \
 		  $(UTILS_PATH)/env_utils.c
 
-OBJS		= $(MAIN:.c=.o) $(LEXER:.c=.o) $(PARSER:.c=.o) $(UTILS:.c=.o)
-DEPS		= $(MAIN:.c=.d) $(LEXER:.c=.d) $(PARSER:.c=.d) $(UTILS:.c=.d)
+OBJS		= $(MAIN:.c=.o) $(LEXER:.c=.o) $(PARSER:.c=.o) $(EXEC:.c=.o) $(UTILS:.c=.o)
+DEPS		= $(MAIN:.c=.d) $(LEXER:.c=.d) $(PARSER:.c=.d) $(EXEC:.c=.d) $(UTILS:.c=.d)
 
 INCS		= ../includes
 
