@@ -27,6 +27,7 @@ LEXER		= $(LEXER_PATH)/lexer.c\
 PARSER_PATH	= parser
 PARSER		= $(PARSER_PATH)/fill_node.c\
 		  $(PARSER_PATH)/fill_args.c\
+		  $(PARSER_PATH)/fill_redir.c\
 		  $(PARSER_PATH)/parser.c\
 		  $(PARSER_PATH)/parser_utils.c\
 		  $(PARSER_PATH)/heredoc.c

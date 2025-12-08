@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:15:25 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/08 12:28:56 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/08 16:03:39 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,32 +27,14 @@ void	ft_fill_node(t_lexer *lex, t_parser **cmd_node, int start, int end)
 
 void	ft_redirect(t_lexer *tmp, t_parser **cmd_node)
 {
-	int	fd;
-
 	if (tmp->type == T_REDIR_IN)
-	{
-		fd = open(tmp->next->data, O_RDONLY);
-		if (fd == -1)
-			printf("minishell: error abriendo %s\n", tmp->next->data);
-		(*cmd_node)->redir_in = fd;
-	}
+		ft_redir_in(tmp, cmd_node);
 	else if (tmp->type == T_REDIR_OUT)
-	{
-		fd = open(tmp->next->data, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		(*cmd_node)->redir_out = fd;
-	}
+		ft_redir_out(tmp, cmd_node);
 	else if (tmp->type == T_APPEND)
-	{
-		fd = open(tmp->next->data, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		(*cmd_node)->redir_out = fd;
-	}
+		ft_append(tmp, cmd_node);
 	else if (tmp->type == T_HEREDOC)
-	{
-		fd = ft_heredoc(tmp->next->data);
-		(*cmd_node)->redir_in = fd;
-		if (g_signal != S_CANCEL_EXEC)
-			g_signal = S_BASE;
-	}
+		ft_heardoc(tmp, cmd_node);
 }
 
 void	fill_cmd(t_lexer *tmp, t_parser **cmd_node)
