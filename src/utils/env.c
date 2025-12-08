@@ -26,17 +26,25 @@ char	*get_var_value(char *var)
 {
 	int	i;
 	int	len;
+	int	start;
 
 	i = 0;
 	while (var[i] && var[i] != '=' && var[i] != ' ')
 		i++;
-	len = i + 1;
-	while (var[len])
-		len++;
-	if (ft_isquote(var[i + 1]))
-		return (ft_substr(var, i + 2, len - 1));
+	if (!var[i])
+		return (ft_strdup(""));
+	start = i + 1;
+	if (ft_isquote(var[start]))
+	{
+		start++;
+		len = ft_strlen(var) - start - 1;
+		return (ft_substr(var, start, len));
+	}
 	else
-		return (ft_substr(var, i + 1, len));
+	{
+		len = ft_strlen(var) - start;
+		return (ft_substr(var, start, len));
+	}
 }
 
 void	mshell_lvl(t_env **env)
@@ -45,7 +53,7 @@ void	mshell_lvl(t_env **env)
 	int		lvl;
 
 	tmp = *env;
-	while (*env)
+	while (tmp)
 	{
 		if (!ft_strcmp(tmp->var_name, "SHLVL"))
 		{
