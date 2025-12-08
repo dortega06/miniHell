@@ -47,16 +47,27 @@ void    print_env_array(char **env)
 void	free_parser(t_parser **parser)
 {
 	t_parser	*tmp;
-
+	int			i;
 	while (*parser)
 	{
 		tmp = (*parser)->next;
+		if ((*parser)->args)
+		{
+			i = 0;
+            while ((*parser)->args[i])
+            {
+				free((*parser)->args[i]);
+                i++;
+            }
+            free((*parser)->args);
+		}
 		ft_memfree((*parser)->cmd);
 		ft_memfree(*parser);
 		*parser = tmp;
 	}
 	*parser = NULL;
 }
+
 void	print_env(t_env *env)
 {
 	while (env)
