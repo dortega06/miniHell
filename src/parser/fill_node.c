@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:15:25 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/06 16:23:28 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/08 12:28:56 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	ft_redirect(t_lexer *tmp, t_parser **cmd_node)
 	if (tmp->type == T_REDIR_IN)
 	{
 		fd = open(tmp->next->data, O_RDONLY);
+		if (fd == -1)
+			printf("minishell: error abriendo %s\n", tmp->next->data);
 		(*cmd_node)->redir_in = fd;
 	}
 	else if (tmp->type == T_REDIR_OUT)
@@ -65,7 +67,7 @@ void	fill_cmd(t_lexer *tmp, t_parser **cmd_node)
 	while (tmp && (tmp->type == T_CMD || tmp->type == T_GENERAL))
 	{
 		if (!first)
-            ft_strlcat((*cmd_node)->cmd, " ", len);
+			ft_strlcat((*cmd_node)->cmd, " ", len);
 		ft_strlcat((*cmd_node)->cmd, tmp->data, len);
 		first = 0;
 		tmp = tmp->next;
@@ -84,9 +86,9 @@ int	ft_len_cmd(t_lexer *tmp)
 		tmp = tmp->next;
 	}
 	if (len > 0)
-    	return len;
+		return (len);
 	else
-    	return 1;
+		return (1);
 }
 
 void	fill_redir(t_lexer *lex, t_parser **cmd_node, int *start, int end)
