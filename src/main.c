@@ -134,18 +134,6 @@ void print_parser(t_parser *parser)
 
         printf("   redir_in:   %d\n", parser->redir_in);
         printf("   redir_out:  %d\n", parser->redir_out);
-		if (parser->args)
-        {
-            int j = 0;
-            printf("   args:\n");
-            while (parser->args[j] != NULL)
-            {
-                printf("      args[%d]: %s\n", j, parser->args[j]);
-                j++;
-            }
-        }
-        else
-            printf("   args:       (null)\n");
         parser = parser->next;
     }
 }

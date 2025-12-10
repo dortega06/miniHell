@@ -6,7 +6,7 @@
 #    By: diespino <diespino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 14:04:02 by diespino          #+#    #+#              #
-#    Updated: 2025/12/06 16:45:43 by diespino         ###   ########.fr        #
+#    Updated: 2025/12/10 13:04:35 by dortega-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ LEXER		= $(LEXER_PATH)/lexer.c\
 
 PARSER_PATH	= parser
 PARSER		= $(PARSER_PATH)/fill_node.c\
-		  $(PARSER_PATH)/fill_args.c\
 		  $(PARSER_PATH)/fill_redir.c\
 		  $(PARSER_PATH)/parser.c\
 		  $(PARSER_PATH)/parser_utils.c\

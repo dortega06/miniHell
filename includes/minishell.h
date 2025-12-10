@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/06 17:09:13 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/10 12:11:50 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,12 @@ int		ft_len_cmd(t_lexer *tmp);
 /*-------------------------- [  fill_args  ] -----------------------------------*/
 int ft_count_args(t_lexer *tmp);
 void fill_args(t_lexer *tmp, t_parser **cmd_node);
+void	ft_redir_in(t_lexer *tmp, t_parser **cmd_node);
+void    ft_redir_out(t_lexer *tmp, t_parser **cmd_node);
+void    ft_append(t_lexer *tmp, t_parser **cmd_node);
+void    ft_heardoc(t_lexer *tmp, t_parser **cmd_node);
+
+
 
 /*------------------------- [  fill_utils  ] ---------------------------------*/
 void	fill_redir(t_lexer *lex, t_parser **cmd_node, int *start, int end);

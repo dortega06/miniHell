@@ -42,10 +42,9 @@ void	fill_cmd(t_lexer *tmp, t_parser **cmd_node)
 	int	len;
 	int	first;
 
-	fill_args(tmp, cmd_node);
 	len = ft_len_cmd(tmp);
-	(*cmd_node)->cmd = ft_calloc(len, sizeof(char));
 	first = 1;
+	(*cmd_node)->cmd = ft_calloc(len, sizeof(char));
 	while (tmp && (tmp->type == T_CMD || tmp->type == T_GENERAL))
 	{
 		if (!first)
