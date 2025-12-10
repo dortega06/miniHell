@@ -6,11 +6,14 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 14:25:27 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/06 17:09:05 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/09 12:59:58 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+/*
+char	*get_cmd_path(char *cmd, t_env *env)
+{}*/
 
 char	**env_to_array(t_env *env)
 {

@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/10 12:11:50 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/08 16:07:58 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ typedef struct s_parser
 typedef struct s_shell
 {
 //	char **paths;       // variables de entorno del sistema
-//	char **cmd_args;    // comando seguido de argumentos
-//	int count_cmd_args; // cantidad de comando + argumentos
+	char **cmd_args;    // comando seguido de argumentos
+	int count_cmd_args; // cantidad de comando + argumentos
 	t_env *env;         // lista de nodos que representa `envp`
 	t_lexer *lexer;     // lista de nodos que separa los tokens
 	t_parser *parser;   // lista de nodos que separa los comandos
@@ -149,8 +149,6 @@ void    ft_redir_out(t_lexer *tmp, t_parser **cmd_node);
 void    ft_append(t_lexer *tmp, t_parser **cmd_node);
 void    ft_heardoc(t_lexer *tmp, t_parser **cmd_node);
 
-
-
 /*------------------------- [  fill_utils  ] ---------------------------------*/
 void	fill_redir(t_lexer *lex, t_parser **cmd_node, int *start, int end);
 void	ft_memfree(void *ptr);
@@ -169,6 +167,7 @@ int	is_double_quoted(char *str);
 /*-------------------------- [ executer ] ------------------------------------*/
 void	ft_executer(t_shell *msh);
 char	**env_to_array(t_env *env);
+char	**split_shell(t_shell *msh, char *str, char c);
 
 /*-------------------------- [ env_utils ] -----------------------------------*/
 void	env_init(t_env **env, char **envp);

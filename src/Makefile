@@ -6,7 +6,7 @@
 #    By: diespino <diespino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 14:04:02 by diespino          #+#    #+#              #
-#    Updated: 2025/12/10 13:04:35 by dortega-         ###   ########.fr        #
+#    Updated: 2025/12/08 17:18:35 by diespino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,9 +32,10 @@ PARSER		= $(PARSER_PATH)/fill_node.c\
 		  $(PARSER_PATH)/heredoc.c
 		  #$(PARSER_PATH)/main_fill.c# main lexer + parser
 
-#EXEC_PATH	= exec
-#EXEC		= $(EXEC_PATH)/ft_exec.c\
-#		  $(EXEC_PATH)/exec_utils.c
+EXEC_PATH	= exec
+EXEC		= $(EXEC_PATH)/ft_exec.c\
+		  $(EXEC_PATH)/exec_utils.c\
+		  $(EXEC_PATH)/split_shell.c
 
 
 UTILS_PATH	= utils

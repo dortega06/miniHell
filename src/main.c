@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 16:02:11 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/06 14:10:35 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/08 17:18:10 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@ int	g_signal = S_BASE;
  * }
  */
 
-void    print_env_array(char **env)
+void    print_array(char **array)
 {
 	int	i;
 
 	i = 0;
-        while (env[i])
-                printf("%s\n", env[i++]);
+        while (array[i])
+                printf("~%s~\n", array[i++]);
 	i = 0;
-	while (env[i])
-		free(env[i++]);
-	free(env);
+	while (array[i])
+		free(array[i++]);
+	free(array);
 }
 
 void	free_parser(t_parser **parser)
@@ -179,14 +179,17 @@ void	ft_minishell(t_shell *msh, char **envp)
 			break ;
 		}
 		pre_exec(tmp, msh);
-//		ft_executer(msh);
+		ft_executer(msh);
+		
 		print_tokens(msh->lexer);
 		print_parser(msh->parser);
+		printf("Args: %d\n", msh->count_cmd_args);
+		print_array(msh->cmd_args);
+		
 		free_mshell(input, tmp, msh);
 	}
 //	print_env(msh->env);
 //	msh_env = env_to_array(msh->env);
-//	print_env_array(msh_env);
 	free_env_lst(&msh->env);
 }
 
