@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 16:02:11 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/08 17:18:10 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/10 18:00:18 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void    print_array(char **array)
 {
 	int	i;
 
+	i = -1;
+        while (array[++i])
+                printf("   Arg[%d]:     [%s]\n", i, array[i]);
 	i = 0;
-        while (array[i])
-                printf("~%s~\n", array[i++]);
-	i = 0;
-	while (array[i])
-		free(array[i++]);
-	free(array);
+//	while (array[i])
+//		free(array[i++]);
+//	free(array);
 }
 
 void	free_parser(t_parser **parser)
@@ -157,7 +157,7 @@ void	ft_minishell(t_shell *msh, char **envp)
 {
 	char	*input;
 	char	*tmp;
-//	char	**msh_env;
+	t_parser	*par_print;;
 
 	env_init(&msh->env, envp);
 //	print_env(msh->env);
@@ -179,13 +179,12 @@ void	ft_minishell(t_shell *msh, char **envp)
 			break ;
 		}
 		pre_exec(tmp, msh);
-		ft_executer(msh);
+		par_print = msh->parser;
 		
 		print_tokens(msh->lexer);
-		print_parser(msh->parser);
-		printf("Args: %d\n", msh->count_cmd_args);
-		print_array(msh->cmd_args);
+		print_parser(par_print);
 		
+		ft_executer(msh);
 		free_mshell(input, tmp, msh);
 	}
 //	print_env(msh->env);

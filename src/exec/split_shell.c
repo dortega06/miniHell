@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:08:17 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/08 19:34:45 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/10 19:15:23 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,18 @@ int	num_of_words(char *str, char c)
 	words = 0;
 	while (str[i])
 	{
-		if (ft_isquote(str[i]))
+		while (str[i] && str[i] == c)
+			i++;
+		if (!str[i])
+			break ;
+		words++;
+		while (str[i] && str[i] != c)
 		{
-			find_quote(str, &i);
-			if (str[i] != c)
-				words++;
-			words ++;
+			if (ft_isquote(str[i]))
+				find_quote(str, &i);
+			else
+				i++;
 		}
-		if (str[i] == c)
-			words++;
-//		printf("%d words: %d %c\n", i, words, str[i]);
-		i++;
 	}
 	return (words);
 }

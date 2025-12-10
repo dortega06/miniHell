@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:15:07 by diespino          #+#    #+#             */
-/*   Updated: 2025/11/24 13:24:20 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/10 14:47:01 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
 
 void	ft_memfree(void *ptr);
+void	ft_memfree_all(char **ptr);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
 void	*ft_memset(void *str, int c, size_t n);

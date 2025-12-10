@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 10:31:08 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/09 13:09:50 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/10 19:39:30 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,58 +20,100 @@
 * 	int redir_out;	          // redireccionamiento de salida
 * 	struct s_parser *next;   //  siguiente elemento en la lista
 * }			t_parser;
-*/
-
-//static void	hendle_status(t_shell *msh)
-//{}
-
-//static void	next_cmd(t_shell *msh)
-//{
-//	t_parser	*tmp;
-//}
-
-/*static void	exec_cmd(t_shell *msh)
-*{
-*	char	*cmd_path;
-*	char	**msh_env;
 *
-*	msh_env = env_to_array(msh->env);
-*	if (msh->parser->redir_in != 0)
-*		dup2(msh->parser->redir_in, STDIN_FILENO);
-*	if (msh->parser->redir_out != 1)
-*		dup2(msh->parser->redir_out, STDOUT_FILENO);
-*	cmd_path = get_cmd_path(msh->cmd_args[0], msh->env);
-*}
-*
-*static void	child_proccess(t_shell *msh)
+*typedef struct s_shell
 *{
-* //	if (is_builtin(msh))
-* //		ft_builtin(msh);
-* //	else
-*	exec_cmd(msh);
+*        char **paths;       // variables de entorno del sistema
+*        char **cmd_args;    // comando seguido de argumentos
+*        int count_cmd_args; // cantidad de comando + argumentos
+*        t_env *env;         // lista de nodos que representa `envp`
+*        t_lexer *lexer;     // lista de nodos que separa los tokens
+*        t_parser *parser;   // lista de nodos que separa los comandos
+*        int exit_status;    // entero que representa el estado de salida
 *}
 */
-void	ft_executer(t_shell *msh)
+
+static void	handle_status(t_shell *msh)
 {
-//	t_pid	pid;
-	
-	if (!ft_isascii(msh->parser->cmd[0]))
-	{
-		msh->exit_status = 1;
-		return ;
-	}
-	msh->cmd_args = split_shell(msh, msh->parser->cmd, ' ');
+	if (WIFEXITED(msh->exit_status))
+		msh->exit_status = WEXITSTATUS(msh->exit_status);
+	if (msh && msh->exit_status == 127)
+		printf("%s: %s\n", ERR_CMD, msh->cmd_args[0]);
+//	if (g_signal == S_SIGNAL_CMD)
+//		msh->exit_status = 130;
+//	g_signal = S_BASE;
+}
+
+static void	next_cmd(t_shell *msh)
+{
+//	t_parser	*tmp;
+
+//	ft_memfree_all(msh->cmd_args);
+	int     i;
+
+	i = 0;
+	while (msh->cmd_args[i])
+		free(msh->cmd_args[i++]);
+	free(msh->cmd_args);
+
+	if (msh->parser->redir_in != 0)
+		close(msh->parser->redir_in);
+	if (msh->parser->redir_out != 1)
+		close(msh->parser->redir_out);
+//	tmp = msh->parser;
+	msh->parser = msh->parser->next;
+}
+
+static void	exec_cmd(t_shell *msh)
+{
+	char	*cmd_path;
+	char	**msh_env;
+
+	msh_env = env_to_array(msh->env);
+	if (msh->parser->redir_in != 0)
+		dup2(msh->parser->redir_in, STDIN_FILENO);
+	if (msh->parser->redir_out != 1)
+		dup2(msh->parser->redir_out, STDOUT_FILENO);
+	cmd_path = get_cmd_path(msh->cmd_args[0], msh->env);
+	execve(cmd_path, msh->cmd_args, msh_env);
+	exit(127);
+}
+
+
+static void	child_proccess(t_shell *msh)
+{
 //	if (is_builtin(msh))
 //		ft_builtin(msh);
 //	else
-//	{
-//		g_signal = S_CMD;
-//		pid = fork();
-//		if (pid == 0)
-//			child_proccess(msh);
+	exec_cmd(msh);
+}
+
+void	ft_executer(t_shell *msh)
+{
+	pid_t	pid;
+	
+	while (msh->parser)
+	{
+		if (!ft_isascii(msh->parser->cmd[0]))
+		{
+			msh->exit_status = 1;
+			return ;
+		}
+		msh->cmd_args = split_shell(msh, msh->parser->cmd, ' ');
+		printf("\nCMD && ARGs: %d\n", msh->count_cmd_args);
+		print_array(msh->cmd_args);
+//		if (is_builtin(msh))
+//			ft_builtin(msh);
 //		else
-//			waitpid(-1, &msh->exit_status, 0);
-//		handle_status(msh);
-//	}
-//	next_cmd(msh);
+//		{
+//			g_signal = S_CMD;
+			pid = fork();
+			if (pid == 0)
+				child_proccess(msh);
+			else
+				waitpid(-1, &msh->exit_status, 0);
+			handle_status(msh);
+//		}
+		next_cmd(msh);
+	}
 }

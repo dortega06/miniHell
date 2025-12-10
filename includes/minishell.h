@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/08 16:07:58 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/10 19:15:26 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ extern int	g_signal;
 # define ERR_TOKEN "minishell: syntax error near unexpected token"
 # define ERR_PIPE "minishell: failed to open pipe"
 # define ERR_FORK "minishell: fork failed"
+# define ERR_CMD "minishell: command not found"
 
 # define READLINE_MSG "\033[1;36mminishell\033[34m$> \033[0m"
 # define HEREDOC_MSG "\033[1;34m> \033[0m" // @return >
@@ -167,6 +168,7 @@ int	is_double_quoted(char *str);
 /*-------------------------- [ executer ] ------------------------------------*/
 void	ft_executer(t_shell *msh);
 char	**env_to_array(t_env *env);
+char	*get_cmd_path(char *cmd, t_env *env);
 char	**split_shell(t_shell *msh, char *str, char c);
 
 /*-------------------------- [ env_utils ] -----------------------------------*/
@@ -176,5 +178,8 @@ char	*get_var_value(char *var);
 void	mshell_lvl(t_env **env);
 void	env_add_var(t_env **env, char *name, char *value);
 void	free_env_lst(t_env **env);
+
+/*-------------------------- [ test_print_msh ] -------------------------------*/
+void	print_array(char **array);
 
 #endif
