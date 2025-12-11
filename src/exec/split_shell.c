@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:08:17 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/10 19:15:23 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/11 18:27:45 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,8 @@ char	**split_shell(t_shell *msh, char *str, char c)//t_shell *msh
 	split = malloc(sizeof(char *) * (num_of_words(str, c) + 1));
 	while (str[i])
 	{
-		while (str[i] && ft_isspace(str[i]))
-		{
+		while (ft_isspace(str[i]) && str[i++])
 			start++;
-			i++;
-		}
 		is_word(str, c, &i);
 		tmp = ft_substr(str, start, i - start);
 		split[word++] = ft_strtrim(tmp, "\"\'");

@@ -6,7 +6,7 @@
 #    By: diespino <diespino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 14:04:02 by diespino          #+#    #+#              #
-#    Updated: 2025/12/11 16:16:44 by diespino         ###   ########.fr        #
+#    Updated: 2025/12/11 16:47:59 by diespino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,8 +46,9 @@ UTILS_PATH	= utils
 UTILS		= $(UTILS_PATH)/env.c \
 		  $(UTILS_PATH)/env_utils.c
 
-OBJS		= $(MAIN:.c=.o) $(LEXER:.c=.o) $(PARSER:.c=.o) $(EXEC:.c=.o) $(BUILTIN:.c=.o) $(UTILS:.c=.o)
-DEPS		= $(MAIN:.c=.d) $(LEXER:.c=.d) $(PARSER:.c=.d) $(EXEC:.c=.d) $(BUILTIN:.c=.d) $(UTILS:.c=.d)
+SRC		= $(LEXER) $(PARSER) $(EXEC) $(BUILTIN)
+OBJS		= $(MAIN:.c=.o) $(SRC:.c=.o) $(UTILS:.c=.o)
+DEPS		= $(MAIN:.c=.d) $(SRC:.c=.d) $(UTILS:.c=.d)
 
 INCS		= ../includes
 

@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 15:42:39 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/11 15:44:09 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/11 17:59:26 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,20 @@ void	print_tokens(t_lexer *lexer)
 void print_parser(t_parser *parser)
 {
     int i = 0;
-    while (parser)
+    t_parser	*tmp;
+
+    tmp = parser;
+    while (tmp)
     {
         printf("Node %d:\n", i++);
         
-        if (parser->cmd)
-            printf("   cmd:        %s\n", parser->cmd);
+        if (tmp->cmd)
+            printf("   cmd:        %s\n", tmp->cmd);
         else
             printf("   cmd:        (null)\n");
 
-        printf("   redir_in:   %d\n", parser->redir_in);
-        printf("   redir_out:  %d\n", parser->redir_out);
-        parser = parser->next;
+        printf("   redir_in:   %d\n", tmp->redir_in);
+        printf("   redir_out:  %d\n", tmp->redir_out);
+        tmp = tmp->next;
     }
 }

@@ -18,7 +18,8 @@ void	ft_redir_in(t_lexer *tmp, t_parser **cmd_node)
 
 	fd = open(tmp->next->data, O_RDONLY);
 	if (fd == -1)
-		printf("minishell: error abriendo %s\n", tmp->next->data);
+		printf("minishell: %s: %s\n", tmp->next->data, strerror(errno));
+//		printf("minishell: error abriendo %s\n", tmp->next->data);
 	(*cmd_node)->redir_in = fd;
 }
 
@@ -27,6 +28,8 @@ void    ft_redir_out(t_lexer *tmp, t_parser **cmd_node)
 	int	fd;
 
 	fd = open(tmp->next->data, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+		printf("minishell: %s: %s\n", tmp->next->data, strerror(errno));
 	(*cmd_node)->redir_out = fd;
 
 }
@@ -36,6 +39,8 @@ void    ft_append(t_lexer *tmp, t_parser **cmd_node)
 	int fd;
 
 	fd = open(tmp->next->data, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd == -1)
+		printf("minishell: %s: %s\n", tmp->next->data, strerror(errno));
 	(*cmd_node)->redir_out = fd;
 }
 

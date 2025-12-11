@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/11 16:11:38 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/11 18:18:31 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@
 extern int	g_signal;
 
 /*═════════════════════════════ [  LIBS  ] ═══════════════════════════════════*/
+
 # include "../libft/libft.h"
-//global libs
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <string.h>
+# include <errno.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <sys/stat.h>

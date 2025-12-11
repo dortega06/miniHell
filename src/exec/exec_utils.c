@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 14:25:27 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/10 19:39:36 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/11 18:31:37 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,11 @@ char	*get_cmd_path(char *cmd, t_env *env)
 		free(tmp_path);
 		if (access(cmd_path, F_OK) == 0)
 		{
-//			ft_memfree_all(allpath);
 			free_array(allpath);
 			return (cmd_path);
 		}
 		free(cmd_path);
 	}
-//	ft_memfree_all(allpath);
 	free_array(allpath);
 	return (cmd);
 }
