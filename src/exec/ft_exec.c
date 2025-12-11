@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 10:31:08 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/10 19:39:30 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/11 16:25:57 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ static void	next_cmd(t_shell *msh)
 		free(msh->cmd_args[i++]);
 	free(msh->cmd_args);
 
-	if (msh->parser->redir_in != 0)
-		close(msh->parser->redir_in);
-	if (msh->parser->redir_out != 1)
-		close(msh->parser->redir_out);
+//	if (msh->parser->redir_in == 0)
+//		close(msh->parser->redir_in);
+//	if (msh->parser->redir_out == 1)
+//		close(msh->parser->redir_out);
 //	tmp = msh->parser;
 	msh->parser = msh->parser->next;
 }
@@ -69,11 +69,19 @@ static void	exec_cmd(t_shell *msh)
 	char	*cmd_path;
 	char	**msh_env;
 
+	if (msh->parser->redir_in < 0)
+		exit(1);
 	msh_env = env_to_array(msh->env);
 	if (msh->parser->redir_in != 0)
+	{
 		dup2(msh->parser->redir_in, STDIN_FILENO);
+		close(msh->parser->redir_in);
+	}
 	if (msh->parser->redir_out != 1)
+	{
 		dup2(msh->parser->redir_out, STDOUT_FILENO);
+		close(msh->parser->redir_out);
+	}
 	cmd_path = get_cmd_path(msh->cmd_args[0], msh->env);
 	execve(cmd_path, msh->cmd_args, msh_env);
 	exit(127);
@@ -82,7 +90,8 @@ static void	exec_cmd(t_shell *msh)
 
 static void	child_proccess(t_shell *msh)
 {
-//	if (is_builtin(msh))
+	if (is_builtin(msh))
+		 printf("IS_BUILT-IN (child_proccess)\n");
 //		ft_builtin(msh);
 //	else
 	exec_cmd(msh);
@@ -102,7 +111,8 @@ void	ft_executer(t_shell *msh)
 		msh->cmd_args = split_shell(msh, msh->parser->cmd, ' ');
 		printf("\nCMD && ARGs: %d\n", msh->count_cmd_args);
 		print_array(msh->cmd_args);
-//		if (is_builtin(msh))
+		if (is_builtin(msh))
+			printf("IS_BUILT-IN (ft_executer)\n");
 //			ft_builtin(msh);
 //		else
 //		{

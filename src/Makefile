@@ -6,15 +6,16 @@
 #    By: diespino <diespino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 14:04:02 by diespino          #+#    #+#              #
-#    Updated: 2025/12/08 17:18:35 by diespino         ###   ########.fr        #
+#    Updated: 2025/12/11 16:16:44 by diespino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Output NAME
-NAME = minisHell
+NAME = minishell
 
 # miniHell SRCs
-MAIN		= main.c
+MAIN		= main.c\
+		  print_tests.c
 
 LEXER_PATH	= lexer
 LEXER		= $(LEXER_PATH)/lexer.c\
@@ -37,13 +38,16 @@ EXEC		= $(EXEC_PATH)/ft_exec.c\
 		  $(EXEC_PATH)/exec_utils.c\
 		  $(EXEC_PATH)/split_shell.c
 
+BUILTIN_PATH	= built_ins
+BUILTIN		= $(BUILTIN_PATH)/builtins.c
+
 
 UTILS_PATH	= utils
 UTILS		= $(UTILS_PATH)/env.c \
 		  $(UTILS_PATH)/env_utils.c
 
-OBJS		= $(MAIN:.c=.o) $(LEXER:.c=.o) $(PARSER:.c=.o) $(EXEC:.c=.o) $(UTILS:.c=.o)
-DEPS		= $(MAIN:.c=.d) $(LEXER:.c=.d) $(PARSER:.c=.d) $(EXEC:.c=.d) $(UTILS:.c=.d)
+OBJS		= $(MAIN:.c=.o) $(LEXER:.c=.o) $(PARSER:.c=.o) $(EXEC:.c=.o) $(BUILTIN:.c=.o) $(UTILS:.c=.o)
+DEPS		= $(MAIN:.c=.d) $(LEXER:.c=.d) $(PARSER:.c=.d) $(EXEC:.c=.d) $(BUILTIN:.c=.d) $(UTILS:.c=.d)
 
 INCS		= ../includes
 

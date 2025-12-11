@@ -12,6 +12,30 @@
 
 #include "../../includes/minishell.h"
 
+void	free_parser_lst(t_parser **parser)
+{
+	t_parser	*tmp;
+	int			i;
+	while (*parser)
+	{
+		tmp = (*parser)->next;
+		if ((*parser)->args)
+		{
+			i = 0;
+			while ((*parser)->args[i])
+			{
+				free((*parser)->args[i]);
+				i++;
+			}
+			free((*parser)->args);
+		}
+		ft_memfree((*parser)->cmd);
+		ft_memfree(*parser);
+		*parser = tmp;
+	}
+	*parser = NULL;
+}
+
 void	ft_index(t_lexer *lex)
 {
 	t_lexer	*tmp;
