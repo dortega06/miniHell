@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 10:31:08 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/11 18:06:38 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/12 15:05:36 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ static void	child_proccess(t_shell *msh)
 	execve(cmd_path, msh->cmd_args, msh_env);
 	exit(127);
 }
+//  || !ft_isascii(msh->parser->cmd[0])
 
 void	ft_executer(t_shell *msh)
 {
@@ -112,17 +113,19 @@ void	ft_executer(t_shell *msh)
 	
 	while (msh->parser)
 	{
-		if (!ft_isascii(msh->parser->cmd[0]))
+		if (!msh->parser->cmd[0])
 		{
 			msh->exit_status = 1;
 			return ;
 		}
 		msh->cmd_args = split_shell(msh, msh->parser->cmd, ' ');
-//		printf("\nCMD && ARGs: %d\n", msh->count_cmd_args);
-//		print_array(msh->cmd_args);
+		printf("\nCMD && ARGs: %d\n", msh->count_cmd_args);
+		print_array(msh->cmd_args);
 		if (is_builtin(msh))
-/**/			printf("IS_BUILT-IN (ft_executer)\n");
-//			ft_builtin(msh);
+/**/		{
+			printf("IS_BUILT-IN (ft_executer)\n");
+			ft_builtins(msh);
+		}
 //		else
 //		{
 //			g_signal = S_CMD;

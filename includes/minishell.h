@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/11 18:18:31 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/12 15:04:48 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,9 @@ char	**split_shell(t_shell *msh, char *str, char c);
 
 /*-------------------------- [ built-ins ] ------------------------------------*/
 
-int	is_builtin(t_shell *msh);
+int		is_builtin(t_shell *msh);
+void	ft_builtins(t_shell *msh);
+void    ft_env(t_shell *msh);
 
 /*-------------------------- [ env_utils ] -----------------------------------*/
 

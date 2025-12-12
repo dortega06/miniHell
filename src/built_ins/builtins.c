@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 16:01:43 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/11 16:26:01 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/12 15:03:46 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,10 @@ int	is_builtin(t_shell *msh)
 	else if (ft_strcmp(msh->cmd_args[0], "exit") == 0)
 		return (1);
 	return (0);
+}
+
+void	ft_builtins(t_shell *msh)
+{
+	if (ft_strcmp(msh->cmd_args[0], "env") == 0)
+		ft_env(msh);
 }

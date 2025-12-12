@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:08:17 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/11 18:27:45 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/12 13:27:08 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,33 @@ int	num_of_words(char *str, char c)
 	return (words);
 }
 
+static char	**trim_quotes(char **array)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	while (array[i])
+	{
+		if (ft_isquote(array[i][0]))
+		{
+			if(array[i][0] == '\"')
+				tmp = ft_strtrim(array[i], "\"");
+			else
+				tmp = ft_strtrim(array[i], "\'");
+			free(array[i]);
+			array[i] = ft_strdup(tmp);
+			free(tmp);
+		}
+		i++;
+	}
+	return (array);
+}
+
 // char	*ft_substr(const char *s, unsigned int start, size_t len)
 char	**split_shell(t_shell *msh, char *str, char c)//t_shell *msh
 {
 	char	**split;
-	char	*tmp;
 	int		i;
 	int		start;
 	int		word;
@@ -99,12 +121,11 @@ char	**split_shell(t_shell *msh, char *str, char c)//t_shell *msh
 		while (ft_isspace(str[i]) && str[i++])
 			start++;
 		is_word(str, c, &i);
-		tmp = ft_substr(str, start, i - start);
-		split[word++] = ft_strtrim(tmp, "\"\'");
-		free(tmp);
+		split[word++] = ft_substr(str, start, i - start);
 		start = i;
 	}
 	split[word] = NULL;
+	trim_quotes(split);
 	msh->count_cmd_args = word;
 	return (split);
 }
