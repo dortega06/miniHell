@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 14:50:00 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/12 15:12:40 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/13 15:26:30 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ void	ft_env(t_shell *msh)
 	char	**msh_env;
 	int		i;
 
+	if (msh->count_cmd_args > 1)
+	{
+		printf("env: `%s': No such file or directory\n", \
+      			msh->cmd_args[1]);
+		msh->exit_status = 127;
+		return ;
+	}
 	msh_env = env_to_array(msh->env);
 	i = 0;
 	while (msh_env[i])

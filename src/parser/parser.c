@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:27:19 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/03 11:27:22 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/13 17:59:42 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 static void	ft_add_nodes(t_parser **cmd_node, t_lexer *lex);
 static void	connect_pipes(t_parser **parser);
 
-void	ft_parser(t_parser **parser, t_lexer *lex)
+void	ft_parser(t_parser **parser, t_shell *msh)
 {
 	t_parser	*cmd_node;
 
-	if (lex == NULL)
+	if (msh->lexer == NULL)
 		return ;
-	ft_index(lex);
+	ft_index(msh->lexer);
 	if (*parser == NULL)
 		*parser = ft_calloc(1, sizeof(t_parser));
 	cmd_node = *parser;
 	if (cmd_node)
-		ft_add_nodes(&cmd_node, lex);
+		ft_add_nodes(&cmd_node, msh->lexer);
 	connect_pipes(parser);
 }
 

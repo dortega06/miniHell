@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/12 15:04:48 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/13 18:02:19 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	free_token_lst(t_lexer **lexer);
 
 /*--------------------------- [  parser  ] -----------------------------------*/
 
-void	ft_parser(t_parser **parser, t_lexer *lex);
+void	ft_parser(t_parser **parser, t_shell *msh);
 void	ft_index(t_lexer *lex);
 int		ft_count_pipes(t_lexer *lex);
 int		get_last(t_lexer *lex, int start);
@@ -182,6 +182,7 @@ char	**split_shell(t_shell *msh, char *str, char c);
 int		is_builtin(t_shell *msh);
 void	ft_builtins(t_shell *msh);
 void    ft_env(t_shell *msh);
+void	ft_export(t_shell *msh);
 
 /*-------------------------- [ env_utils ] -----------------------------------*/
 

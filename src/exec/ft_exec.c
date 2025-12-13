@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 10:31:08 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/12 15:05:36 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/13 15:03:40 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,8 @@ void	ft_executer(t_shell *msh)
 			printf("IS_BUILT-IN (ft_executer)\n");
 			ft_builtins(msh);
 		}
-//		else
-//		{
+		else
+		{
 //			g_signal = S_CMD;
 			pid = fork();
 			if (pid == 0)
@@ -136,7 +136,7 @@ void	ft_executer(t_shell *msh)
 			else
 				waitpid(-1, &msh->exit_status, 0);
 			handle_status(msh);
-//		}
+		}
 		next_cmd(msh);
 	}
 }

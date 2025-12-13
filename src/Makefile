@@ -40,7 +40,8 @@ EXEC		= $(EXEC_PATH)/ft_exec.c\
 
 BUILTIN_PATH	= built_ins
 BUILTIN		= $(BUILTIN_PATH)/builtins.c\
-		  $(BUILTIN_PATH)/ft_env.c
+		  $(BUILTIN_PATH)/ft_env.c\
+		  $(BUILTIN_PATH)/ft_export.c
 
 
 UTILS_PATH	= utils

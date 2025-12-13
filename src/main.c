@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 16:02:11 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/13 12:43:02 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/13 18:02:23 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	pre_exec(char *tmp, t_shell *msh)
 {
 	ft_lexer(tmp, &msh->lexer, &msh->exit_status);
 	ft_lexer_var(msh);
-	ft_parser(&msh->parser, msh->lexer);
+	ft_parser(&msh->parser, msh);
 }
 
 void	free_mshell(char *input, char *tmp, t_shell *msh)
@@ -33,7 +33,6 @@ void	ft_minishell(t_shell *msh, char **envp)
 {
 	char	*input;
 	char	*tmp;
-//	t_parser	*par_print;;
 
 	env_init(&msh->env, envp);
 //	print_env(msh->env);
@@ -56,9 +55,8 @@ void	ft_minishell(t_shell *msh, char **envp)
 		}
 		pre_exec(tmp, msh);
 
-		print_tokens(msh->lexer);
-//		par_print = msh->parser;		
-		print_parser(msh->parser);
+//		print_tokens(msh->lexer);
+//		print_parser(msh->parser);
 		
 		ft_executer(msh);
 		free_mshell(input, tmp, msh);
