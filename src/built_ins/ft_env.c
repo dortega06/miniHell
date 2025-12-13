@@ -39,4 +39,5 @@ void	ft_env(t_shell *msh)
 	while (msh_env[i])
 		printf("%s\n", msh_env[i++]);
 	msh->exit_status = 0;
+	free_array(msh_env);
 }

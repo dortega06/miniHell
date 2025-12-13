@@ -172,6 +172,7 @@ int	is_double_quoted(char *str);
 /*-------------------------- [ executer ] ------------------------------------*/
 
 void	ft_executer(t_shell *msh);
+void	free_array(char **array);
 char	**env_to_array(t_env *env);
 char	*get_cmd_path(char *cmd, t_env *env);
 char	**split_shell(t_shell *msh, char *str, char c);

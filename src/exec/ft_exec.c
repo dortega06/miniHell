@@ -103,6 +103,7 @@ static void	child_proccess(t_shell *msh)
 	}
 	cmd_path = get_cmd_path(msh->cmd_args[0], msh->env);
 	execve(cmd_path, msh->cmd_args, msh_env);
+	free_array(msh_env);
 	exit(127);
 }
 //  || !ft_isascii(msh->parser->cmd[0])
