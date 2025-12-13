@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 13:25:08 by dortega-          #+#    #+#             */
-/*   Updated: 2025/10/28 15:40:11 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/13 19:14:16 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	free_parser_lst(t_parser **parser)
 {
 	t_parser	*tmp;
 	int			i;
+
 	while (*parser)
 	{
 		tmp = (*parser)->next;

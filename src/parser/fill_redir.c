@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 15:38:07 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/08 16:04:26 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/13 19:29:04 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,10 @@ void	ft_redir_in(t_lexer *tmp, t_parser **cmd_node)
 	fd = open(tmp->next->data, O_RDONLY);
 	if (fd == -1)
 		printf("minishell: %s: %s\n", tmp->next->data, strerror(errno));
-//		printf("minishell: error abriendo %s\n", tmp->next->data);
 	(*cmd_node)->redir_in = fd;
 }
 
-void    ft_redir_out(t_lexer *tmp, t_parser **cmd_node)
+void	ft_redir_out(t_lexer *tmp, t_parser **cmd_node)
 {
 	int	fd;
 
@@ -31,12 +30,11 @@ void    ft_redir_out(t_lexer *tmp, t_parser **cmd_node)
 	if (fd == -1)
 		printf("minishell: %s: %s\n", tmp->next->data, strerror(errno));
 	(*cmd_node)->redir_out = fd;
-
 }
 
-void    ft_append(t_lexer *tmp, t_parser **cmd_node)
+void	ft_append(t_lexer *tmp, t_parser **cmd_node)
 {
-	int fd;
+	int	fd;
 
 	fd = open(tmp->next->data, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
@@ -44,11 +42,16 @@ void    ft_append(t_lexer *tmp, t_parser **cmd_node)
 	(*cmd_node)->redir_out = fd;
 }
 
-void    ft_heardoc(t_lexer *tmp, t_parser **cmd_node)
+void	ft_heardoc(t_lexer *tmp, t_parser **cmd_node, t_shell *msh)
 {
-	int	fd;
+	int		fd;
+	char	*delimiter;
+	int		had_quotes;
 
-	fd = ft_heredoc(tmp->next->data);
+	had_quotes = ft_has_quotes(tmp->next->data);
+	delimiter = ft_remove_quotes(tmp->next->data);
+	fd = ft_heredoc(delimiter, !had_quotes, msh);
+	free(delimiter);
 	(*cmd_node)->redir_in = fd;
 	if (g_signal != S_CANCEL_EXEC)
 		g_signal = S_BASE;

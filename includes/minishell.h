@@ -128,38 +128,32 @@ void	free_token_lst(t_lexer **lexer);
 
 /*--------------------------- [  parser  ] -----------------------------------*/
 
-void	ft_parser(t_parser **parser, t_shell *msh);
-void	ft_index(t_lexer *lex);
-int		ft_count_pipes(t_lexer *lex);
-int		get_last(t_lexer *lex, int start);
+// PARSER
+void    ft_parser(t_parser **parser, t_shell *msh);
+void    ft_fill_node(t_parser **cmd_node, int start, int end, t_shell *msh);
+void    fill_redir(t_parser **cmd_node, int *start, int end, t_shell *msh);
+void    ft_redirect(t_lexer *tmp, t_parser **cmd_node, t_shell *msh);
 
+void	ft_index(t_lexer *lex);
+int	ft_count_pipes(t_lexer *lex);
+int	get_last(t_lexer *lex, int start);
+
+void	fill_cmd(t_lexer *tmp, t_parser **cmd_node);
+int	ft_len_cmd(t_lexer *tmp);
 void	free_parser_lst(t_parser **parser);
 
-/*------------------------- [  fill_node  ] ----------------------------------*/
+// HEREDOC
+void    ft_heardoc(t_lexer *tmp, t_parser **cmd_node, t_shell *msh);
+int     ft_heredoc(char *delimiter, int should_expand, t_shell *msh);
+char    *ft_expand_line(char *line, t_shell *msh);
+int     ft_has_quotes(char *str);
+char    *ft_remove_quotes(char *str);
 
-void	ft_fill_node(t_lexer *lex, t_parser **cmd_node, int start, int end);
-void	ft_redirect(t_lexer *tmp, t_parser **cmd_node);
-void	fill_cmd(t_lexer *tmp, t_parser **cmd_node);
-int		ft_len_cmd(t_lexer *tmp);
-
-/*-------------------------- [  fill_args  ] -----------------------------------*/
-
-int ft_count_args(t_lexer *tmp);
-void fill_args(t_lexer *tmp, t_parser **cmd_node);
-void	ft_redir_in(t_lexer *tmp, t_parser **cmd_node);
+// REDIRECCIONES
+void    ft_redir_in(t_lexer *tmp, t_parser **cmd_node);
 void    ft_redir_out(t_lexer *tmp, t_parser **cmd_node);
 void    ft_append(t_lexer *tmp, t_parser **cmd_node);
-void    ft_heardoc(t_lexer *tmp, t_parser **cmd_node);
-
-/*------------------------- [  fill_utils  ] ---------------------------------*/
-
-void	fill_redir(t_lexer *lex, t_parser **cmd_node, int *start, int end);
-void	ft_memfree(void *ptr);
-
-/*-------------------------- [  heredoc  ] -----------------------------------*/
-
-int		ft_heredoc(char *limit);
-void    ft_heredoc_loop(char *limit, int fd);
+void	process_data(char **data, t_shell *msh);
 
 /*-------------------------- [ treat_quotes ] --------------------------------*/
 
