@@ -18,8 +18,10 @@ void	env_add_var(t_env **env, char *name, char *value)
 	t_env	*tmp;
 
 	new = calloc(1, sizeof(t_env));
-	new->var_name = ft_substr(name, 0, ft_strlen(name));
-	new->var_value = ft_substr(value, 0, ft_strlen(value));
+	new->var_name = ft_strdup(name);
+	new->var_value = ft_strdup(value);
+//	new->var_name = ft_substr(name, 0, ft_strlen(name));
+//	new->var_value = ft_substr(value, 0, ft_strlen(value));
 	new->next = NULL;
 	if (*env == NULL)
 		*env = new;
@@ -36,7 +38,7 @@ void	free_env_lst(t_env **env)
 {
 	t_env	*tmp;
 
-	if (!*env || !(*env))
+	if (!env || !*env)
 		return ;
 	while (*env)
 	{

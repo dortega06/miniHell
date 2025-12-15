@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 16:02:11 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/13 18:02:23 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/15 15:34:04 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,14 @@ void	ft_minishell(t_shell *msh, char **envp)
 		}
 		pre_exec(tmp, msh);
 
-//		print_tokens(msh->lexer);
-//		print_parser(msh->parser);
+		print_tokens(msh->lexer);
+		print_parser(msh->parser);
 		
 		ft_executer(msh);
 		free_mshell(input, tmp, msh);
 	}
 	free_env_lst(&msh->env);
+	rl_clear_history();
 }
 
 int	main(int argc, char **argv, char **envp)

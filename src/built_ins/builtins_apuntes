@@ -14,3 +14,67 @@
 # export (sin opciones) --> exporta variables de entorno
  --> export_utils.c
 # unset (sin opciones) --> elimina variables de entorno especificas
+
+// ## EXPORT ## //
+
+HAY EXPANSION DE VARS
+TIENE ORDEN alfabetico???
+
+export sin args
+--> lista de variables exportdas y sus valores
+	--> declare -x VAR="valor"
+		declare -x HOME="/home/juan"
+		declare -x PATH="/usr/bin"
+		declare -x USER="juan"
+	
+export con var ya existente
+--> no hace nada
+
+export normal
+--> VAR=valor
+--> VAR="un valor"
+
+exportar varias vars
+--> export VAR1 VAR2 VAR3
+--> export VAR1=1 VAR2=2 VAR3=3
+--> export VAR1=2 VAR2=2 VAR3
+
+export sin nada
+--> VAR=
+--> VAR=""
+
+## VARIABLES ##
+
+Identificador válido cumple:
+--> Empieza con letra o _
+--> Continúa con letras, números o _
+
+VAR
+_var
+VAR123
+
+Identificador inválido:
+--> Empieza con número
+--> Contiene -, espacios, =, etc.
+
+1VAR
+MI-VAR
+VAR$X
+VAR=1=2
+
+## VALORES ##
+
+Validos:
+
+export VAR=hola
+export VAR="hola mundo"
+export VAR='hola mundo'
+export VAR="$HOME"
+export VAR=
+export VAR
+export VAR=$(date)
+
+Invalidos:
+
+export VAR = valor
+

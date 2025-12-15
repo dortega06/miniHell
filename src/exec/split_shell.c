@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:08:17 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/12 13:27:08 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/15 17:32:48 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	num_of_words(char *str, char c)
 	return (words);
 }
 
-static char	**trim_quotes(char **array)
+/*static char	**trim_quotes(char **array)
 {
 	char	*tmp;
 	int		i;
@@ -102,7 +102,7 @@ static char	**trim_quotes(char **array)
 		i++;
 	}
 	return (array);
-}
+}*/
 
 // char	*ft_substr(const char *s, unsigned int start, size_t len)
 char	**split_shell(t_shell *msh, char *str, char c)//t_shell *msh
@@ -118,14 +118,14 @@ char	**split_shell(t_shell *msh, char *str, char c)//t_shell *msh
 	split = malloc(sizeof(char *) * (num_of_words(str, c) + 1));
 	while (str[i])
 	{
-		while (ft_isspace(str[i]) && str[i++])
+		if (ft_isspace(str[i]) && str[i++])
 			start++;
 		is_word(str, c, &i);
 		split[word++] = ft_substr(str, start, i - start);
 		start = i;
 	}
 	split[word] = NULL;
-	trim_quotes(split);
+//	trim_quotes(split);
 	msh->count_cmd_args = word;
 	return (split);
 }
