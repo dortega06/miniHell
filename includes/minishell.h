@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:01:04 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/13 18:02:19 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/16 15:59:51 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ extern int	g_signal;
 # define ERR_PIPE "minishell: failed to open pipe"
 # define ERR_FORK "minishell: fork failed"
 # define ERR_CMD "minishell: command not found"
+# define ERR_EXP "': not a valid identifier"
 
 # define READLINE_MSG "\033[1;36mminishell\033[34m$> \033[0m"
 # define HEREDOC_MSG "\033[1;34m> \033[0m" // @return >
@@ -177,6 +178,8 @@ int		is_builtin(t_shell *msh);
 void	ft_builtins(t_shell *msh);
 void    ft_env(t_shell *msh);
 void	ft_export(t_shell *msh);
+void	print_declared_vars(t_shell *msh);
+void	ft_unset(t_shell *msh);
 
 /*-------------------------- [ env_utils ] -----------------------------------*/
 
@@ -187,7 +190,7 @@ void	mshell_lvl(t_env **env);
 void	env_add_var(t_env **env, char *name, char *value);
 void	free_env_lst(t_env **env);
 
-/*-------------------------- [ test_print_msh ] -------------------------------*/
+/*-------------------------- [ print_test_msh ] -------------------------------*/
 
 void	print_array(char **array);
 void	print_env(t_env *env);

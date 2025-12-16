@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:08:17 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/15 17:32:48 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/16 14:41:22 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	is_word(char *str, char c, int *i)
 			*i = j;
 			return ;
 		}
-		if (str[*i] == c)
+		if (str[*i] == c)// && str[*i - 1] != '=')// && !ft_isquote(str[*i + 1]))// ?????
 			return;
 //		printf("%d words: %d %c\n", i, words, str[i]);
 		*i = *i + 1;
@@ -81,7 +81,7 @@ int	num_of_words(char *str, char c)
 	return (words);
 }
 
-/*static char	**trim_quotes(char **array)
+static char	**trim_quotes(char **array)
 {
 	char	*tmp;
 	int		i;
@@ -102,7 +102,7 @@ int	num_of_words(char *str, char c)
 		i++;
 	}
 	return (array);
-}*/
+}
 
 // char	*ft_substr(const char *s, unsigned int start, size_t len)
 char	**split_shell(t_shell *msh, char *str, char c)//t_shell *msh
@@ -125,7 +125,7 @@ char	**split_shell(t_shell *msh, char *str, char c)//t_shell *msh
 		start = i;
 	}
 	split[word] = NULL;
-//	trim_quotes(split);
+	trim_quotes(split);
 	msh->count_cmd_args = word;
 	return (split);
 }

@@ -6,7 +6,7 @@
 #    By: diespino <diespino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 14:04:02 by diespino          #+#    #+#              #
-#    Updated: 2025/12/12 15:06:08 by diespino         ###   ########.fr        #
+#    Updated: 2025/12/16 16:00:22 by diespino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,9 @@ EXEC		= $(EXEC_PATH)/ft_exec.c\
 BUILTIN_PATH	= built_ins
 BUILTIN		= $(BUILTIN_PATH)/builtins.c\
 		  $(BUILTIN_PATH)/ft_env.c\
-		  $(BUILTIN_PATH)/ft_export.c
+		  $(BUILTIN_PATH)/ft_export.c\
+		  $(BUILTIN_PATH)/export_utils.c\
+		  $(BUILTIN_PATH)/ft_unset.c
 
 
 UTILS_PATH	= utils

@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:15:25 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/13 19:32:48 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/16 14:57:55 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,11 @@ void	fill_cmd(t_lexer *tmp, t_parser **cmd_node)
 		if (!first)
 			ft_strlcat((*cmd_node)->cmd, " ", len);
 		ft_strlcat((*cmd_node)->cmd, tmp->data, len);
-		first = 0;
+		if (tmp->type == T_GENERAL && tmp->next && \
+				ft_isquote(tmp->next->data[0]))
+			first = 1;
+		else
+			first = 0;
 		tmp = tmp->next;
 	}
 }

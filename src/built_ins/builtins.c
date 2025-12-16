@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 16:01:43 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/13 15:12:46 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/16 11:55:38 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,6 @@ void	ft_builtins(t_shell *msh)
 		ft_env(msh);
 	else if (ft_strcmp(msh->cmd_args[0], "export") == 0)
 		ft_export(msh);
+	else if (ft_strcmp(msh->cmd_args[0], "unset") == 0)
+		ft_unset(msh);
 }
