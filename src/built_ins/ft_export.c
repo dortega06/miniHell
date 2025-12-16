@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 15:27:08 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/15 17:41:55 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/16 09:22:35 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,15 +141,17 @@ void	proccess_data(t_shell *msh)
 	while (tmp[++i])
 		printf("%s\n", tmp[i]);
 	name = tmp[0];
-	if (msh->count_cmd_args == 2)
+	if (msh->count_cmd_args == 2 && tmp[1] != NULL)
 		value = tmp[1];
 	else if (msh->count_cmd_args > 2)
 	{
 		if (ft_isquote(msh->cmd_args[2][0]))
 			value = ft_strtrim(msh->cmd_args[2], "\'\"");
-		else
-			value = "\0";
+//		else
+//			value = "\0";
 	}
+	else
+		value = "\0";
 	printf("NAME: %s\n", name);
 	printf("VALUE: %s\n", value);
 	env_add_var(&msh->env, name, value);
@@ -158,6 +160,9 @@ void	proccess_data(t_shell *msh)
 
 void	ft_export(t_shell *msh)
 {
+	int	i;
+
+	msh->exit_status = 0;
 	if (msh->count_cmd_args == 1)
 		print_declared_vars(msh);
 	else
@@ -165,7 +170,13 @@ void	ft_export(t_shell *msh)
 		if (check_export_args(msh))
 			proccess_data(msh);
 		else
-			printf("EXPORT ARGs ERROR\n");
+		{
+			printf("minishell: export: `");
+			i = 1;
+			while (msh->cmd_args[i])
+				printf("%s", msh->cmd_args[i++]);
+			printf("': not a valid identifier\n");
+			msh->exit_status = 1;
+		}
 	}
-	msh->exit_status = 0;
 }
