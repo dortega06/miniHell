@@ -39,4 +39,11 @@ void	ft_builtins(t_shell *msh)
 		ft_export(msh);
 	else if (ft_strcmp(msh->cmd_args[0], "unset") == 0)
 		ft_unset(msh);
+
+	//else if (ft_strcmp(msh->cmd_args[0], "cd") == 0)
+	//	ft_cd();
+	else if (ft_strcmp(msh->cmd_args[0], "pwd") == 0)
+		ft_pwd();
+	else if (ft_strcmp(msh->cmd_args[0], "exit") == 0)
+		ft_exit_built(msh);
 }

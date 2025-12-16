@@ -43,7 +43,9 @@ BUILTIN		= $(BUILTIN_PATH)/builtins.c\
 		  $(BUILTIN_PATH)/ft_env.c\
 		  $(BUILTIN_PATH)/ft_export.c\
 		  $(BUILTIN_PATH)/export_utils.c\
-		  $(BUILTIN_PATH)/ft_unset.c
+		  $(BUILTIN_PATH)/ft_unset.c\
+		  $(BUILTIN_PATH)/ft_exit.c\
+		  $(BUILTIN_PATH)/ft_pwd.c
 
 
 UTILS_PATH	= utils

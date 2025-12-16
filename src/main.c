@@ -47,12 +47,12 @@ void	ft_minishell(t_shell *msh, char **envp)
 		tmp = ft_strtrim(input, " \t\n\v\f\r");
 		if (tmp && tmp[0] != '\0')
 			add_history(tmp);
-		if (!ft_strcmp(tmp, "exit"))
+		/*if (!ft_strcmp(tmp, "exit"))
 		{
 			free(tmp);
 			free(input);
 			break ;
-		}
+		}*/
 		pre_exec(tmp, msh);
 
 		print_tokens(msh->lexer);
