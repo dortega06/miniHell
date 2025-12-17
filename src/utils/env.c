@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 08:58:36 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/04 09:34:07 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/16 11:03:32 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,18 @@ void	mshell_lvl(t_env **env)
 {
 	t_env	*tmp;
 	int		lvl;
+	char	*value;
 
 	tmp = *env;
+	lvl = 1;
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->var_name, "SHLVL"))
 		{
-			lvl = ft_atoi(tmp->var_value);
-			lvl += 1;
-			free(tmp->var_value);
-			tmp->var_value = ft_itoa(lvl);
+			lvl += ft_atoi(tmp->var_value);
+			value = ft_itoa(lvl);
+			env_add_var(env, "SHLVL", value);
+			free(value);
 			return ;
 		}
 		tmp = tmp->next;

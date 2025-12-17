@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/20 16:02:11 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/15 19:31:31 by dortega-         ###   ########.fr       */
+/*   Created: 2025/12/17 10:53:49 by dortega-          #+#    #+#             */
+/*   Updated: 2025/12/17 10:53:52 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ void	ft_minishell(t_shell *msh, char **envp)
 		tmp = ft_strtrim(input, " \t\n\v\f\r");
 		if (tmp && tmp[0] != '\0')
 			add_history(tmp);
-		if (!ft_strcmp(tmp, "exit"))
+		/*if (!ft_strcmp(tmp, "exit"))
 		{
 			free(tmp);
 			free(input);
 			break ;
-		}
+		}*/
 		pre_exec(tmp, msh);
 
 //		print_tokens(msh->lexer);
