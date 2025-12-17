@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 10:54:06 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/17 11:39:29 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/17 11:56:17 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ void	print_declared_vars(t_shell *msh);
 void	ft_unset(t_shell *msh);
 int		ft_pwd(void);
 void	ft_echo(t_shell *msh);
+void	ft_exit_built(t_shell *msh);
 /*-------------------------- [ env_utils ] -----------------------------------*/
 
 void	env_init(t_env **env, char **envp);

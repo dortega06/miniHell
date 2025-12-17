@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 16:01:43 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/17 11:37:38 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/17 11:54:34 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	ft_builtins(t_shell *msh)
 	//	ft_cd();
 	else if (ft_strcmp(msh->cmd_args[0], "pwd") == 0)
 		ft_pwd();
-//	else if (ft_strcmp(msh->cmd_args[0], "exit") == 0)
-//		ft_exit_built(msh);
+	else if (ft_strcmp(msh->cmd_args[0], "exit") == 0)
+		ft_exit_built(msh);
 	else if (ft_strcmp(msh->cmd_args[0], "echo") == 0)
 		ft_echo(msh);
 }
