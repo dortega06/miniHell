@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:08:17 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/16 14:41:22 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/17 19:01:16 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,37 @@ void	find_quote(char *str, int *i)
 //	j = 0;
 	quote = str[*i];
 //	printf("QUOTES");
-	*i = *i + 1;
+	(*i)++;
 	while (str[*i] && str[*i] != quote)
 	{
 //		x = *i;
 //		printf("  QUOTES %d %c\n", j++, str[x]);
-		*i = *i + 1;
+		(*i)++;
 	}
-	*i = *i + 1;
+	if (str[*i] == quote)
+		(*i)++;
 }
 
 void	is_word(char *str, char c, int *i)
 {
-	int	j;
+//	int	j;
 	
-	while (str[*i])
+	while (str[*i] && str[*i] != c)
 	{
-		if (ft_isquote(str[*i]))
+/*		if (ft_isquote(str[*i]))
 		{
 			j = *i;
 			find_quote(str, &j);
 			*i = j;
 			return ;
 		}
-		if (str[*i] == c)// && str[*i - 1] != '=')// && !ft_isquote(str[*i + 1]))// ?????
+		if (str[*i] == c)
 			return;
-//		printf("%d words: %d %c\n", i, words, str[i]);
-		*i = *i + 1;
+		*i = *i + 1;*/
+		if (ft_isquote(str[*i]))
+			find_quote(str, i);
+		else
+			(*i)++;
 	}
 }
 
@@ -118,11 +122,17 @@ char	**split_shell(t_shell *msh, char *str, char c)//t_shell *msh
 	split = malloc(sizeof(char *) * (num_of_words(str, c) + 1));
 	while (str[i])
 	{
-		if (ft_isspace(str[i]) && str[i++])
+/*		if (ft_isspace(str[i]) && str[i++])
 			start++;
 		is_word(str, c, &i);
 		split[word++] = ft_substr(str, start, i - start);
+		start = i;*/
+		while (str[i] && ft_isspace(str[i]))
+			i++;
 		start = i;
+		is_word(str, c, &i);
+		if (start < i)
+			split[word++] = ft_substr(str, start, i - start);
 	}
 	split[word] = NULL;
 	trim_quotes(split);

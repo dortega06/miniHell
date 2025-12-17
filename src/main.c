@@ -55,8 +55,8 @@ void	ft_minishell(t_shell *msh, char **envp)
 		}*/
 		pre_exec(tmp, msh);
 
-//		print_tokens(msh->lexer);
-//		print_parser(msh->parser);
+		print_tokens(msh->lexer);
+		print_parser(msh->parser);
 		
 		ft_executer(msh);
 		free_mshell(input, tmp, msh);

@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 15:27:08 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/16 16:01:32 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/17 14:00:42 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	proccess_data(t_shell *msh, char *var)
 	printf("  NAME: %s\n", name);
 	printf("  VALUE: %s\n", value);
 	env_add_var(&msh->env, name, value);
+//	printf("SE CREO\n");
 	free_array(tmp);
 }
 

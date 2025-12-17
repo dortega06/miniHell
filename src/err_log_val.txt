@@ -1,0 +1,66 @@
+==1019721== Memcheck, a memory error detector
+==1019721== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1019721== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1019721== Command: ./minishell
+==1019721== Parent PID: 1007059
+==1019721== 
+==1019721== Invalid write of size 8
+==1019721==    at 0x10BE9E: split_shell (in /home/diespino/Desktop/miniHell_git/src/minishell)
+==1019721==    by 0x10B6F6: ft_executer (in /home/diespino/Desktop/miniHell_git/src/minishell)
+==1019721==    by 0x109555: ft_minishell (in /home/diespino/Desktop/miniHell_git/src/minishell)
+==1019721==    by 0x1095F6: main (in /home/diespino/Desktop/miniHell_git/src/minishell)
+==1019721==  Address 0x4b694a0 is 0 bytes after a block of size 32 alloc'd
+==1019721==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1019721==    by 0x10BE0D: split_shell (in /home/diespino/Desktop/miniHell_git/src/minishell)
+==1019721==    by 0x10B6F6: ft_executer (in /home/diespino/Desktop/miniHell_git/src/minishell)
+==1019721==    by 0x109555: ft_minishell (in /home/diespino/Desktop/miniHell_git/src/minishell)
+==1019721==    by 0x1095F6: main (in /home/diespino/Desktop/miniHell_git/src/minishell)
+==1019721== 
+
+valgrind: m_mallocfree.c:303 (get_bszB_as_is): Assertion 'bszB_lo == bszB_hi' failed.
+valgrind: Heap block lo/hi size mismatch: lo = 96, hi = 79075088.
+This is probably caused by your program erroneously writing past the
+end of a heap block and corrupting heap metadata.  If you fix any
+invalid writes reported by Memcheck, this assertion failure will
+probably go away.  Please try that before reporting this as a bug.
+
+
+host stacktrace:
+==1019721==    at 0x5804284A: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==1019721==    by 0x58042977: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==1019721==    by 0x58042B1B: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==1019721==    by 0x5804C8CF: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==1019721==    by 0x5803AE9A: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==1019721==    by 0x580395B7: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==1019721==    by 0x5803DF3D: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==1019721==    by 0x58038868: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==1019721==    by 0x1002EFFFE2: ???
+==1019721==    by 0x1002CADF2F: ???
+==1019721==    by 0x581FCD83: ??? (in /usr/libexec/valgrind/memcheck-amd64-linux)
+==1019721==    by 0x1002CADF17: ???
+==1019721==    by 0x1002CADF2F: ???
+
+sched status:
+  running_tid=1
+
+Thread 1: status = VgTs_Runnable (lwpid 1019721)
+==1019721==    at 0x10BED3: split_shell (in /home/diespino/Desktop/miniHell_git/src/minishell)
+==1019721==    by 0x10B6F6: ft_executer (in /home/diespino/Desktop/miniHell_git/src/minishell)
+==1019721==    by 0x109555: ft_minishell (in /home/diespino/Desktop/miniHell_git/src/minishell)
+==1019721==    by 0x1095F6: main (in /home/diespino/Desktop/miniHell_git/src/minishell)
+client stack range: [0x1FFEFE6000 0x1FFF000FFF] client SP: 0x1FFEFFFBC0
+valgrind stack range: [0x1002BAE000 0x1002CADFFF] top usage: 18744 of 1048576
+
+
+Note: see also the FAQ in the source distribution.
+It contains workarounds to several common problems.
+In particular, if Valgrind aborted or crashed after
+identifying problems in your program, there's a good chance
+that fixing those problems will prevent Valgrind aborting or
+crashing, especially if it happened in m_mallocfree.c.
+
+If that doesn't help, please report this bug to: www.valgrind.org
+
+In the bug report, send all the above text, the valgrind
+version, and what OS and version you are using.  Thanks.
+

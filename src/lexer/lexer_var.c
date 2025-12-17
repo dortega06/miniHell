@@ -84,6 +84,7 @@ void	process_data(char **data, t_shell *msh)
 	tail = ft_substr((*data), i, ft_strlen((*data)) - i);
 	expand_var(&var, msh);
 	free(*data);
+	printf("HEAD: %s\nVAR: %s\nTAIL: %s\n", head, var, tail);
 	*data = concat_new_var(head, var, tail);
 	free(head);
 	free(var);
