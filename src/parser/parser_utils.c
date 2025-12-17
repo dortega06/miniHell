@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 13:25:08 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/13 19:14:16 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/15 17:41:48 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,22 @@
 void	free_parser_lst(t_parser **parser)
 {
 	t_parser	*tmp;
-	int			i;
+	t_parser	*next;
 
-	while (*parser)
+	if (!parser || !*parser)
+		return ;
+	tmp = *parser;
+	while (tmp)
 	{
-		tmp = (*parser)->next;
-		if ((*parser)->args)
-		{
-			i = 0;
-			while ((*parser)->args[i])
-			{
-				free((*parser)->args[i]);
-				i++;
-			}
-			free((*parser)->args);
-		}
-		ft_memfree((*parser)->cmd);
-		ft_memfree(*parser);
-		*parser = tmp;
+		next = tmp->next;
+		if (tmp->cmd)
+			free(tmp->cmd);
+		if (tmp->redir_in != STDIN_FILENO)
+			close(tmp->redir_in);
+		if (tmp->redir_out != STDOUT_FILENO)
+			close(tmp->redir_out);
+		free(tmp);
+		tmp = next;
 	}
 	*parser = NULL;
 }
