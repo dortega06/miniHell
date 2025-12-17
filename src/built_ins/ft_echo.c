@@ -13,65 +13,35 @@
 #include "../../includes/minishell.h"
 #include <stdlib.h>
 
-static char	*str_quotes(char *str)
-{
-	int		i;
-	int		j;
-	char	*new;
-
-	if (!str)
-		return (NULL);
-	new = malloc(sizeof(char) * (ft_strlen(str) + 1));
-	if (!new)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (str[i] != '\'' && str[i] != '"')
-			new[j++] = str[i];
-		i++;
-	}
-	new[j] = '\0';
-	return (new);
-}
-
 static int	is_flag_n(char *str)
 {
-	int		i;
-	char	*tmp;
+int	i;
 
-	i = 0;
-	tmp = str_quotes(str);
-	if (!tmp)
+	if (!str || str[0] != '-')
 		return (0);
-	if (tmp[i++] != '-')
+	i = 1;
+	// Si después del '-' no hay nada, no es un flag válido
+	if (str[i] == '\0')
 		return (0);
-	while (tmp[i] == 'n')
+	// Recorremos todas las 'n'
+	while (str[i] == 'n')
 		i++;
-	if (tmp[i] != '\0')
-	{
-		free(tmp);
-		return (0);
-	}
-	free(tmp);
-	return (1);
+	// Si llegamos al final del string, es un flag -n válido
+	if (str[i] == '\0')
+		return (1);
+	return (0);
 }
 
 static void	print_echo_args(t_shell *msh, int i)
 {
-	char	*arg;
-
 	while (msh->cmd_args[i])
 	{
-		arg = str_quotes(msh->cmd_args[i]);
-		if (arg)
-		{
-			ft_putstr_fd(arg, msh->parser->redir_out);
-			free(arg);
-		}
+		ft_putstr_fd(msh->cmd_args[i], msh->parser->redir_out);
+		
+		// Si existe un siguiente argumento, imprimimos el espacio separador
 		if (msh->cmd_args[i + 1])
 			ft_putchar_fd(' ', msh->parser->redir_out);
+		
 		i++;
 	}
 }
