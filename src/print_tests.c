@@ -40,37 +40,37 @@ void	print_tokens(t_lexer *lexer)
 	while (lexer != NULL)
 	{
 		if (lexer->type == T_GENERAL)
-			printf("%d | T_GENERAL   | type=%d | %s\n", 
+			printf("%d | T_GENERAL   | type=%d | [%s]\n", 
 					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_CMD)
-			printf("%d | T_CMD       | type=%d | %s\n", 
+			printf("%d | T_CMD       | type=%d | [%s]\n", 
 					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_PIPE)
-			printf("%d | T_PIPE      | type=%d | %s\n", 
+			printf("%d | T_PIPE      | type=%d | [%s]\n", 
 					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_REDIR_IN)
-			printf("%d | T_REDIR_IN  | type=%d | %s\n", 
+			printf("%d | T_REDIR_IN  | type=%d | [%s]\n", 
 					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_INFILE)
-			printf("%d | T_INFILE    | type=%d | %s\n", 
+			printf("%d | T_INFILE    | type=%d | [%s]\n", 
 					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_HEREDOC)
-			printf("%d | T_HEREDOC   | type=%d | %s\n", 
+			printf("%d | T_HEREDOC   | type=%d | [%s]\n", 
 					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_LIMITER)
-			printf("%d | T_LIMITER   | type=%d | %s\n", 
+			printf("%d | T_LIMITER   | type=%d | [%s]\n", 
 					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_REDIR_OUT)
-			printf("%d | T_REDIR_OUT | type=%d | %s\n", 
+			printf("%d | T_REDIR_OUT | type=%d | [%s]\n", 
 					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_OUTFILE)
-			printf("%d | T_OUTFILE   | type=%d | %s\n", 
+			printf("%d | T_OUTFILE   | type=%d | [%s]\n", 
 					lexer->index, lexer->type, lexer->data);
 		else if (lexer->type == T_APPEND)
-			printf("%d | T_APPEND    | type=%d | %s\n", 
+			printf("%d | T_APPEND    | type=%d | [%s]\n", 
 					lexer->index, lexer->type, lexer->data);
 		else
-			printf("%d | type=%d | %s\n", 
+			printf("%d | type=%d | [%s]\n", 
 					lexer->index, lexer->type, lexer->data);
 		lexer = lexer->next;
 	}
@@ -88,7 +88,7 @@ void print_parser(t_parser *parser)
         printf("Node %d:\n", i++);
         
         if (tmp->cmd)
-            printf("   cmd:        %s\n", tmp->cmd);
+            printf("   cmd:        [%s]\n", tmp->cmd);
         else
             printf("   cmd:        (null)\n");
 

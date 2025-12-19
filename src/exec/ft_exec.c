@@ -6,8 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 10:31:08 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/17 11:36:13 by dortega-         ###   ########.fr       */
-/*   Updated: 2025/12/16 16:04:44 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/18 18:01:00 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +120,12 @@ void	ft_executer(t_shell *msh)
 			return ;
 		}
 		msh->cmd_args = split_shell(msh, msh->parser->cmd, ' ');
+//		msh->cmd_args = ft_split(msh->parser->cmd, ' ');
 		printf("\nCMD && ARGs: %d\n", msh->count_cmd_args);
 		print_array(msh->cmd_args);
 		if (is_builtin(msh))
 /**/		{
-//			printf("IS_BUILT-IN (ft_executer)\n");
+			printf("IS_BUILT-IN (ft_executer)\n");
 			ft_builtins(msh);
 		}
 		else

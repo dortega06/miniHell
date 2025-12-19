@@ -52,10 +52,12 @@ void	ft_lexer(char *input, t_lexer **lexer, int *exit_status)
 	int	type;
 
 	i = 0;
+	while (ft_isspace(input[i]))
+		i++;
 	while (input[i])
 	{
-		while (ft_isspace(input[i]))
-			i++;
+//		while (ft_isspace(input[i]))
+//			i++;
 		type = get_type(input, i);
 		if (type != T_GENERAL)
 			treat_special(input, lexer, &i, type);

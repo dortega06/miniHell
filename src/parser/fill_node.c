@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:15:25 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/16 14:57:55 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/19 12:23:27 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	fill_cmd(t_lexer *tmp, t_parser **cmd_node)
 {
 	int	len;
 	int	first;
+	char	*trim;
 
 	len = ft_len_cmd(tmp);
 	first = 1;
@@ -72,12 +73,17 @@ void	fill_cmd(t_lexer *tmp, t_parser **cmd_node)
 	{
 		if (!first)
 			ft_strlcat((*cmd_node)->cmd, " ", len);
-		ft_strlcat((*cmd_node)->cmd, tmp->data, len);
-		if (tmp->type == T_GENERAL && tmp->next && \
-				ft_isquote(tmp->next->data[0]))
-			first = 1;
+		if (tmp->data[0] == '\"')
+			trim = ft_strtrim(tmp->data, "\"");
 		else
-			first = 0;
+			trim = ft_strtrim(tmp->data, "\'");
+		ft_strlcat((*cmd_node)->cmd, trim, len);
+/*		if (tmp->type == T_GENERAL && tmp->next && \
+//				ft_isquote(tmp->next->data[0]))*/
+//			first = 1;
+//		else
+//			first = 0;
+		free(trim);
 		tmp = tmp->next;
 	}
 }

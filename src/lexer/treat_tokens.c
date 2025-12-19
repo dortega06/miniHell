@@ -59,6 +59,8 @@ void	treat_general(char *input, t_lexer **lexer, int *i)
 	while (input[j] && !ft_isspace(input[j]) && !ft_isquote(input[j]) && \
 			get_type(input, j) == T_GENERAL)
 		j++;
+	while (ft_isspace(input[j]))
+		j++;
 	lexer_add_token(input, lexer, i, j - (*i));
 	(*i) = j;
 }
