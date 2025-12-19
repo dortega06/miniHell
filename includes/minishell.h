@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 10:54:06 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/17 11:56:17 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/19 15:18:58 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ void	free_array(char **array);
 char	**env_to_array(t_env *env);
 char	*get_cmd_path(char *cmd, t_env *env);
 char	**split_shell(t_shell *msh, char *str, char c);
+char	*trim_quotes(char *array);
 
 /*-------------------------- [ built-ins ] ------------------------------------*/
 
@@ -183,6 +184,7 @@ void	ft_unset(t_shell *msh);
 int		ft_pwd(void);
 void	ft_echo(t_shell *msh);
 void	ft_exit_built(t_shell *msh);
+
 /*-------------------------- [ env_utils ] -----------------------------------*/
 
 void	env_init(t_env **env, char **envp);

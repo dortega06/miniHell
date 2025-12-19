@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 15:27:08 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/17 14:00:42 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/19 14:58:33 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	proccess_data(t_shell *msh, char *var)
 //	tmp[0]= JUAN // tmp[1]= hola
 	name = ft_strdup(tmp[0]);
 	if (tmp[1] != NULL)
-		value = ft_strtrim(tmp[1], "\'\"");
+		value = trim_quotes(tmp[1]);
 	else
 		value = "\0";
 	printf("  NAME: %s\n", name);
@@ -75,6 +75,7 @@ void	proccess_data(t_shell *msh, char *var)
 void	ft_export(t_shell *msh)
 {
 	int	i;
+	char	*tmp;
 
 	msh->exit_status = 0;
 	if (msh->count_cmd_args == 1)
@@ -88,9 +89,11 @@ void	ft_export(t_shell *msh)
 				proccess_data(msh, msh->cmd_args[i]);
 			else
 			{
+				tmp = trim_quotes(msh->cmd_args[i]);
 				printf("minishell: export: `%s%s\n", \
 						msh->cmd_args[i], ERR_EXP);
 				msh->exit_status = 1;
+				free(tmp);
 				return ;
 			}
 			i++;

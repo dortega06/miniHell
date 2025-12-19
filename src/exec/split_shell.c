@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:08:17 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/18 17:36:07 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/19 15:12:04 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@
 void	find_quote(char *str, int *i)
 {
 	char	quote;
-	int		j;
-	int		x;
+//	int		j;
+//	int		x;
 
-	j = 0;
+//	j = 0;
 	quote = str[*i];
 //	printf("QUOTES\n");
-//	(*i)++;
+	(*i)++;
 	while (str[*i] && str[*i] != quote)
 	{
-		x = *i;
-		printf("---QUOTES %d %c\n", j++, str[x]);
+//		x = *i;
+//		printf("---QUOTES %d %c\n", j++, str[x]);
 		(*i)++;
 	}
 	if (str[*i] == quote)
@@ -39,13 +39,13 @@ void	find_quote(char *str, int *i)
 
 void	is_word(char *str, char c, int *i)
 {
-	int	j = 0;
-	int	x = 0;
+//	int	j = 0;
+//	int	x = 0;
 	
 	while (str[*i] && str[*i] != c)
 	{
-		x = *i;
-		printf("IS_WORD %d %c\n", j++, str[x]);
+//		x = *i;
+//		printf("IS_WORD %d %c\n", j++, str[x]);
 		if (ft_isquote(str[*i]))
 			find_quote(str, i);
 		else
@@ -78,28 +78,28 @@ int	num_of_words(char *str, char c)
 	return (words);
 }
 
-/*char	**trim_quotes(char **array)
+char	*trim_quotes(char *array)
 {
 	char	*tmp;
-	int		i;
+//	int		i;
 
-	i = 0;
-	while (array[i])
-	{
-		if (ft_isquote(array[i][0]))
+//	i = 0;
+//	while (array[i])
+//	{
+		if (ft_isquote(array[0]))
 		{
-			if(array[i][0] == '\"')
-				tmp = ft_strtrim(array[i], "\"");
+			if(array[0] == '\"')
+				tmp = ft_strtrim(array, "\"");
 			else
-				tmp = ft_strtrim(array[i], "\'");
-			free(array[i]);
-			array[i] = ft_strdup(tmp);
+				tmp = ft_strtrim(array, "\'");
+			free(array);
+			array = ft_strdup(tmp);
 			free(tmp);
 		}
-		i++;
-	}
+//		i++;
+//	}
 	return (array);
-}*/
+}
 
 // char	*ft_substr(const char *s, unsigned int start, size_t len)
 char	**split_shell(t_shell *msh, char *str, char c)//t_shell *msh
@@ -118,14 +118,14 @@ char	**split_shell(t_shell *msh, char *str, char c)//t_shell *msh
 		while (str[i] && ft_isspace(str[i]))
 			i++;
 		start = i;
-		printf("1 | I: %d C:%c\n", i, str[i]);
+//		printf("1 | I: %d C:%c\n", i, str[i]);
 		is_word(str, c, &i);
-		printf("2 | I: %d C:%c\n", i, str[i]);
+//		printf("2 | I: %d C:%c\n", i, str[i]);
 		if (start < i)
 			split[word++] = ft_substr(str, start, i - start);
 	}
 	split[word] = NULL;
-	print_array(split);
+//	print_array(split);
 //	trim_quotes(split);
 	msh->count_cmd_args = word;
 	return (split);
