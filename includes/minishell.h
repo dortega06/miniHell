@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 10:54:06 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/19 15:18:58 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/19 16:23:30 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ void	free_array(char **array);
 char	**env_to_array(t_env *env);
 char	*get_cmd_path(char *cmd, t_env *env);
 char	**split_shell(t_shell *msh, char *str, char c);
-char	*trim_quotes(char *array);
+char	*trim_quotes(char *str);
 
 /*-------------------------- [ built-ins ] ------------------------------------*/
 

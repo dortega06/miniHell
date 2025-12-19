@@ -64,11 +64,13 @@ void	proccess_data(t_shell *msh, char *var)
 	if (tmp[1] != NULL)
 		value = trim_quotes(tmp[1]);
 	else
-		value = "\0";
+		value = ft_strdup("");
 	printf("  NAME: %s\n", name);
 	printf("  VALUE: %s\n", value);
 	env_add_var(&msh->env, name, value);
 //	printf("SE CREO\n");
+	free(name);
+	free(value);
 	free_array(tmp);
 }
 

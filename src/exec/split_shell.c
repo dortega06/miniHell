@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:08:17 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/19 15:12:04 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/19 16:23:05 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	num_of_words(char *str, char c)
 	return (words);
 }
 
-char	*trim_quotes(char *array)
+char	*trim_quotes(char *str)
 {
 	char	*tmp;
 //	int		i;
@@ -86,19 +86,17 @@ char	*trim_quotes(char *array)
 //	i = 0;
 //	while (array[i])
 //	{
-		if (ft_isquote(array[0]))
+		if (ft_isquote(str[0]))
 		{
-			if(array[0] == '\"')
-				tmp = ft_strtrim(array, "\"");
+			if(str[0] == '\"')
+				tmp = ft_strtrim(str, "\"");
 			else
-				tmp = ft_strtrim(array, "\'");
-			free(array);
-			array = ft_strdup(tmp);
-			free(tmp);
+				tmp = ft_strtrim(str, "\'");
+			return (tmp);
 		}
 //		i++;
 //	}
-	return (array);
+	return (ft_strdup(str));
 }
 
 // char	*ft_substr(const char *s, unsigned int start, size_t len)

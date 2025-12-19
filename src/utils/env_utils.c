@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 13:51:50 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/16 11:38:33 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/19 16:46:57 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ void	env_add_var(t_env **env, char *name, char *value)
 	t_env	*tmp;
 
 	if (!replace_value(env, name, value))
+	{
 		return ;
+	}
 	new = calloc(1, sizeof(t_env));
 	new->var_name = ft_strdup(name);
 	new->var_value = ft_strdup(value);

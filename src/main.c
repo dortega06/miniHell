@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 10:53:49 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/17 10:53:52 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/19 18:19:51 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,18 @@ void	ft_minishell(t_shell *msh, char **envp)
 		if (!input)
 			break ;
 		tmp = ft_strtrim(input, " \t\n\v\f\r");
-		if (tmp && tmp[0] != '\0')
-			add_history(tmp);
-		/*if (!ft_strcmp(tmp, "exit"))
+		if (!tmp || tmp[0] == '\0')
 		{
-			free(tmp);
-			free(input);
+			free_mshell(input, tmp, msh);
+			continue ;
+		}
+			
+		add_history(tmp);
+/*		if (!ft_strcmp(tmp, "exit"))
+		{
+			free_mshell(input, tmp, msh);
 			break ;
-		}*/
+//		}*/
 		pre_exec(tmp, msh);
 
 		print_tokens(msh->lexer);
