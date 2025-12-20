@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 10:54:06 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/19 16:23:30 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/20 17:02:33 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ typedef enum e_signal
 	S_SIGINT_CMD,  // Ctrl + C en medio de una comando
 	S_CMD,         // se ejecuta un comando
 	S_CANCEL_EXEC, // Ctrl + D en heredoc
-	S_SIZE
 }			t_signal;
 
 /*══════════════════════════ [  STRUCTS  ] ═══════════════════════════════════*/
@@ -172,6 +171,7 @@ char	**env_to_array(t_env *env);
 char	*get_cmd_path(char *cmd, t_env *env);
 char	**split_shell(t_shell *msh, char *str, char c);
 char	*trim_quotes(char *str);
+void setup_signals(t_signal state);
 
 /*-------------------------- [ built-ins ] ------------------------------------*/
 

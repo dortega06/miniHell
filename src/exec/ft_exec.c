@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 10:31:08 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/18 18:01:00 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/20 18:35:17 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,22 @@
 
 static void	handle_status(t_shell *msh)
 {
+	int sig;
+
 	if (WIFEXITED(msh->exit_status))
 		msh->exit_status = WEXITSTATUS(msh->exit_status);
+	else if (WIFSIGNALED(msh->exit_status))
+	{
+		sig = WTERMSIG(msh->exit_status);
+		if (sig == SIGINT) // Ctrl + C
+            msh->exit_status = 130;
+		else if (sig == SIGQUIT)
+			msh->exit_status = 131;
+	}
+	if (g_signal == S_SIGINT_CMD)
+        msh->exit_status = 130;
 	if (msh && msh->exit_status == 127)
 		printf("%s: %s\n", ERR_CMD, msh->cmd_args[0]);
-//	if (g_signal == S_SIGNAL_CMD)
-//		msh->exit_status = 130;
-//	g_signal = S_BASE;
 }
 
 static void	next_cmd(t_shell *msh)
@@ -88,6 +97,8 @@ static void	child_proccess(t_shell *msh)
 	char	*cmd_path;
 	char	**msh_env;
 
+	signal(SIGINT, SIG_DFL);  // El hijo ahora muere de verdad con Ctrl+C
+    signal(SIGQUIT, SIG_DFL);
 	if (msh->parser->redir_in < 0 || msh->parser->redir_out < 0)
 		exit(1);
 	msh_env = env_to_array(msh->env);
@@ -121,22 +132,23 @@ void	ft_executer(t_shell *msh)
 		}
 		msh->cmd_args = split_shell(msh, msh->parser->cmd, ' ');
 //		msh->cmd_args = ft_split(msh->parser->cmd, ' ');
-		printf("\nCMD && ARGs: %d\n", msh->count_cmd_args);
-		print_array(msh->cmd_args);
+//		printf("\nCMD && ARGs: %d\n", msh->count_cmd_args);
+//		print_array(msh->cmd_args);
 		if (is_builtin(msh))
 /**/		{
-			printf("IS_BUILT-IN (ft_executer)\n");
+			//printf("IS_BUILT-IN (ft_executer)\n");
 			ft_builtins(msh);
 		}
 		else
 		{
-//			g_signal = S_CMD;
+			g_signal = S_CMD;
 			pid = fork();
 			if (pid == 0)
 				child_proccess(msh);
 			else
 				waitpid(-1, &msh->exit_status, 0);
 			handle_status(msh);
+			g_signal = S_BASE;
 		}
 		next_cmd(msh);
 	}

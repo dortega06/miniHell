@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 10:53:49 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/19 18:19:51 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/20 18:53:40 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,14 @@ void	ft_minishell(t_shell *msh, char **envp)
 	msh->exit_status = 1;// NO VA AQUI, SOLO ES UN TEST
 	while (1)
 	{
-//		if S_SIGINIT;
-//		msh->exit_status = 1;
+		setup_signals(S_BASE);
+		g_signal = S_BASE;
 		input = readline(" minisHell$> ");
+		if (g_signal == S_SIGINT_CMD)
+		{
+        	msh->exit_status = 130;
+			g_signal = S_BASE;
+		}
 		if (!input)
 			break ;
 		tmp = ft_strtrim(input, " \t\n\v\f\r");
@@ -52,11 +57,6 @@ void	ft_minishell(t_shell *msh, char **envp)
 		}
 			
 		add_history(tmp);
-/*		if (!ft_strcmp(tmp, "exit"))
-		{
-			free_mshell(input, tmp, msh);
-			break ;
-//		}*/
 		pre_exec(tmp, msh);
 
 		print_tokens(msh->lexer);
@@ -75,7 +75,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1 || argv[1])
 		return (EXIT_FAILURE);
-//	signal_init();
+	setup_signals(S_BASE);
 	ft_memset(&msh, 0, sizeof(t_shell));
 	ft_minishell(&msh, envp);
 	return (EXIT_SUCCESS);

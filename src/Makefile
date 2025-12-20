@@ -6,7 +6,7 @@
 #    By: diespino <diespino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 14:04:02 by diespino          #+#    #+#              #
-#    Updated: 2025/12/17 11:36:46 by dortega-         ###   ########.fr        #
+#    Updated: 2025/12/20 16:49:14 by dortega-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ PARSER		= $(PARSER_PATH)/fill_node.c\
 EXEC_PATH	= exec
 EXEC		= $(EXEC_PATH)/ft_exec.c\
 		  $(EXEC_PATH)/exec_utils.c\
+		  $(EXEC_PATH)/signal.c\
 		  $(EXEC_PATH)/split_shell.c
 
 BUILTIN_PATH	= built_ins

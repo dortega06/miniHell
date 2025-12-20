@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:08:17 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/19 16:23:05 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/20 20:17:39 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ char	**split_shell(t_shell *msh, char *str, char c)//t_shell *msh
 	int		i;
 	int		start;
 	int		word;
+	char	*tmp;
 
 	i = 0;
 	word = 0;
@@ -120,10 +121,22 @@ char	**split_shell(t_shell *msh, char *str, char c)//t_shell *msh
 		is_word(str, c, &i);
 //		printf("2 | I: %d C:%c\n", i, str[i]);
 		if (start < i)
-			split[word++] = ft_substr(str, start, i - start);
+		{
+		printf("entra \n");
+			tmp = ft_substr(str, start, i - start);
+			if (tmp[0] == '\"')
+			{
+				process_data(&tmp, msh);
+				printf("expandddd\n");
+			}
+//			printf("%s\n", tmp);
+//			trim_quotes(tmp);
+			split[word++] = trim_quotes(tmp);
+			//free(tmp);
+		}
 	}
 	split[word] = NULL;
-//	print_array(split);
+	print_array(split);
 //	trim_quotes(split);
 	msh->count_cmd_args = word;
 	return (split);

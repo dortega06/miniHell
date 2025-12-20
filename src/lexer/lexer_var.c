@@ -99,7 +99,7 @@ void	ft_lexer_var(t_shell *msh)
 	while (lex)
 	{
 		i = 0;
-		if (lex->type == T_GENERAL && lex->data[0] != '\'')
+		if (lex->type == T_GENERAL && lex->data[0] != '\'' && lex->data[0] != '\"')
 		{
 			while (lex->data[i])
 			{

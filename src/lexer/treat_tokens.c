@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:58:22 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/19 15:13:18 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/20 19:18:10 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,25 @@
 
 void	treat_special(char *input, t_lexer **lexer, int *i, int type)
 {
+	int	j;
+	int	len;
+
+	len = 0;
 	if (type == T_HEREDOC || type == T_APPEND)
 	{
-		lexer_add_token(input, lexer, i, 2);
-		(*i) += 2;
+		j = (*i) + 2;
+		while (ft_isspace(input[j++]))
+			len++;
+		lexer_add_token(input, lexer, i, (len + 2));
 	}
 	else
 	{
-		lexer_add_token(input, lexer, i, 1);
-		(*i)++;
+		j = (*i) + 1;
+		while (ft_isspace(input[j++]))
+			len++;
+		lexer_add_token(input, lexer, i, (len + 1));
 	}
+	(*i) = j - 1;
 }
 
 int	treat_quotes(char *input, t_lexer **lexer, int *i, int *exit_status)
@@ -54,38 +63,18 @@ int	treat_quotes(char *input, t_lexer **lexer, int *i, int *exit_status)
 void	treat_general(char *input, t_lexer **lexer, int *i)
 {
 	int	j;
-//	int	var;
-//	char	quote;
-
-//	var = 0;
+	
 	j = (*i);
+	if (ft_isspace(input[j]))
+	{
+		while (ft_isspace(input[j]))
+			j++;
+	}
 	while (input[j] && !ft_isspace(input[j]) && !ft_isquote(input[j]) && \
 			get_type(input, j) == T_GENERAL)
 	{
-//		printf("BUCLE 1 %c\n", input[j]);
-//		if (input[j] == '=')
-///			var = 1;
 		j++;
 	}
-//	printf("VAR: %d\n", var);
-/*	if (input[j] == '=')
-	{
-		printf("ES =\n");
-		j++;
-	}
-	if (ft_isquote(input[j]) && var == 1)
-	{
-		printf("ENTRA QUOTE\n");
-		quote = input[j++];
-		while (input[j] && input[j] != quote)
-		{
-			printf("BUCLE QUOTE %c\n", input[j]);
-			j++;
-		}
-		j++;
-	}*/
-	while (ft_isspace(input[j]))
-		j++;
 	lexer_add_token(input, lexer, i, j - (*i));
 	(*i) = j;
 }
