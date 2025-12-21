@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 15:27:08 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/19 14:58:33 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/20 21:33:18 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,13 @@
 int	check_export_args(char *arg)
 {
 	int	i;
-	char	quote;
 
 	i = 0;
 	if (ft_isdigit(arg[i]))
 		return (0);
-	while ((ft_isalnum(arg[i]) || arg[i] == '_') && arg[i] != '=')
+	while ((ft_isalnum(arg[i]) || arg[i] == '_'))
 		i++;
 	if (arg[i] != '=')
-		return (0);
-	if (ft_isquote(arg[++i]))
-	{
-		quote = arg[i++];
-		while (arg[i] && arg[i] != quote)
-			i++;
-	}
-	else
-	{
-		while (arg[i] && (!ft_isspace(arg[i])))
-			i++;
-	}
-	if (ft_isspace(arg[i]))
 		return (0);
 	printf("EXPORT ARG OK: %s\n", arg);
 	return (1);

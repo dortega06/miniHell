@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 10:31:08 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/20 18:35:17 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/20 21:25:55 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,29 +69,6 @@ static void	next_cmd(t_shell *msh)
 	msh->parser = msh->parser->next;
 }
 
-/*static void	exec_cmd(t_shell *msh)
-{
-	char	*cmd_path;
-	char	**msh_env;
-
-	if (msh->parser->redir_in < 0)
-		exit(1);
-	msh_env = env_to_array(msh->env);
-	if (msh->parser->redir_in != 0)
-	{
-		dup2(msh->parser->redir_in, STDIN_FILENO);
-		close(msh->parser->redir_in);
-	}
-	if (msh->parser->redir_out != 1)
-	{
-		dup2(msh->parser->redir_out, STDOUT_FILENO);
-		close(msh->parser->redir_out);
-	}
-	cmd_path = get_cmd_path(msh->cmd_args[0], msh->env);
-	execve(cmd_path, msh->cmd_args, msh_env);
-	exit(127);
-}*/
-
 static void	child_proccess(t_shell *msh)
 {
 	char	*cmd_path;
@@ -117,7 +94,6 @@ static void	child_proccess(t_shell *msh)
 	free_array(msh_env);
 	exit(127);
 }
-//  || !ft_isascii(msh->parser->cmd[0])
 
 void	ft_executer(t_shell *msh)
 {
@@ -131,9 +107,15 @@ void	ft_executer(t_shell *msh)
 			return ;
 		}
 		msh->cmd_args = split_shell(msh, msh->parser->cmd, ' ');
-//		msh->cmd_args = ft_split(msh->parser->cmd, ' ');
-//		printf("\nCMD && ARGs: %d\n", msh->count_cmd_args);
-//		print_array(msh->cmd_args);
+int i = 0;
+char *tmp;
+while (msh->cmd_args[i])
+{
+    tmp = remove_quotes(msh->cmd_args[i]);
+    free(msh->cmd_args[i]);
+    msh->cmd_args[i] = tmp;
+    i++;
+}
 		if (is_builtin(msh))
 /**/		{
 			//printf("IS_BUILT-IN (ft_executer)\n");

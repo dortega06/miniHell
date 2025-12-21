@@ -63,33 +63,15 @@ void	ft_redirect(t_lexer *tmp, t_parser **cmd_node, t_shell *msh)
 void	fill_cmd(t_lexer *tmp, t_parser **cmd_node)
 {
 	int	len;
-	int	first;
-///	int	exp;
 	char	*trim;
 
 	len = ft_len_cmd(tmp);
-	first = 1;
-//	exp = 0;
 	(*cmd_node)->cmd = ft_calloc(len, sizeof(char));
 	while (tmp && (tmp->type == T_CMD || tmp->type == T_GENERAL))
 	{
-		if (!first)
-			ft_strlcat((*cmd_node)->cmd, " ", len);
-//		if (!ft_strncmp(tmp->data, "export", 6))
-//			exp = 1;
-//		printf("EXP: %d\n", exp);
-//		if (tmp->data[0] == '\"' && exp == 0)
-//			trim = ft_strtrim(tmp->data, "\"");
-//		else if (tmp->data[0] == '\'' && exp == 0)
-//			trim = ft_strtrim(tmp->data, "\'");
-//		else
-			trim = ft_strdup(tmp->data);
+
+		trim = ft_strdup(tmp->data);
 		ft_strlcat((*cmd_node)->cmd, trim, len);
-		if (tmp->type == T_GENERAL && tmp->next)/* && \
-//				ft_isquote(tmp->next->data[0]))*/
-			first = 1;
-		else
-			first = 0;
 		free(trim);
 		tmp = tmp->next;
 	}

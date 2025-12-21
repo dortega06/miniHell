@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:08:17 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/20 20:17:39 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/21 12:52:38 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@
 void	find_quote(char *str, int *i)
 {
 	char	quote;
-//	int		j;
-//	int		x;
-
-//	j = 0;
+	
 	quote = str[*i];
 //	printf("QUOTES\n");
 	(*i)++;
@@ -39,9 +36,6 @@ void	find_quote(char *str, int *i)
 
 void	is_word(char *str, char c, int *i)
 {
-//	int	j = 0;
-//	int	x = 0;
-	
 	while (str[*i] && str[*i] != c)
 	{
 //		x = *i;
@@ -77,15 +71,43 @@ int	num_of_words(char *str, char c)
 	}
 	return (words);
 }
+char    *remove_quotes(char *str)
+{
+    int     i;
+    int     j;
+    char    quote;
+    char    *res;
+
+    i = 0;
+    j = 0;
+    quote = 0;
+    res = ft_calloc(ft_strlen(str) + 1, sizeof(char));
+    if (!res)
+        return (NULL);
+
+    while (str[i])
+    {
+        if (!quote && (str[i] == '\'' || str[i] == '"'))
+        {
+            quote = str[i];
+            i++;
+            continue ;
+        }
+        if (quote && str[i] == quote)
+        {
+            quote = 0;
+            i++;
+            continue ;
+        }
+        res[j++] = str[i++];
+    }
+    return (res);
+}
 
 char	*trim_quotes(char *str)
 {
 	char	*tmp;
-//	int		i;
-
-//	i = 0;
-//	while (array[i])
-//	{
+	
 		if (ft_isquote(str[0]))
 		{
 			if(str[0] == '\"')
@@ -94,8 +116,6 @@ char	*trim_quotes(char *str)
 				tmp = ft_strtrim(str, "\'");
 			return (tmp);
 		}
-//		i++;
-//	}
 	return (ft_strdup(str));
 }
 
@@ -122,16 +142,9 @@ char	**split_shell(t_shell *msh, char *str, char c)//t_shell *msh
 //		printf("2 | I: %d C:%c\n", i, str[i]);
 		if (start < i)
 		{
-		printf("entra \n");
 			tmp = ft_substr(str, start, i - start);
-			if (tmp[0] == '\"')
-			{
-				process_data(&tmp, msh);
-				printf("expandddd\n");
-			}
 //			printf("%s\n", tmp);
-//			trim_quotes(tmp);
-			split[word++] = trim_quotes(tmp);
+			split[word++] = tmp;
 			//free(tmp);
 		}
 	}
@@ -141,31 +154,3 @@ char	**split_shell(t_shell *msh, char *str, char c)//t_shell *msh
 	msh->count_cmd_args = word;
 	return (split);
 }
-
-/*int	main(void)
-{
-	int		i;
-	int		j;
-	char	**split;
-//	char	str[30] = "echo \"hola que\" tal?";
-	char    str[30] = "echo \"hola que \" t al?";
-
-	printf("str: %s\n", str);
-//	i = num_of_words(str1, ' ');
-//	printf("Words1: %d\n\n", i);
-
-//	printf("str2: %s\n", str2);
-//	i = num_of_words(str2, ' ');
-//	printf("Words2: %d\n", i);
-
-	split = split_shell(str, ' ');
-	i = 0;
-	j = 1;
-	while (split[i])
-		printf("%d: ~%s~\n", j++, split[i++]);
-	i = 0;
-	while (split[i])
-		free(split[i++]);
-	free(split);
-	return (0);
-}*/

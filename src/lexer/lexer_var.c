@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 14:28:24 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/04 09:31:37 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/20 21:36:17 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void	process_data(char **data, t_shell *msh)
 	free(tail);
 }
 
+
+
 void	ft_lexer_var(t_shell *msh)
 {
 	t_lexer	*lex;
@@ -99,7 +101,7 @@ void	ft_lexer_var(t_shell *msh)
 	while (lex)
 	{
 		i = 0;
-		if (lex->type == T_GENERAL && lex->data[0] != '\'' && lex->data[0] != '\"')
+		if (lex->type == T_GENERAL && lex->data[0] != '\'') //&& lex->data[0] != '\"')
 		{
 			while (lex->data[i])
 			{
