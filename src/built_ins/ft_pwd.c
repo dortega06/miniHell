@@ -1,15 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/21 14:01:18 by diespino          #+#    #+#             */
+/*   Updated: 2025/12/21 14:02:01 by diespino         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
-int	ft_pwd(void)
+void	ft_pwd(t_shell *msh)
 {
-	char pwd[1024];
+	char	*pwd;
 
-	if (getcwd(pwd, sizeof(pwd)) != NULL)
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
 	{
-		printf("%s\n", pwd);
-        return (EXIT_SUCCESS);
+		msh->exit_status = 1;
+		perror("pwd");
+		return ;
 	}
-	else
-		printf("error pwd");
-	return (EXIT_FAILURE);
+	ft_putendl_fd(pwd, STDOUT_FILENO);
+	free(pwd);
+	msh->exit_status = 0;
 }

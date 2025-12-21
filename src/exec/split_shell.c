@@ -104,7 +104,7 @@ char    *remove_quotes(char *str)
     return (res);
 }
 
-char	*trim_quotes(char *str)
+/*char	*trim_quotes(char *str)
 {
 	char	*tmp;
 	
@@ -117,7 +117,7 @@ char	*trim_quotes(char *str)
 			return (tmp);
 		}
 	return (ft_strdup(str));
-}
+}*/
 
 // char	*ft_substr(const char *s, unsigned int start, size_t len)
 char	**split_shell(t_shell *msh, char *str, char c)//t_shell *msh

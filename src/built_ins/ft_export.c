@@ -27,16 +27,20 @@ int	check_export_args(char *arg)
 	return (1);
 }
 
-/* 
- * CMD && ARGs: 7
-   Arg[0]:     [export]
-   Arg[1]:     [JUAN=hola]
-   Arg[2]:     [JUAN=2hoal]
-   Arg[3]:     [JUAN3="hola"]
-   Arg[4]:     [JU_AN4=]
-   Arg[5]:     [JUAN5=]
-   Arg[6]:     [hola]
- */
+char	*trim_quotes(char *str)
+{
+	char	*tmp;
+	
+		if (ft_isquote(str[0]))
+		{
+			if(str[0] == '\"')
+				tmp = ft_strtrim(str, "\"");
+			else
+				tmp = ft_strtrim(str, "\'");
+			return (tmp);
+		}
+	return (ft_strdup(str));
+}
 
 void	proccess_data(t_shell *msh, char *var)
 {
