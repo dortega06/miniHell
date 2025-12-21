@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 11:52:52 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/19 19:49:15 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/21 18:26:36 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	cmp_var(char *var, t_shell *msh)
 			del_node(env);
 			tmp->next = next;
 			break ;
-
 		}
 		env = env->next;
 	}
@@ -46,7 +45,7 @@ void	cmp_var(char *var, t_shell *msh)
 
 void	ft_unset(t_shell *msh)
 {
-	int	i;
+	int		i;
 	t_env	*tmp;
 
 	if (msh->count_cmd_args == 1)

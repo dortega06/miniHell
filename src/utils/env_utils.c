@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 13:51:50 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/21 16:58:33 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/21 19:03:09 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*get_env_value(t_env *env, char *name)
 
 static int	replace_value(t_env **env, char *name, char *value)
 {
-		t_env	*tmp;
+	t_env	*tmp;
 
 	tmp = *env;
 	while (tmp)

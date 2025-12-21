@@ -6,13 +6,13 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:26:01 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/03 11:26:04 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/21 19:01:44 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_memfree(void *ptr)
+void	ft_memfree(void *ptr)
 {
 	if (!ptr)
 		return ;

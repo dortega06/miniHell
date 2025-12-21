@@ -6,13 +6,13 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 14:25:27 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/19 16:25:18 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/21 18:27:50 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void    free_array(char **array)
+void	free_array(char **array)
 {
 	int	i;
 

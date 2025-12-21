@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 17:03:46 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/20 19:22:37 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/21 18:12:00 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ void	ft_lexer(char *input, t_lexer **lexer, int *exit_status)
 		i++;
 	while (input[i])
 	{
-//		while (ft_isspace(input[i]))
-//			i++;
 		type = get_type(input, i);
 		if (type != T_GENERAL)
 			treat_special(input, lexer, &i, type);

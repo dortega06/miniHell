@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:15:25 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/20 20:06:09 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/21 18:10:17 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,13 @@ void	ft_redirect(t_lexer *tmp, t_parser **cmd_node, t_shell *msh)
 
 void	fill_cmd(t_lexer *tmp, t_parser **cmd_node)
 {
-	int	len;
+	int		len;
 	char	*trim;
 
 	len = ft_len_cmd(tmp);
 	(*cmd_node)->cmd = ft_calloc(len, sizeof(char));
 	while (tmp && (tmp->type == T_CMD || tmp->type == T_GENERAL))
 	{
-
 		trim = ft_strdup(tmp->data);
 		ft_strlcat((*cmd_node)->cmd, trim, len);
 		free(trim);

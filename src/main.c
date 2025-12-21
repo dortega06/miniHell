@@ -6,13 +6,13 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 10:53:49 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/20 18:53:40 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/21 18:09:05 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-extern int g_signal;
+extern int	g_signal;
 
 void	pre_exec(char *tmp, t_shell *msh)
 {
@@ -35,8 +35,6 @@ void	ft_minishell(t_shell *msh, char **envp)
 	char	*tmp;
 
 	env_init(&msh->env, envp);
-//	print_env(msh->env);
-	msh->exit_status = 1;// NO VA AQUI, SOLO ES UN TEST
 	while (1)
 	{
 		setup_signals(S_BASE);
@@ -44,7 +42,7 @@ void	ft_minishell(t_shell *msh, char **envp)
 		input = readline(" minisHell$> ");
 		if (g_signal == S_SIGINT_CMD)
 		{
-        	msh->exit_status = 130;
+			msh->exit_status = 130;
 			g_signal = S_BASE;
 		}
 		if (!input)
@@ -55,13 +53,10 @@ void	ft_minishell(t_shell *msh, char **envp)
 			free_mshell(input, tmp, msh);
 			continue ;
 		}
-			
 		add_history(tmp);
 		pre_exec(tmp, msh);
-
-		print_tokens(msh->lexer);
-		print_parser(msh->parser);
-		
+//		print_tokens(msh->lexer);
+//		print_parser(msh->parser);
 		ft_executer(msh);
 		free_mshell(input, tmp, msh);
 	}

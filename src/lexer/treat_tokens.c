@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 15:58:22 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/20 19:18:10 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/21 18:12:25 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	treat_quotes(char *input, t_lexer **lexer, int *i, int *exit_status)
 void	treat_general(char *input, t_lexer **lexer, int *i)
 {
 	int	j;
-	
+
 	j = (*i);
 	if (ft_isspace(input[j]))
 	{
