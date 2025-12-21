@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 10:54:06 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/21 14:02:11 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/21 16:43:23 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ void	ft_exit_built(t_shell *msh);
 void	env_init(t_env **env, char **envp);
 char	*get_var_name(char *var);
 char	*get_var_value(char *var);
+char	*get_env_value(t_env *env, char *name);
 void	mshell_lvl(t_env **env);
 void	env_add_var(t_env **env, char *name, char *value);
 void	free_env_lst(t_env **env);

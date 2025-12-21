@@ -6,11 +6,29 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 13:51:50 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/19 16:46:57 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/21 16:58:33 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+char	*get_env_value(t_env *env, char *name)
+{
+	t_env	*tmp;
+	char	*value;
+
+	tmp = env;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->var_name, name))
+		{
+			value = ft_strdup(tmp->var_value);
+			return (value);
+		}
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
 
 static int	replace_value(t_env **env, char *name, char *value)
 {
