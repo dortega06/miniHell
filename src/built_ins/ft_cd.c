@@ -19,7 +19,7 @@
  * update_env_var(msh, oldpwd, getcwd(NULL, 0))
  * free_pwd(oldpwd, newpwd) --> liberar
  */
-
+/*
 static char	*get_oldpwd(t_shell *msh)
 {
 	char	*oldpwd;
@@ -83,4 +83,4 @@ void	ft_cd(t_shell *msh)
 	update_env_var(msh, oldpwd, getcwd(NULL, 0));
 	free(oldpwd);
 	free(newpwd);
-}
+}*/

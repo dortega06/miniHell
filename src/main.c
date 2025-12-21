@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int	g_signal = S_BASE;
+extern int g_signal;
 
 void	pre_exec(char *tmp, t_shell *msh)
 {

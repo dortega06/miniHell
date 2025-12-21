@@ -107,15 +107,15 @@ void	ft_executer(t_shell *msh)
 			return ;
 		}
 		msh->cmd_args = split_shell(msh, msh->parser->cmd, ' ');
-int i = 0;
-char *tmp;
-while (msh->cmd_args[i])
-{
-    tmp = remove_quotes(msh->cmd_args[i]);
-    free(msh->cmd_args[i]);
-    msh->cmd_args[i] = tmp;
-    i++;
-}
+	int i = 0;
+	char *tmp;
+		while (msh->cmd_args[i])
+		{
+    			tmp = remove_quotes(msh->cmd_args[i]);
+    			free(msh->cmd_args[i]);
+    			msh->cmd_args[i] = tmp;
+    			i++;
+		}
 		if (is_builtin(msh))
 /**/		{
 			//printf("IS_BUILT-IN (ft_executer)\n");

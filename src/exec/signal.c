@@ -12,9 +12,9 @@
 
 #include "../../includes/minishell.h"
 
-int	g_signali = S_BASE;
+int	g_signal = S_BASE;
 
-static void sigint_handler(int sig)
+/*static void sigint_handler(int sig)
 {
     (void)sig;
 
@@ -28,17 +28,31 @@ static void sigint_handler(int sig)
 			rl_redisplay();
 			g_signal = S_SIGINT_CMD;
 		}
-    	else if (g_signal == S_CMD)
-    	{
-        	write(1, "\n", 1);
-        	g_signal = S_SIGINT_CMD;
-    	}
-    	else if (g_signal == S_HEREDOC)
-    	{
-        	write(1, "\n", 1);
-        	exit(130);
-    	}
+    		else if (g_signal == S_CMD)
+    		{
+	        	write(1, "\n", 1);
+	        	g_signal = S_SIGINT_CMD;
+	    	}
+	    	else if (g_signal == S_HEREDOC)
+	    	{
+	        	write(1, "\n", 1);
+	        	exit(130);
+	    	}
 	}
+}*/
+
+static void sigint_handler(int sig)
+{
+    (void)sig;
+    write(1, "\n", 1);
+    rl_on_new_line();
+    rl_replace_line("", 0);
+    rl_redisplay();
+
+    if (g_signal == S_HEREDOC)
+        exit(130);
+    else
+        g_signal = S_SIGINT_CMD;
 }
 
 void setup_signals(t_signal state)
