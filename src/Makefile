@@ -6,7 +6,7 @@
 #    By: diespino <diespino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 14:04:02 by diespino          #+#    #+#              #
-#    Updated: 2025/12/21 14:03:03 by diespino         ###   ########.fr        #
+#    Updated: 2025/12/21 19:17:48 by dortega-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,7 @@
 NAME = minishell
 
 # miniHell SRCs
-MAIN		= main.c\
-		  print_tests.c
+MAIN		= main.c
 
 LEXER_PATH	= lexer
 LEXER		= $(LEXER_PATH)/lexer.c\

@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 10:31:08 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/21 18:33:20 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/22 10:33:42 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,10 @@ static void	child_proccess(t_shell *msh)
 void	ft_executer(t_shell *msh)
 {
 	pid_t	pid;
-	int		i = 0;
+	int		i;
 	char	*tmp;
 
+	i = 0;
 	while (msh->parser)
 	{
 		if (!msh->parser->cmd[0])

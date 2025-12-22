@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:08:17 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/21 18:58:39 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/21 19:39:03 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,14 @@ char	*remove_quotes(char *str)
 	while (str[i])
 	{
 		if (!quote && (str[i] == '\'' || str[i] == '"'))
-		{
-			quote = str[i];
-			i++;
-			continue ;
-		}
-		if (quote && str[i] == quote)
+			quote = str[i++];
+		else if (quote && str[i] == quote)
 		{
 			quote = 0;
 			i++;
-			continue ;
 		}
-		res[j++] = str[i++];
+		else
+			res[j++] = str[i++];
 	}
 	return (res);
 }
