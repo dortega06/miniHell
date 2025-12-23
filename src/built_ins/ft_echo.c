@@ -33,9 +33,13 @@ static void	print_echo_args(t_shell *msh, int i)
 {
 	while (msh->cmd_args[i])
 	{
-		ft_putstr_fd(msh->cmd_args[i], msh->parser->redir_out);
+//		ft_putstr_fd(msh->cmd_args[i], msh->parser->redir_out);
+		ft_putstr_fd(msh->cmd_args[i], STDOUT_FILENO);
 		if (msh->cmd_args[i + 1])
-			ft_putchar_fd(' ', msh->parser->redir_out);
+		{
+//			ft_putchar_fd(' ', msh->parser->redir_out);
+			ft_putchar_fd(' ', STDOUT_FILENO);
+		}
 		i++;
 	}
 }
@@ -55,5 +59,8 @@ void	ft_echo(t_shell *msh)
 	}
 	print_echo_args(msh, i);
 	if (newline)
-		ft_putchar_fd('\n', msh->parser->redir_out);
+	{
+//		ft_putchar_fd('\n', msh->parser->redir_out);
+		ft_putchar_fd('\n', STDOUT_FILENO);
+	}
 }

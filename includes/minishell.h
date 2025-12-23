@@ -41,9 +41,20 @@ extern int	g_signal;
 # define ERR_FORK "minishell: fork failed"
 # define ERR_CMD "minishell: command not found"
 # define ERR_EXP "': not a valid identifier"
+# define ERR_CD "error retrieving current directory"
+# define ERR_GCWD "cannot access parent directories"
+# define ERR_FDIR "No such file or directory"
 
 # define READLINE_MSG "\033[1;36mminishell\033[34m$> \033[0m"
 # define HEREDOC_MSG "\033[1;34m> \033[0m" // @return >
+
+// Colors ANSI 	  \033[<color;estilo_letra>\033[0m
+# define END "\033[0m"
+# define RED "\033[31;1m"
+# define GREEN "\033[32;1m"
+# define YELLOW "\033[33;1m"
+# define MAGENTA "\033[35;1m"
+# define CIAN "\033[36m"
 
 /*═══════════════════════════ [  ENUMS  ] ════════════════════════════════════*/
 
@@ -103,6 +114,7 @@ typedef struct s_shell
 {
 	char		**cmd_args;
 	int			count_cmd_args;
+	int			pipe_num;
 	t_env		*env;
 	t_lexer		*lexer;
 	t_parser	*parser;
@@ -178,6 +190,7 @@ void	setup_signals(t_signal state);
 
 int		is_builtin(t_shell *msh);
 void	ft_builtins(t_shell *msh);
+
 void	ft_env(t_shell *msh);
 void	ft_export(t_shell *msh);
 void	print_declared_vars(t_shell *msh);
@@ -186,6 +199,11 @@ void	ft_pwd(t_shell *msh);
 void	ft_cd(t_shell *msh);
 void	ft_echo(t_shell *msh);
 void	ft_exit_built(t_shell *msh);
+
+// cd_utils
+void	free_pwd(char *oldpwd, char *newpwd);
+void	update_env_var(t_shell *msh, char *oldpwd, char *newpwd);
+char	*join_three(char *pwd, char *slash, char *cmd_arg);
 
 /*-------------------------- [ env_utils ] -----------------------------------*/
 

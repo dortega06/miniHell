@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:08:17 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/21 19:39:03 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/23 18:18:10 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,20 @@ int	num_of_words(char *str, char c)
 	return (words);
 }
 
-char	*remove_quotes(char *str)
+/*char	*remove_quotes(char *str)
 {
 	int		i;
 	int		j;
+	int		len;
 	char	quote;
 	char	*res;
 
 	i = 0;
 	j = 0;
 	quote = 0;
-	res = ft_calloc(ft_strlen(str) + 1, sizeof(char));
+	len = ft_strlen(str);
+//	res = ft_calloc(len + 1, sizeof(char));
+	res = malloc(sizeof(char) * (len + 1));
 	if (!res)
 		return (NULL);
 	while (str[i])
@@ -86,7 +89,7 @@ char	*remove_quotes(char *str)
 			res[j++] = str[i++];
 	}
 	return (res);
-}
+}*/
 
 char	**split_shell(t_shell *msh, char *str, char c)
 {
@@ -109,6 +112,7 @@ char	**split_shell(t_shell *msh, char *str, char c)
 		if (start < i)
 		{
 			tmp = ft_substr(str, start, i - start);
+//			printf("%s", tmp);
 			split[word++] = tmp;
 		}
 	}

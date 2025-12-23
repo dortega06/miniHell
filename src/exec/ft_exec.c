@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 10:31:08 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/22 10:33:42 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/23 18:19:05 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,19 +88,36 @@ static void	child_proccess(t_shell *msh)
 		dup2(msh->parser->redir_out, STDOUT_FILENO);
 		close(msh->parser->redir_out);
 	}
-	cmd_path = get_cmd_path(msh->cmd_args[0], msh->env);
-	execve(cmd_path, msh->cmd_args, msh_env);
+	if (is_builtin(msh))
+	{
+		ft_builtins(msh);
+		exit(msh->exit_status);
+	}
+	else
+	{	
+		cmd_path = get_cmd_path(msh->cmd_args[0], msh->env);
+		execve(cmd_path, msh->cmd_args, msh_env);
+	}
 	free_array(msh_env);
 	exit(127);
 }
 
 void	ft_executer(t_shell *msh)
 {
-	pid_t	pid;
-	int		i;
-	char	*tmp;
+	pid_t		pid;
+	t_parser	*par;
+//	int			i;
+//	char		*tmp;
 
-	i = 0;
+//	printf("EXEC");
+//	i = 0;
+	par = msh->parser;
+	msh->pipe_num = 0;
+	while (par)
+	{
+		msh->pipe_num++;
+		par = par->next;
+	}
 	while (msh->parser)
 	{
 		if (!msh->parser->cmd[0])
@@ -109,17 +126,18 @@ void	ft_executer(t_shell *msh)
 			return ;
 		}
 		msh->cmd_args = split_shell(msh, msh->parser->cmd, ' ');
-		while (msh->cmd_args[i])
+/*		while (msh->cmd_args[i])
 		{
 			tmp = remove_quotes(msh->cmd_args[i]);
 			free(msh->cmd_args[i]);
 			msh->cmd_args[i] = tmp;
 			i++;
-		}
-		if (is_builtin(msh))
+		}*/
+		if (is_builtin(msh) && msh->pipe_num == 1)
 			ft_builtins(msh);
 		else
 		{
+//			printf("CHILD IN");
 			g_signal = S_CMD;
 			pid = fork();
 			if (pid == 0)
@@ -128,6 +146,7 @@ void	ft_executer(t_shell *msh)
 				waitpid(-1, &msh->exit_status, 0);
 			handle_status(msh);
 			g_signal = S_BASE;
+//			printf("CHILD OUT");
 		}
 		next_cmd(msh);
 	}

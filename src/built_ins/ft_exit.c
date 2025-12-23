@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 18:19:10 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/21 18:20:51 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/22 19:19:37 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static int	check_exit_args(t_shell *msh)
 
 void	ft_exit_built(t_shell *msh)
 {
-	ft_putendl_fd("exit", 2);
+	if (msh->pipe_num == 1)
+		ft_putendl_fd("exit", 2);
 	msh->exit_status = check_exit_args(msh);
 	if (msh->exit_status != 1)
 		exit(msh->exit_status);

@@ -14,7 +14,8 @@
 NAME = minishell
 
 # miniHell SRCs
-MAIN		= main.c
+MAIN		= main.c\
+		  print_tests.c
 
 LEXER_PATH	= lexer
 LEXER		= $(LEXER_PATH)/lexer.c\
@@ -47,7 +48,8 @@ BUILTIN		= $(BUILTIN_PATH)/builtins.c\
 		  $(BUILTIN_PATH)/ft_exit.c\
 		  $(BUILTIN_PATH)/ft_echo.c\
 		  $(BUILTIN_PATH)/ft_pwd.c\
-		  $(BUILTIN_PATH)/ft_cd.c
+		  $(BUILTIN_PATH)/ft_cd.c\
+		  $(BUILTIN_PATH)/cd_utils.c
 
 
 UTILS_PATH	= utils

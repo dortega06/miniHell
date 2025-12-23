@@ -33,13 +33,16 @@ void	ft_minishell(t_shell *msh, char **envp)
 {
 	char	*input;
 	char	*tmp;
-
+	char	*pwd;
+	
 	env_init(&msh->env, envp);
 	while (1)
 	{
 		setup_signals(S_BASE);
 		g_signal = S_BASE;
-		input = readline(" minisHell$> ");
+		pwd = get_env_value(msh->env, "PWD");
+		printf("\033[32;1m%s\033[0m ", pwd);
+		input = readline("🔥mini\033[31;1mHell\033[0m$> ");
 		if (g_signal == S_SIGINT_CMD)
 		{
 			msh->exit_status = 130;
@@ -55,10 +58,11 @@ void	ft_minishell(t_shell *msh, char **envp)
 		}
 		add_history(tmp);
 		pre_exec(tmp, msh);
-//		print_tokens(msh->lexer);
-//		print_parser(msh->parser);
+		print_tokens(msh->lexer);
+		print_parser(msh->parser);
 		ft_executer(msh);
 		free_mshell(input, tmp, msh);
+		free(pwd);
 	}
 	free_env_lst(&msh->env);
 	rl_clear_history();
@@ -70,6 +74,11 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1 || argv[1])
 		return (EXIT_FAILURE);
+	if (!envp || !envp[0])
+	{
+		printf("🔥No env no minishell, sorry evaluator🔥\n");
+		exit(1);
+	}
 	setup_signals(S_BASE);
 	ft_memset(&msh, 0, sizeof(t_shell));
 	ft_minishell(&msh, envp);
