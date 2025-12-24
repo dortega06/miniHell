@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 15:36:52 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/21 18:13:51 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/24 17:03:56 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,16 @@ static void	print_echo_args(t_shell *msh, int i)
 {
 	while (msh->cmd_args[i])
 	{
-//		ft_putstr_fd(msh->cmd_args[i], msh->parser->redir_out);
-		ft_putstr_fd(msh->cmd_args[i], STDOUT_FILENO);
+		if (msh->pipe_num > 1)
+			ft_putstr_fd(msh->cmd_args[i], STDOUT_FILENO);
+		else
+			ft_putstr_fd(msh->cmd_args[i], msh->parser->redir_out);
 		if (msh->cmd_args[i + 1])
 		{
-//			ft_putchar_fd(' ', msh->parser->redir_out);
-			ft_putchar_fd(' ', STDOUT_FILENO);
+			if (msh->pipe_num > 1)
+				ft_putchar_fd(' ', STDOUT_FILENO);
+			else
+				ft_putchar_fd(' ', msh->parser->redir_out);
 		}
 		i++;
 	}
@@ -60,7 +64,9 @@ void	ft_echo(t_shell *msh)
 	print_echo_args(msh, i);
 	if (newline)
 	{
-//		ft_putchar_fd('\n', msh->parser->redir_out);
-		ft_putchar_fd('\n', STDOUT_FILENO);
+		if (msh->pipe_num > 1)
+			ft_putchar_fd('\n', STDOUT_FILENO);
+		else
+			ft_putchar_fd('\n', msh->parser->redir_out);
 	}
 }
