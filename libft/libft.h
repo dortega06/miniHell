@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:15:07 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/10 14:47:01 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/24 15:00:46 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		ft_isascii(int c);
 int		ft_isprint(int c);
 int		ft_isspace(int c);
 int		ft_isquote(int c);
+int		ft_isallspace(char *str);
 
 int		ft_toupper(int c);
 int		ft_tolower(int c);

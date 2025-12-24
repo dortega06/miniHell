@@ -44,6 +44,7 @@ extern int	g_signal;
 # define ERR_CD "error retrieving current directory"
 # define ERR_GCWD "cannot access parent directories"
 # define ERR_FDIR "No such file or directory"
+# define MAX_HEREDOCS 16
 
 # define READLINE_MSG "\033[1;36mminishell\033[34m$> \033[0m"
 # define HEREDOC_MSG "\033[1;34m> \033[0m" // @return >
@@ -61,6 +62,7 @@ extern int	g_signal;
 typedef enum e_token
 {
 	T_GENERAL,
+	T_SPACE,
 	T_CMD,
 	T_PIPE,
 	T_REDIR_IN,
@@ -118,6 +120,7 @@ typedef struct s_shell
 	t_env		*env;
 	t_lexer		*lexer;
 	t_parser	*parser;
+	int			count_heredoc;
 	int			exit_status;
 }			t_shell;
 
