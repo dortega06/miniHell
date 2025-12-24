@@ -33,25 +33,25 @@ void	ft_minishell(t_shell *msh, char **envp)
 {
 	char	*input;
 	char	*tmp;
-	char	*pwd;
-	
+	t_parser	*parser_backup;
 	env_init(&msh->env, envp);
 	while (1)
 	{
 		setup_signals(S_BASE);
 		g_signal = S_BASE;
-		pwd = get_env_value(msh->env, "PWD");
-		printf("\033[32;1m%s\033[0m ", pwd);
+		msh->count_heredoc = 0;
 		input = readline("🔥mini\033[31;1mHell\033[0m$> ");
 		if (g_signal == S_SIGINT_CMD)
 		{
 			msh->exit_status = 130;
 			g_signal = S_BASE;
 		}
-		if (!input)
+		if (! input)
+		{
 			break ;
+		}
 		tmp = ft_strtrim(input, " \t\n\v\f\r");
-		if (!tmp || tmp[0] == '\0')
+		if (! tmp || tmp[0] == '\0')
 		{
 			free_mshell(input, tmp, msh);
 			continue ;
@@ -60,9 +60,10 @@ void	ft_minishell(t_shell *msh, char **envp)
 		pre_exec(tmp, msh);
 		print_tokens(msh->lexer);
 		print_parser(msh->parser);
+		parser_backup = msh->parser;
 		ft_executer(msh);
+		msh->parser = parser_backup;
 		free_mshell(input, tmp, msh);
-		free(pwd);
 	}
 	free_env_lst(&msh->env);
 	rl_clear_history();

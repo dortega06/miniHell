@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 13:25:08 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/15 17:41:48 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/24 10:11:58 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	free_parser_lst(t_parser **parser)
 		next = tmp->next;
 		if (tmp->cmd)
 			free(tmp->cmd);
-		if (tmp->redir_in != STDIN_FILENO)
+		if (tmp->redir_in > STDIN_FILENO)
 			close(tmp->redir_in);
-		if (tmp->redir_out != STDOUT_FILENO)
+		if (tmp->redir_out > STDOUT_FILENO)
 			close(tmp->redir_out);
 		free(tmp);
 		tmp = next;

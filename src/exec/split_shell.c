@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 16:08:17 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/23 18:18:10 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/24 09:22:35 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	num_of_words(char *str, char c)
 	return (words);
 }
 
-/*char	*remove_quotes(char *str)
+char	*remove_quotes(char *str)
 {
 	int		i;
 	int		j;
@@ -88,8 +88,9 @@ int	num_of_words(char *str, char c)
 		else
 			res[j++] = str[i++];
 	}
+	res[j] = '\0';
 	return (res);
-}*/
+}
 
 char	**split_shell(t_shell *msh, char *str, char c)
 {

@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 10:31:08 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/23 18:19:05 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/24 09:32:53 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,9 @@ void	ft_executer(t_shell *msh)
 {
 	pid_t		pid;
 	t_parser	*par;
-//	int			i;
-//	char		*tmp;
+	int			i;
+	char *tmp;
 
-//	printf("EXEC");
-//	i = 0;
 	par = msh->parser;
 	msh->pipe_num = 0;
 	while (par)
@@ -120,24 +118,45 @@ void	ft_executer(t_shell *msh)
 	}
 	while (msh->parser)
 	{
-		if (!msh->parser->cmd[0])
+		if (g_signal == S_SIGINT_CMD)
 		{
-			msh->exit_status = 1;
-			return ;
+			msh->exit_status = 130;
+			break;
 		}
-		msh->cmd_args = split_shell(msh, msh->parser->cmd, ' ');
-/*		while (msh->cmd_args[i])
+		if (msh->parser->redir_in == -1)
+		{
+			msh->exit_status = 130;
+			if (msh->parser->redir_in > 0)
+				close(msh->parser->redir_in);
+			if (msh->parser->redir_out > 1)
+				close(msh->parser->redir_out);
+			msh->parser = msh->parser->next;
+			continue;
+		}
+		if (!msh->parser->cmd || !msh->parser->cmd[0])
+		{
+			msh->exit_status = 0;
+			if (msh->parser->redir_in > 0)
+				close(msh->parser->redir_in);
+			if (msh->parser->redir_out > 1)
+				close(msh->parser->redir_out);
+			msh->parser = msh->parser->next;
+			continue;
+		}
+
+		msh->cmd_args = split_shell(msh, msh->parser->cmd, ' '); //sigue igual
+		i = 0;
+		while (msh->cmd_args[i])
 		{
 			tmp = remove_quotes(msh->cmd_args[i]);
 			free(msh->cmd_args[i]);
 			msh->cmd_args[i] = tmp;
 			i++;
-		}*/
+		}
 		if (is_builtin(msh) && msh->pipe_num == 1)
 			ft_builtins(msh);
 		else
 		{
-//			printf("CHILD IN");
 			g_signal = S_CMD;
 			pid = fork();
 			if (pid == 0)
@@ -146,7 +165,6 @@ void	ft_executer(t_shell *msh)
 				waitpid(-1, &msh->exit_status, 0);
 			handle_status(msh);
 			g_signal = S_BASE;
-//			printf("CHILD OUT");
 		}
 		next_cmd(msh);
 	}

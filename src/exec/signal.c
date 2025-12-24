@@ -14,33 +14,6 @@
 
 int	g_signal = S_BASE;
 
-/*static void sigint_handler(int sig)
-{
-    (void)sig;
-
-	if (sig == SIGINT)
-	{
-		if (g_signal == S_BASE)
-		{
-			write(1, "\n", 1);
-			rl_on_new_line();
-			rl_replace_line("", 0);
-			rl_redisplay();
-			g_signal = S_SIGINT_CMD;
-		}
-    		else if (g_signal == S_CMD)
-    		{
-	        	write(1, "\n", 1);
-	        	g_signal = S_SIGINT_CMD;
-	    	}
-	    	else if (g_signal == S_HEREDOC)
-	    	{
-	        	write(1, "\n", 1);
-	        	exit(130);
-	    	}
-	}
-}*/
-
 static void	sigint_handler(int sig)
 {
 	(void) sig;

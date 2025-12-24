@@ -1,0 +1,34 @@
+{
+   ignore_readline_leaks
+   Memcheck:Leak
+   ...
+   fun:readline
+}
+
+{
+   ignore_add_history_leaks
+   Memcheck:Leak
+   ...
+   fun:add_history
+}
+
+{
+   ignore_libreadline_leaks
+   Memcheck:Leak
+   ... 
+   obj:*/libreadline.*
+}
+
+{
+   ignore_ncurses_leaks
+   Memcheck:Leak
+   ...
+   obj:*/libncurses.*
+}
+
+{
+   ignore_tinfo_leaks
+   Memcheck:Leak
+   ...
+   obj:*/libtinfo.*
+}

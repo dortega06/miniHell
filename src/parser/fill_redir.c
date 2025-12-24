@@ -28,7 +28,7 @@ void	ft_redir_out(t_lexer *tmp, t_parser **cmd_node)
 
 	fd = open(tmp->next->data, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
-		printf("minishell: %s: %s\n", tmp->next->data, strerror(errno));
+		printf("minishell: %s:  %s\n", tmp->next->data, strerror(errno));
 	(*cmd_node)->redir_out = fd;
 }
 
@@ -50,9 +50,13 @@ void	ft_heardoc(t_lexer *tmp, t_parser **cmd_node, t_shell *msh)
 
 	had_quotes = ft_has_quotes(tmp->next->data);
 	delimiter = ft_remove_quotes(tmp->next->data);
-	fd = ft_heredoc(delimiter, !had_quotes, msh);
+	fd = ft_heredoc(delimiter, ! had_quotes, msh);
 	free(delimiter);
+	if (fd == -2)
+	{
+		(*cmd_node)->redir_in = -1;
+		msh->exit_status = 130;
+		return ;
+	}
 	(*cmd_node)->redir_in = fd;
-	if (g_signal != S_CANCEL_EXEC)
-		g_signal = S_BASE;
 }
