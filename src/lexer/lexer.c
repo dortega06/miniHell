@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 17:03:46 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/21 18:12:00 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/26 12:52:36 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,12 @@ static void	lexer_cmd(t_lexer *lexer)
 		lexer->type = T_CMD;
 	while (lexer)
 	{
-		if (lexer->type == T_GENERAL && ft_isallspace(lexer->data))
-			lexer->type = T_SPACE;
-		else if (lexer->type == T_PIPE)
+		if (lexer->type == T_PIPE)
 			lexer->next->type = T_CMD;
 		else if (lexer->type == T_REDIR_IN)
 			lexer->next->type = T_INFILE;
-		else if (lexer->type == T_INFILE && lexer->next && \
-			lexer->next->type == T_GENERAL && \
-			!ft_isallspace(lexer->next->data))
+		else if (lexer->type == T_INFILE
+			&& lexer->next && lexer->next->type == T_GENERAL)
 			lexer->next->type = T_CMD;
 		else if (lexer->type == T_REDIR_OUT || lexer->type == T_APPEND)
 			lexer->next->type = T_OUTFILE;

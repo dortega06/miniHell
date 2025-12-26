@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 10:54:06 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/24 12:39:15 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/26 11:44:31 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ extern int	g_signal;
 # define ERR_GCWD "cannot access parent directories"
 # define ERR_FDIR "No such file or directory"
 # define MAX_HEREDOCS 16
-
+# define ERR_WARNING "miniHell: warning: here-document delimited by end-of-file (wanted `"
 # define READLINE_MSG "\033[1;36mminishell\033[34m$> \033[0m"
 # define HEREDOC_MSG "\033[1;34m> \033[0m" // @return >
 
@@ -122,7 +122,6 @@ typedef struct s_shell
 	t_parser	*parser;
 	int			count_heredoc;
 	int			exit_status;
-	int			count_heredoc;
 }			t_shell;
 
 /*═════════════════════════ [  FUNCTIONS  ] ══════════════════════════════════*/
@@ -142,6 +141,7 @@ void	free_token_lst(t_lexer **lexer);
 
 //lol
 char	*remove_quotes(char *str);
+//static int  count_heredocs(t_lexer *tmp, int start, int end);
 
 /*--------------------------- [  parser  ] -----------------------------------*/
 
@@ -165,7 +165,9 @@ int		ft_heredoc(char *delimiter, int should_expand, t_shell *msh);
 char	*ft_expand_line(char *line, t_shell *msh);
 int		ft_has_quotes(char *str);
 char	*ft_remove_quotes(char *str);
-
+int		ft_has_quotes(char *str);
+char	*ft_remove_quotes(char *str);
+int		ft_heredoc_eof_warning(char *delimiter);
 // REDIRECCIONES
 void	ft_redir_in(t_lexer *tmp, t_parser **cmd_node);
 void	ft_redir_out(t_lexer *tmp, t_parser **cmd_node);
@@ -189,6 +191,19 @@ char	*get_cmd_path(char *cmd, t_env *env);
 char	**split_shell(t_shell *msh, char *str, char c);
 char	*trim_quotes(char *str);
 void	setup_signals(t_signal state);
+
+// CHECKER && UTILS
+int		num_pipe(t_shell *msh);
+int		ft_handle_redirs_or_empty_cmd(t_parser *par);
+void	ft_split_and_dequote_cmd(t_shell *msh, t_parser *par);
+int		ft_check_signal_and_redirs(t_shell *msh, t_parser *par);
+void	ft_wait_children(t_shell *msh, pid_t *pids, int j);
+void	handle_status(t_shell *msh);
+
+// CHILDDDD UTILSSSS
+void	ft_child_dup_redirs(t_shell *msh);
+void	ft_child_close_all_pipes(t_shell *msh);
+void	ft_child_exec_cmd(t_shell *msh, char **msh_env);
 
 /*-------------------------- [ built-ins ] ---------------------------------*/
 

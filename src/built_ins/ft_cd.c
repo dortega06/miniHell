@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 13:30:48 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/22 18:55:20 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/26 12:58:03 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ static void	cd_update_pwd(t_shell *msh, char *oldpwd, char *newpwd)
 	realpwd = getcwd(NULL, 0);
 	if (!realpwd)
 	{
-		printf("minishell: cd: %s: getcwd: %s: %s\n", \
-				ERR_CD, ERR_GCWD, ERR_FDIR);
+		printf("minishell: cd: %s: getcwd: %s: %s\n",
+			ERR_CD, ERR_GCWD, ERR_FDIR);
 		pwd = get_env_value(msh->env, "PWD");
 		if (pwd && msh->cmd_args[1])
 			realpwd = join_three(pwd, "/", msh->cmd_args[1]);

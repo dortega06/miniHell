@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:52:29 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/04 10:16:04 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/26 12:50:24 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@ static int	check_syntax_pipe(t_lexer *lexer)
 	{
 		if (lexer->type == T_PIPE && !lexer->next)
 			return (0);
-		if (!ft_strcmp(lexer->data, "|") && \
-				!ft_strcmp(lexer->next->data, "|"))
+		if (!ft_strcmp(lexer->data, "|") && !ft_strcmp(lexer->next->data, "|"))
 			return (0);
-		if (lexer->type == T_PIPE && \
-			(lexer->next->type != T_GENERAL || !lexer->next))
+		if (lexer->type == T_PIPE
+			&& (lexer->next->type != T_GENERAL || !lexer->next))
 			return (0);
 		lexer = lexer->next;
 	}
@@ -35,17 +34,17 @@ static int	check_syntax_redir(t_lexer *lexer, int *exit_status)
 {
 	while (lexer)
 	{
-		if ((lexer->type == T_REDIR_IN || lexer->type == T_REDIR_OUT || \
-			lexer->type == T_HEREDOC || lexer->type == T_APPEND) && \
-				!lexer->next)
+		if ((lexer->type == T_REDIR_IN || lexer->type == T_REDIR_OUT
+				|| lexer->type == T_HEREDOC || lexer->type == T_APPEND)
+			&& !lexer->next)
 		{
 			printf("%s `newline'\n", ERR_TOKEN);
 			*exit_status = 2;
 			return (0);
 		}
-		if ((lexer->type == T_REDIR_IN || lexer->type == T_REDIR_OUT || \
-			lexer->type == T_HEREDOC || lexer->type == T_APPEND) && \
-				lexer->next->type != T_GENERAL)
+		if ((lexer->type == T_REDIR_IN || lexer->type == T_REDIR_OUT
+				|| lexer->type == T_HEREDOC || lexer->type == T_APPEND)
+			&& lexer->next->type != T_GENERAL)
 		{
 			printf("%s `%s'\n", ERR_TOKEN, lexer->next->data);
 			*exit_status = 2;

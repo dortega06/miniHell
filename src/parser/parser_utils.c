@@ -82,3 +82,11 @@ int	get_last(t_lexer *lex, int start)
 	last = tmp->index;
 	return (last);
 }
+
+int	ft_heredoc_eof_warning(char *delimiter)
+{
+	write(2, ERR_WARNING, 68);
+	write(2, delimiter, ft_strlen(delimiter));
+	write(2, "')\n", 3);
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 15:27:08 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/21 18:25:52 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/26 13:01:22 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	ft_export(t_shell *msh)
 			else
 			{
 				tmp = trim_quotes(msh->cmd_args[i]);
-				printf("minishell: export: `%s%s\n", \
-						msh->cmd_args[i], ERR_EXP);
+				printf("minishell: export: `%s%s\n",
+					msh->cmd_args[i], ERR_EXP);
 				msh->exit_status = 1;
 				free(tmp);
 				return ;

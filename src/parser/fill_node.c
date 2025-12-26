@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 18:15:25 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/23 21:14:15 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/26 13:16:05 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_fill_node(t_parser **cmd_node, int start, int end, t_shell *msh)
 		tmp = tmp->next;
 	fill_cmd(tmp, cmd_node);
 }
-
+/*
 static int	count_heredocs(t_lexer *tmp, int start, int end)
 {
 	int	count;
@@ -51,8 +51,8 @@ static int	count_heredocs(t_lexer *tmp, int start, int end)
 		aux++;
 	}
 	return (count);
-}
-/*
+}*/
+
 void	fill_redir(t_parser **cmd_node, int *start, int end, t_shell *msh)
 {
 	t_lexer	*tmp;
@@ -76,8 +76,8 @@ void	fill_redir(t_parser **cmd_node, int *start, int end, t_shell *msh)
 		tmp = tmp->next;
 		aux++;
 	}
-}*/
-
+}
+/*
 void	fill_redir(t_parser **cmd_node, int *start, int end, t_shell *msh)
 {
 	t_lexer	*tmp;
@@ -111,7 +111,7 @@ void	fill_redir(t_parser **cmd_node, int *start, int end, t_shell *msh)
 		tmp = tmp->next;
 		aux++;
 	}
-}
+}*/
 
 void	ft_redirect(t_lexer *tmp, t_parser **cmd_node, t_shell *msh)
 {
@@ -132,7 +132,8 @@ void	fill_cmd(t_lexer *tmp, t_parser **cmd_node)
 
 	len = ft_len_cmd(tmp);
 	(*cmd_node)->cmd = ft_calloc(len, sizeof(char));
-	while (tmp && (tmp->type == T_CMD || tmp->type == T_GENERAL))
+	while (tmp && (tmp->type == T_CMD || tmp->type == T_GENERAL
+			|| tmp->type == T_SPACE))
 	{
 		trim = ft_strdup(tmp->data);
 		ft_strlcat((*cmd_node)->cmd, trim, len);

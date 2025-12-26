@@ -1,25 +1,0 @@
-[?2004h🔥mini[31;1mHell[0m$> lexit
-[?2004l0 | T_CMD       | type=1 | [lexit]
-Node 0:
-   cmd:        [lexit]
-   redir_in:   0
-   redir_out:  1
-0 | T_CMD       | type=1 | [lexit]
-Node 0:
-   cmd:        [lexit]
-   redir_in:   0
-   redir_out:  1
-minishell: command not found: lexit
-[?2004h🔥mini[31;1mHell[0m$> ^C[?2004l
-🔥mini[31;1mHell[0m$> [?2004hls
-[?2004lprueba
-0 | T_CMD       | type=1 | [ls]
-Node 0:
-   cmd:        [ls]
-   redir_in:   0
-   redir_out:  1
-[?2004h🔥mini[31;1mHell[0m$> ^C[?2004l
-🔥mini[31;1mHell[0m$> [?2004h^C[?2004l
-🔥mini[31;1mHell[0m$> [?2004h^C[?2004l
-🔥mini[31;1mHell[0m$> [?2004h^C[?2004l
-🔥mini[31;1mHell[0m$> [?2004h[?2004l

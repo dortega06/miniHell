@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 14:28:24 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/21 18:11:34 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/26 12:51:10 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void	process_data(char **data, t_shell *msh)
 	head = ft_substr((*data), 0, i);
 	var_start = i;
 	i++;
-	while ((*data)[i] && ((*data)[i] == '_' || (*data)[i] == '?' || \
-			ft_isalpha((*data)[i]) || ft_isdigit((*data)[i])))
+	while ((*data)[i] && ((*data)[i] == '_' || (*data)[i] == '?'
+		|| ft_isalpha((*data)[i]) || ft_isdigit((*data)[i])))
 		i++;
 	var = ft_substr((*data), var_start, i - var_start);
 	tail = ft_substr((*data), i, ft_strlen((*data)) - i);
