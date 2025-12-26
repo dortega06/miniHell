@@ -62,6 +62,7 @@ extern int	g_signal;
 typedef enum e_token
 {
 	T_GENERAL,
+	T_SPACE,
 	T_CMD,
 	T_PIPE,
 	T_REDIR_IN,
@@ -119,6 +120,7 @@ typedef struct s_shell
 	t_env		*env;
 	t_lexer		*lexer;
 	t_parser	*parser;
+	int			count_heredoc;
 	int			exit_status;
 	int			count_heredoc;
 }			t_shell;

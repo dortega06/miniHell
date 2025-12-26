@@ -72,21 +72,31 @@ static void	child_proccess(t_shell *msh)
 {
 	char	*cmd_path;
 	char	**msh_env;
+	t_parser *tmp;
 
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (msh->parser->redir_in < 0 || msh->parser->redir_out < 0)
 		exit(1);
 	msh_env = env_to_array(msh->env);
-	if (msh->parser->redir_in != 0)
+	if (msh->parser->redir_in != STDIN_FILENO)
 	{
 		dup2(msh->parser->redir_in, STDIN_FILENO);
 		close(msh->parser->redir_in);
 	}
-	if (msh->parser->redir_out != 1)
+	if (msh->parser->redir_out != STDOUT_FILENO)
 	{
 		dup2(msh->parser->redir_out, STDOUT_FILENO);
 		close(msh->parser->redir_out);
+	}
+	tmp = msh->parser;
+	while (tmp)
+	{
+		if (tmp->redir_in > 2 && tmp->redir_in != STDIN_FILENO)
+			close(tmp->redir_in);
+		if (tmp->redir_out > 2 && tmp->redir_out != STDOUT_FILENO)
+			close(tmp->redir_out);
+		tmp = tmp->next;
 	}
 	if (is_builtin(msh))
 	{
@@ -94,7 +104,7 @@ static void	child_proccess(t_shell *msh)
 		exit(msh->exit_status);
 	}
 	else
-	{	
+	{
 		cmd_path = get_cmd_path(msh->cmd_args[0], msh->env);
 		execve(cmd_path, msh->cmd_args, msh_env);
 	}
@@ -104,11 +114,14 @@ static void	child_proccess(t_shell *msh)
 
 void	ft_executer(t_shell *msh)
 {
+	pid_t		pids[1024];
 	pid_t		pid;
 	t_parser	*par;
+	int			j;
 	int			i;
-	char *tmp;
+	char		*tmp;
 
+	j = 0;
 	par = msh->parser;
 	msh->pipe_num = 0;
 	while (par)
@@ -116,35 +129,24 @@ void	ft_executer(t_shell *msh)
 		msh->pipe_num++;
 		par = par->next;
 	}
-	while (msh->parser)
+	par = msh->parser;
+	while (par)
 	{
 		if (g_signal == S_SIGINT_CMD)
 		{
 			msh->exit_status = 130;
-			break;
+			break ;
 		}
-		if (msh->parser->redir_in == -1)
+		if (par->redir_in == -1 || !par->cmd || !par->cmd[0])
 		{
-			msh->exit_status = 130;
-			if (msh->parser->redir_in > 0)
-				close(msh->parser->redir_in);
-			if (msh->parser->redir_out > 1)
-				close(msh->parser->redir_out);
-			msh->parser = msh->parser->next;
-			continue;
+			if (par->redir_in > 0  && par->redir_in != STDIN_FILENO)
+				close(par->redir_in);
+			if (par->redir_out > 1 && par->redir_out != STDOUT_FILENO)
+				close(par->redir_out);
+			par = par->next;
+			continue ;
 		}
-		if (!msh->parser->cmd || !msh->parser->cmd[0])
-		{
-			msh->exit_status = 0;
-			if (msh->parser->redir_in > 0)
-				close(msh->parser->redir_in);
-			if (msh->parser->redir_out > 1)
-				close(msh->parser->redir_out);
-			msh->parser = msh->parser->next;
-			continue;
-		}
-
-		msh->cmd_args = split_shell(msh, msh->parser->cmd, ' '); //sigue igual
+		msh->cmd_args = split_shell(msh, par->cmd, ' ');
 		i = 0;
 		while (msh->cmd_args[i])
 		{
@@ -153,19 +155,26 @@ void	ft_executer(t_shell *msh)
 			msh->cmd_args[i] = tmp;
 			i++;
 		}
+
 		if (is_builtin(msh) && msh->pipe_num == 1)
 			ft_builtins(msh);
 		else
 		{
-			g_signal = S_CMD;
 			pid = fork();
 			if (pid == 0)
 				child_proccess(msh);
-			else
-				waitpid(-1, &msh->exit_status, 0);
-			handle_status(msh);
-			g_signal = S_BASE;
+			if (par->redir_in != STDIN_FILENO)
+				close(par->redir_in);
+			if (par->redir_out != STDOUT_FILENO)
+				close(par->redir_out);
+			pids[j++] = pid;
 		}
+
 		next_cmd(msh);
+		par = msh->parser;
 	}
+	i = 0;
+	while (i < j)
+		waitpid(pids[i++], &msh->exit_status, 0);
+	handle_status(msh);
 }

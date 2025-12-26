@@ -69,6 +69,9 @@ void	print_tokens(t_lexer *lexer)
 		else if (lexer->type == T_APPEND)
 			printf("%d | T_APPEND    | type=%d | [%s]\n", 
 					lexer->index, lexer->type, lexer->data);
+		else if (lexer->type == T_SPACE)
+			printf("%d | T_SPACE     | type=%d | [%s]\n", 
+					lexer->index, lexer->type, lexer->data);
 		else
 			printf("%d | type=%d | [%s]\n", 
 					lexer->index, lexer->type, lexer->data);

@@ -31,12 +31,15 @@ static void	lexer_cmd(t_lexer *lexer)
 		lexer->type = T_CMD;
 	while (lexer)
 	{
-		if (lexer->type == T_PIPE)
+		if (lexer->type == T_GENERAL && ft_isallspace(lexer->data))
+			lexer->type = T_SPACE;
+		else if (lexer->type == T_PIPE)
 			lexer->next->type = T_CMD;
 		else if (lexer->type == T_REDIR_IN)
 			lexer->next->type = T_INFILE;
-		else if (lexer->type == T_INFILE && \
-				lexer->next && lexer->next->type == T_GENERAL)
+		else if (lexer->type == T_INFILE && lexer->next && \
+			lexer->next->type == T_GENERAL && \
+			!ft_isallspace(lexer->next->data))
 			lexer->next->type = T_CMD;
 		else if (lexer->type == T_REDIR_OUT || lexer->type == T_APPEND)
 			lexer->next->type = T_OUTFILE;
