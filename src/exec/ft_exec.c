@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 10:31:08 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/26 13:19:53 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/26 16:31:58 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	handle_status(t_shell *msh)
 	}
 	if (g_signal == S_SIGINT_CMD)
 		msh->exit_status = 130;
-	if (msh && msh->exit_status == 127)
-		printf("%s\n", ERR_CMD);
 }
 
 static void	next_cmd(t_shell *msh)
@@ -63,8 +61,8 @@ static void	child_proccess(t_shell *msh)
 	exit(127);
 }
 
-static void	ft_exec_child_or_builtin(t_shell *msh, t_parser *par,
-										pid_t *pids, int *j)
+static void	ft_exec_child_or_builtin(t_shell *msh,
+			t_parser *par, pid_t *pids, int *j)
 {
 	pid_t	pid;
 

@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 10:53:49 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/21 18:09:05 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/26 16:43:49 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	ft_minishell(t_shell *msh, char **envp)
 	free_env_lst(&msh->env);
 	rl_clear_history();
 }*/
+
 static int	handle_input(char *input, t_shell *msh)
 {
 	char	*tmp;

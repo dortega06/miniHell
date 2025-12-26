@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 14:22:41 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/26 14:23:00 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/26 16:42:24 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,17 @@ void	ft_child_exec_cmd(t_shell *msh, char **msh_env)
 	else
 	{
 		cmd_path = get_cmd_path(msh->cmd_args[0], msh->env);
-		execve(cmd_path, msh->cmd_args, msh_env);
+		if (msh->cmd_args[0][0] == '.' && msh->cmd_args[0][1] == '/')
+			cmd_path = ft_strdup(msh->cmd_args[0]);
+		if (!cmd_path)
+		{
+			dprintf(STDERR_FILENO,
+				"minishell: command not found: %s\n",
+				msh->cmd_args[0]);
+			exit(127);
+		}
+		if (execve(cmd_path, msh->cmd_args, msh_env) == -1)
+			perror(msh->cmd_args[0]);
+		exit(127);
 	}
 }

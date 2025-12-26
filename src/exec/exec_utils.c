@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 14:25:27 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/21 18:27:50 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/26 16:42:28 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*get_cmd_path(char *cmd, t_env *env)
 		free(cmd_path);
 	}
 	free_array(allpath);
-	return (ft_strdup(cmd));
+	return (NULL);
 }
 
 char	**env_to_array(t_env *env)
