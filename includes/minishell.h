@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 10:54:06 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/21 17:51:30 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/24 12:39:15 by dortega-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ extern int	g_signal;
 # define ERR_CD "error retrieving current directory"
 # define ERR_GCWD "cannot access parent directories"
 # define ERR_FDIR "No such file or directory"
+# define MAX_HEREDOCS 16
 
 # define READLINE_MSG "\033[1;36mminishell\033[34m$> \033[0m"
 # define HEREDOC_MSG "\033[1;34m> \033[0m" // @return >
@@ -119,6 +120,7 @@ typedef struct s_shell
 	t_lexer		*lexer;
 	t_parser	*parser;
 	int			exit_status;
+	int			count_heredoc;
 }			t_shell;
 
 /*═════════════════════════ [  FUNCTIONS  ] ══════════════════════════════════*/
