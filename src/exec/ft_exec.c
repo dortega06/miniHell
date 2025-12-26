@@ -85,11 +85,13 @@ void	ft_executer(t_shell *msh)
 {
 	pid_t		pids[1024];
 	t_parser	*par;
+	t_parser	*head;
 	int			j;
 	int			check;
 
 	j = 0;
 	msh->pipe_num = num_pipe(msh);
+	head = msh->parser;
 	par = msh->parser;
 	while (par)
 	{
@@ -107,4 +109,5 @@ void	ft_executer(t_shell *msh)
 		par = msh->parser;
 	}
 	ft_wait_children(msh, pids, j);
+	msh->parser = head;
 }

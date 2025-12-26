@@ -6,7 +6,7 @@
 /*   By: dortega- <dortega-@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 10:53:49 by dortega-          #+#    #+#             */
-/*   Updated: 2025/12/26 16:43:49 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/26 17:51:38 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	pre_exec(char *tmp, t_shell *msh)
 	ft_parser(&msh->parser, msh);
 }
 
-void	free_mshell(char *input, char *tmp, t_shell *msh)
+static void	free_mshell(char *input, char *tmp, t_shell *msh)
 {
 	free(input);
 	free(tmp);
@@ -68,6 +68,7 @@ void	ft_minishell(t_shell *msh, char **envp)
 static int	handle_input(char *input, t_shell *msh)
 {
 	char	*tmp;
+//	t_parser	*head;
 
 	tmp = ft_strtrim(input, " \t\n\v\f\r");
 	if (! tmp || tmp[0] == '\0')
@@ -77,8 +78,9 @@ static int	handle_input(char *input, t_shell *msh)
 	}
 	add_history(tmp);
 	pre_exec(tmp, msh);
+//	head = msh->parser;
 	ft_executer(msh);
-	free_mshell(input, tmp, msh);
+	free_mshell(input, tmp, msh);//, head);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 13:30:48 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/26 12:58:03 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/26 17:07:24 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*get_oldpwd(t_shell *msh)
 
 	env_pwd = get_env_value(msh->env, "PWD");
 	if (env_pwd)
-		return (ft_strdup(env_pwd));
+		return (env_pwd);
 	return (getcwd(NULL, 0));
 }
 

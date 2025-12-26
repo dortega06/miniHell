@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 17:03:46 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/26 12:52:36 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/26 17:47:10 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	lexer_index(t_lexer *lexer)
 
 static void	lexer_cmd(t_lexer *lexer)
 {
-	if (lexer->type == T_GENERAL)
+	if (lexer->type == T_GENERAL && lexer->data[0] != '$')
 		lexer->type = T_CMD;
 	while (lexer)
 	{
@@ -69,6 +69,7 @@ void	ft_lexer(char *input, t_lexer **lexer, int *exit_status)
 	}
 	if (!check_syntax(*lexer, exit_status))
 		return (free_token_lst(lexer));
+//	ft_lexer_var(*lexer);
 	lexer_cmd(*lexer);
 	lexer_index(*lexer);
 }

@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 14:01:18 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/22 18:56:43 by diespino         ###   ########.fr       */
+/*   Updated: 2025/12/26 17:02:57 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_pwd(t_shell *msh)
 	if (env_pwd)
 	{
 		ft_putendl_fd(env_pwd, STDOUT_FILENO);
+		free(env_pwd);
 		msh->exit_status = 0;
 		return ;
 	}

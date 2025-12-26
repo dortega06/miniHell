@@ -6,7 +6,7 @@
 /*   By: diespino <diespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 14:28:24 by diespino          #+#    #+#             */
-/*   Updated: 2025/12/26 12:51:10 by dortega-         ###   ########.fr       */
+/*   Updated: 2025/12/26 17:57:30 by diespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,9 @@ void	ft_lexer_var(t_shell *msh)
 	while (lex)
 	{
 		i = 0;
-		if (lex->type == T_GENERAL && lex->data[0] != '\'')
+		if ((lex->type == T_GENERAL || lex->type == T_INFILE
+			|| lex->type == T_OUTFILE || lex->type == T_APPEND)
+			&& lex->data[0] != '\'')
 		{
 			while (lex->data[i])
 			{
